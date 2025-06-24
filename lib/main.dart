@@ -11,11 +11,10 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness:
-          Brightness.dark, // Dark icons on light background
-      statusBarBrightness: Brightness.light, // For iOS
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
       systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
 

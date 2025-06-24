@@ -16,38 +16,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0.0),
-        child: Column(
-          children: [
-            Container(height: 60, color: AppColors.white),
-            CustomAppbar(
-              color: AppColors.white,
-              title: "Drinks' Menu",
-              subTitle: "Choose Your Favourite Drinks",
-              shadow: BoxShadow(
-                color: AppColors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
+      backgroundColor: AppColors.bgScaffoldColor,
+
+      body: Column(
+        children: [
+          Container(height: 60, color: AppColors.white),
+          CustomAppbar(
+            color: AppColors.white,
+            title: "Drinks' Menu",
+            subTitle: "Choose Your Favourite Drinks",
+
+            prefixIcon: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF4A5568).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
               ),
-              endWidget: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4A5568).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: AppColors.black,
-                  size: 24,
-                ),
+              child: const Icon(
+                Icons.shopping_cart_outlined,
+                color: AppColors.black,
+                size: 24,
               ),
             ),
+          ),
 
-            DrinkListView(controller: controller),
-          ],
-        ),
+          DrinkListView(controller: controller),
+        ],
       ),
     );
   }

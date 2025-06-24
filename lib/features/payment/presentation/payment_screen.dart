@@ -24,7 +24,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.bgScaffoldColor,
         leading: IconButton(
@@ -40,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: CustomScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
           slivers: [
             SliverToBoxAdapter(
               child: Column(
@@ -58,7 +60,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     },
                   ),
 
-                  // Add padding around the form
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: AppConstants.paddingMedium,
@@ -114,7 +115,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                   ),
 
-                  // Add bottom padding for safe area
                   SizedBox(height: MediaQuery.of(context).padding.bottom + 16),
                 ],
               ),

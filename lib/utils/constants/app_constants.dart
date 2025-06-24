@@ -27,9 +27,6 @@ class AppConstants {
   static const String error = 'Error';
   static const String success = 'Success';
 
-
-
-
   // Spacing Constants
   static const double paddingSmall = 8.0;
   static const double paddingMedium = 16.0;

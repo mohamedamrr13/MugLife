@@ -60,7 +60,7 @@ class PaymentFormInputConfigurations {
       hintText: hintText,
       labelStyle: TextStyle(
         color: AppColors.paymentPageMainColor,
-        fontSize: AppConstants.fontSizeLarge,
+        fontSize: AppConstants.fontSizeMedium,
         fontWeight: FontWeight.w500,
       ),
       hintStyle: TextStyle(

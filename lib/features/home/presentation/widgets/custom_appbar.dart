@@ -6,12 +6,13 @@ class CustomAppbar extends StatelessWidget {
     super.key,
     required this.title,
     required this.subTitle,
-    required this.endWidget,
-    this.shadow, required this.color,
+    required this.prefixIcon,
+    this.shadow,
+    required this.color,
   });
   final String title;
   final String subTitle;
-  final Widget endWidget;
+  final Widget prefixIcon;
   final BoxShadow? shadow;
   final Color color;
 
@@ -46,7 +47,7 @@ class CustomAppbar extends StatelessWidget {
                 ),
               ],
             ),
-            endWidget,
+            prefixIcon,
           ],
         ),
       ),

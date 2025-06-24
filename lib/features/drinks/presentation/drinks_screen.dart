@@ -75,7 +75,7 @@ class _DrinksScreenState extends State<DrinksScreen>
               color: const Color(0xffF4F6F9),
               title: drinks[currentIndex.round()].name,
               subTitle: drinks[currentIndex.round()].title,
-              endWidget: Text(
+              prefixIcon: Text(
                 "£${drinks[currentIndex.round()].price + selectedIndex * 15}",
                 style: const TextStyle(
                   fontSize: 20,
