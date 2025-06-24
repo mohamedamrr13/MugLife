@@ -16,20 +16,10 @@ class _DrinksScreenState extends State<DrinksScreen>
   double currentIndex = 0;
   int selectedIndex = 1;
   int quantity = 1;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-    _animationController.forward();
 
     pageController.addListener(() {
       setState(() {
@@ -40,7 +30,6 @@ class _DrinksScreenState extends State<DrinksScreen>
 
   @override
   void dispose() {
-    _animationController.dispose();
     pageController.dispose();
     super.dispose();
   }
@@ -49,6 +38,7 @@ class _DrinksScreenState extends State<DrinksScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Color(0xffF4F6F9),
       body: Stack(
@@ -56,7 +46,7 @@ class _DrinksScreenState extends State<DrinksScreen>
           Positioned(
             left: 0,
             right: 0,
-            top: 80,
+            top: size * 0.05,
             child: CustomAppbar(
               color: Color(0xffF4F6F9),
               title: drinks[currentIndex.round()].name,
@@ -82,15 +72,23 @@ class _DrinksScreenState extends State<DrinksScreen>
                     scale: scale.clamp(0.5, 1.0),
                     child: Column(
                       children: [
-                        SizedBox(height: 170),
+                        SizedBox(height: size * 0.17),
                         Stack(
                           children: [
-                            Image.asset(drinks[index].image, height: 400),
+                            Image.asset(
+                              drinks[index].image,
+                              height: size * 0.42,
+                            ),
                             Positioned(
-                              bottom: -10,
+                              bottom: 0,
                               right: 0,
                               left: 10,
-                              child: Image.asset("assets/drinks/Ellipse 2.png"),
+                              child: Opacity(
+                                opacity: 0.6,
+                                child: Image.asset(
+                                  "assets/drinks/Ellipse 2.png",
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -106,7 +104,7 @@ class _DrinksScreenState extends State<DrinksScreen>
           Positioned(
             left: 0,
             right: 0,
-            bottom: 300,
+            bottom: 290,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: CustomPageIndicatorWidget(
@@ -116,7 +114,6 @@ class _DrinksScreenState extends State<DrinksScreen>
             ),
           ),
 
-          // Size Selection
           Positioned(
             left: 0,
             right: 0,
@@ -126,10 +123,13 @@ class _DrinksScreenState extends State<DrinksScreen>
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withOpacity(0.1),
                     blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),
@@ -286,7 +286,7 @@ class _DrinksScreenState extends State<DrinksScreen>
   Widget _buildQuantitySelector() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey[200]!),
       ),

@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,14 @@ void main() {
     ),
   );
 
-  runApp(const DrinksApp());
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) {
+        return const DrinksApp();
+      },
+    ),
+  );
 }
 
 class DrinksApp extends StatelessWidget {
