@@ -4,6 +4,8 @@ import 'package:drinks_app/features/drinks/presentation/widgets/drink_item.dart'
 import 'package:drinks_app/features/drinks/presentation/widgets/drink_size_selector.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
 import 'package:drinks_app/features/home/presentation/widgets/custom_appbar.dart';
+import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -56,17 +58,12 @@ class _DrinksScreenState extends State<DrinksScreen>
     print('Added to cart: ${drinks[currentIndex.round()].name}');
   }
 
-  void _onBuyNow() {
-    // Implement buy now functionality
-    print('Buy now: ${drinks[currentIndex.round()].name}');
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xffF4F6F9),
+      backgroundColor: AppColors.bgScaffoldColor,
       body: Stack(
         children: [
           // App Bar
@@ -140,7 +137,15 @@ class _DrinksScreenState extends State<DrinksScreen>
               quantity: quantity,
               onQuantityChanged: _onQuantityChanged,
               onAddToCart: _onAddToCart,
-              onBuyNow: _onBuyNow,
+              onBuyNow:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PaymentScreen();
+                      },
+                    ),
+                  ),
             ),
           ),
         ],
