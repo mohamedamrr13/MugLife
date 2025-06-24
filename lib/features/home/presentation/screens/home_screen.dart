@@ -20,11 +20,31 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: Column(
           children: [
-            Container(height: 50, color: Colors.white),
-            CustomAppbar(),
+            Container(height: 60, color: Colors.white),
+            CustomAppbar(
+              color: Colors.white,
+              title: "Drinks' Menu",
+              subTitle: "Choose Your Favourite Drinks",
+              shadow: BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 2),
+              ),
+              endWidget: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4A5568).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.black,
+                  size: 24,
+                ),
+              ),
+            ),
 
-         DrinkListView(controller: controller),
-            
+            DrinkListView(controller: controller),
           ],
         ),
       ),

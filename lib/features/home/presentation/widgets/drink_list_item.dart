@@ -5,7 +5,7 @@ class DrinkListItem extends StatelessWidget {
   const DrinkListItem({super.key, required this.drinkModel});
   final DrinkModel drinkModel;
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         Padding(
@@ -74,8 +74,8 @@ class DrinkListItem extends StatelessWidget {
               color: const Color(0xFF4A5568).withOpacity(0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: const Text(
-              '\$4.99', // Replace with actual price
+            child: Text(
+              '£${drinkModel.price}', // Replace with actual price
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

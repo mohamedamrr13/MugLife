@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({super.key});
+  const CustomAppbar({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.endWidget,
+    this.shadow, required this.color,
+  });
+  final String title;
+  final String subTitle;
+  final Widget endWidget;
+  final BoxShadow? shadow;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: color,
+        boxShadow: [shadow ?? BoxShadow()],
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
@@ -25,7 +30,7 @@ class CustomAppbar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Menu",
+                  title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -33,26 +38,14 @@ class CustomAppbar extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Choose your favorite drink",
+                  subTitle,
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(color: Colors.black),
                 ),
               ],
             ),
-            
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF4A5568).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.black,
-                size: 24,
-              ),
-            ),
+            endWidget,
           ],
         ),
       ),
