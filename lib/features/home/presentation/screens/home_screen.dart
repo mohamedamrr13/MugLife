@@ -1,5 +1,6 @@
 import 'package:drinks_app/features/home/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/home/presentation/widgets/drink_list_view.dart';
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,13 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: Column(
           children: [
-            Container(height: 60, color: Colors.white),
+            Container(height: 60, color: AppColors.white),
             CustomAppbar(
-              color: Colors.white,
+              color: AppColors.white,
               title: "Drinks' Menu",
               subTitle: "Choose Your Favourite Drinks",
               shadow: BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: AppColors.black.withOpacity(0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: const Icon(
                   Icons.shopping_cart_outlined,
-                  color: Colors.black,
+                  color: AppColors.black,
                   size: 24,
                 ),
               ),

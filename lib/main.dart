@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -37,10 +38,9 @@ class DrinksApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Poppins',
-        // Set app bar theme to control status bar
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.black,
+            statusBarColor: AppColors.black,
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.light,
           ),

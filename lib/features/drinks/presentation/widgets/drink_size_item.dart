@@ -1,3 +1,4 @@
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SizeSelectorItem extends StatelessWidget {
@@ -28,12 +29,12 @@ class SizeSelectorItem extends StatelessWidget {
             width: isSelected ? 55 : 50,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isSelected ? const Color(0xFF6C5CE7) : Colors.grey[100],
+              color: isSelected ? AppColors.mainColor : Colors.grey[100],
               boxShadow:
                   isSelected
                       ? [
                         BoxShadow(
-                          color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                          color: AppColors.mainColor.withOpacity(0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -46,7 +47,7 @@ class SizeSelectorItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : Colors.grey[600],
+                  color: isSelected ? AppColors.white : Colors.grey[600],
                 ),
               ),
             ),
@@ -56,7 +57,7 @@ class SizeSelectorItem extends StatelessWidget {
             sizeNames[index],
             style: TextStyle(
               fontSize: 12,
-              color: isSelected ? const Color(0xFF6C5CE7) : Colors.grey[600],
+              color: isSelected ? AppColors.mainColor : Colors.grey[600],
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
           ),

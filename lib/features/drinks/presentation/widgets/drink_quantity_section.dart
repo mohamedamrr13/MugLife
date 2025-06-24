@@ -1,3 +1,4 @@
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class QuantitySelector extends StatelessWidget {
@@ -72,17 +73,17 @@ class QuantityButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: AppColors.black.withOpacity(0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
           ],
         ),
-        child: Icon(icon, size: 20, color: const Color(0xFF6C5CE7)),
+        child: Icon(icon, size: 20, color: AppColors.mainColor),
       ),
     );
   }

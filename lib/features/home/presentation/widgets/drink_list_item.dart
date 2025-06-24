@@ -1,4 +1,5 @@
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
+import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DrinkListItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class DrinkListItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           child: Card(
             elevation: 3,
-            color: Colors.white,
+            color: AppColors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -79,7 +80,7 @@ class DrinkListItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Colors.black,
+                color: AppColors.black,
               ),
             ),
           ),
