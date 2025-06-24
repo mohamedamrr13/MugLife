@@ -13,8 +13,8 @@ void main() {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness:
           Brightness.dark, // Dark icons on light background
-      statusBarBrightness: Brightness.dark, // For iOS
-      systemNavigationBarColor: Colors.black,
+      statusBarBrightness: Brightness.light, // For iOS
+      systemNavigationBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );

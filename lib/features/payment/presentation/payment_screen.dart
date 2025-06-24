@@ -19,10 +19,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool showBackView = false;
   bool onCreditCardWidgetChange = false;
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.bgScaffoldColor,
@@ -36,45 +37,55 @@ class _PaymentScreenState extends State<PaymentScreen> {
         title: Text("C h e c k o u t"),
       ),
       backgroundColor: AppColors.bgScaffoldColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: CustomScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          slivers: [
+            SliverToBoxAdapter(
               child: Column(
                 children: [
                   CreditCardWidget(
+                    isHolderNameVisible: true,
                     isSwipeGestureEnabled: true,
                     cardNumber: cardNumber,
                     expiryDate: expiryDate,
                     cardHolderName: cardHolderName,
                     cvvCode: cvvCode,
                     showBackView: showBackView,
-                    onCreditCardWidgetChange: (p0) {},
-                  ),
-                  // Simplified CreditCardForm using the refactored configuration
-                  CreditCardForm(
-                    inputConfiguration:
-                        PaymentFormInputConfigurations
-                            .creditCardInputConfiguration,
-                    cardNumber: cardNumber,
-                    expiryDate: expiryDate,
-                    cardHolderName: cardHolderName,
-                    cvvCode: cvvCode,
-                    onCreditCardModelChange: (data) {
-                      setState(() {
-                        cardNumber = data.cardNumber;
-                        expiryDate = data.expiryDate;
-                        cvvCode = data.cvvCode;
-                        cardHolderName = data.cardHolderName;
-                      });
+                    onCreditCardWidgetChange: (creditCardBrand) {
+                      // Handle credit card brand change if needed
                     },
-                    formKey: GlobalKey<FormState>(),
                   ),
 
-                  // Optional: Add a payment button
+                  // Add padding around the form
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppConstants.paddingMedium,
+                      vertical: AppConstants.paddingSmall,
+                    ),
+                    child: CreditCardForm(
+                      inputConfiguration:
+                          PaymentFormInputConfigurations
+                              .creditCardInputConfiguration,
+                      cardNumber: cardNumber,
+                      expiryDate: expiryDate,
+                      cardHolderName: cardHolderName,
+                      cvvCode: cvvCode,
+                      onCreditCardModelChange: (data) {
+                        setState(() {
+                          cardNumber = data.cardNumber;
+                          expiryDate = data.expiryDate;
+                          cvvCode = data.cvvCode;
+                          cardHolderName = data.cardHolderName;
+                        });
+                      },
+                      // Use the class-level GlobalKey instead of creating new one
+                      formKey: _formKey,
+                    ),
+                  ),
+
+                  // Payment button with proper spacing
                   Padding(
                     padding: EdgeInsets.all(AppConstants.paddingLarge),
                     child: SizedBox(
@@ -102,11 +113,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                     ),
                   ),
+
+                  // Add bottom padding for safe area
+                  SizedBox(height: MediaQuery.of(context).padding.bottom + 16),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -119,12 +133,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void _processPayment() {
-    // Add your payment processing logic here
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppConstants.processPayment),
-        backgroundColor: AppColors.paymentPageMainColor,
-      ),
-    );
+    // Validate form before processing
+    if (_formKey.currentState?.validate() ?? false) {
+      // Add your payment processing logic here
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppConstants.processPayment),
+          backgroundColor: AppColors.greenBtnColor,
+        ),
+      );
+    }
   }
 }
