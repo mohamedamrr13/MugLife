@@ -1,6 +1,6 @@
-# drinks_app
+# MugLife
 
-A new Flutter project.
+A Flutter App That Allows Users To Buy Their Favourite Drinks.
 
 ## Getting Started
 
