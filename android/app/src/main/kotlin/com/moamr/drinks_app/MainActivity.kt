@@ -1,4 +1,4 @@
-package com.example.drinks_app
+package com.moamr.muglife
 
 import io.flutter.embedding.android.FlutterActivity
 

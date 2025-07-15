@@ -1,54 +1,93 @@
-import 'package:drinks_app/features/home/presentation/widgets/custom_appbar.dart';
-import 'package:drinks_app/features/home/presentation/widgets/drink_list_view.dart';
+import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
+import 'package:drinks_app/features/drinks/presentation/drinks_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgScaffoldColor,
-
-      body: Column(
-        children: [
-          Container(height: 60, color: AppColors.white),
-          CustomAppbar(
-            color: AppColors.white,
-            title: "Drinks' Menu",
-            subTitle: "Choose Your Favourite Drinks",
-
-            prefixIcon: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF4A5568).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+      drawer: Drawer(
+        backgroundColor: AppColors.bgScaffoldColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            spacing: 40,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 60),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(CupertinoIcons.profile_circled, size: 26),
+                  SizedBox(width: 12),
+                  Text("P r o f i l e", style: TextStyle(fontSize: 20)),
+                ],
               ),
-              child: const Icon(
-                Icons.shopping_cart_outlined,
-                color: AppColors.black,
-                size: 24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.arrow_outward_rounded, size: 26),
+                  SizedBox(width: 12),
+                  Text("O r d e r s", style: TextStyle(fontSize: 20)),
+                ],
               ),
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.settings, size: 26),
+                  SizedBox(width: 12),
+                  Text("S e t t i n g s", style: TextStyle(fontSize: 20)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.logout, size: 26),
+                  SizedBox(width: 12),
+                  Text("L o g o u t", style: TextStyle(fontSize: 20)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.bgScaffoldColor,
+
+        centerTitle: true,
+        title: Text("M u g L i f e"),
+        actions: [
+          const Icon(
+            Icons.shopping_cart_outlined,
+            color: AppColors.black,
+            size: 24,
           ),
 
-          DrinkListView(controller: controller),
+          SizedBox(width: 20),
         ],
       ),
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return DrinksScreen();
+                },
+              ),
+            );
+          },
+          child: Text("data"),
+        ),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }

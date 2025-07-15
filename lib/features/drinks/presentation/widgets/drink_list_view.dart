@@ -1,6 +1,6 @@
-import 'package:drinks_app/features/drinks/presentation/drinks_screen.dart';
+import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
-import 'package:drinks_app/features/home/presentation/widgets/drink_list_item.dart';
+import 'package:drinks_app/features/drinks/presentation/widgets/drink_list_item.dart';
 import 'package:flutter/material.dart';
 
 class DrinkListView extends StatefulWidget {
@@ -41,7 +41,7 @@ class _DrinkListViewState extends State<DrinkListView> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return DrinksScreen();
+                      return DrinksDetailsScreen();
                     },
                   ),
                 );
