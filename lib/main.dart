@@ -1,13 +1,14 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+void main() async{
   // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

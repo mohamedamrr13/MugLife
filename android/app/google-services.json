@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264570631185",
+    "project_id": "muglife-34b23",
+    "storage_bucket": "muglife-34b23.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264570631185:android:020e9d5b87638ec833adb0",
+        "android_client_info": {
+          "package_name": "com.moamr.muglife"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj4wvAloppsJ1oe2Cz3Hvxv15wQuvkBkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
