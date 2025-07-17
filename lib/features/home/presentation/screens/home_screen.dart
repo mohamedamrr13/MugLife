@@ -1,5 +1,4 @@
-import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
-import 'package:drinks_app/features/drinks/presentation/drinks_screen.dart';
+import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +61,12 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppColors.bgScaffoldColor,
 
         centerTitle: true,
-        title: Image.asset("assets/images/homeCenterTitle.png"),
+        title: Image.asset(
+          fit: BoxFit.cover,
+          "assets/images/appIcon.png",
+          color: Colors.black,
+          height: 90,
+        ),
         actions: [
           const Icon(
             Icons.shopping_cart_outlined,
@@ -73,21 +77,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(width: 20),
         ],
       ),
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return DrinksScreen();
-                },
-              ),
-            );
-          },
-          child: Text("data"),
-        ),
-      ),
+      body: HomeScreenBody(),
     );
   }
 }

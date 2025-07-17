@@ -7,7 +7,7 @@ class AppColors {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static const Color bgScaffoldColor = Color(0xffF4F6F9);
-  static const Color paymentPageMainColor = Color(0xff1b447b);
+  static const Color paymentPageMainColor = Color(0xff1E2742);
   static const Color surfaceColor = Color(0xffffffff);
   static const Color errorColor = Color(0xffe53e3e);
   static const Color successColor = Color(0xff38a169);
