@@ -9,14 +9,14 @@ import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-class DrinksDetailsScreen extends StatefulWidget {
-  const DrinksDetailsScreen({super.key});
+class ItemDetailsScreen extends StatefulWidget {
+  const ItemDetailsScreen({super.key});
 
   @override
-  State<DrinksDetailsScreen> createState() => _DrinksDetailsScreenState();
+  State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
 }
 
-class _DrinksDetailsScreenState extends State<DrinksDetailsScreen>
+class _ItemDetailsScreenState extends State<ItemDetailsScreen>
     with TickerProviderStateMixin {
   PageController pageController = PageController(viewportFraction: 0.6);
   double currentIndex = 0;

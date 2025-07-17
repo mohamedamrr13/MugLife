@@ -41,7 +41,7 @@ class _DrinkListViewState extends State<DrinkListView> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return DrinksDetailsScreen();
+                      return ItemDetailsScreen();
                     },
                   ),
                 );
