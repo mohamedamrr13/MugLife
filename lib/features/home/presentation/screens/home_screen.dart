@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppColors.bgScaffoldColor,
 
         centerTitle: true,
-        title: Text("M u g L i f e"),
+        title: Image.asset("assets/images/homeCenterTitle.png"),
         actions: [
           const Icon(
             Icons.shopping_cart_outlined,
