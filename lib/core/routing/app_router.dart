@@ -1,0 +1,91 @@
+import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
+import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
+import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
+import 'package:drinks_app/features/auth/presentation/login_screen.dart';
+import 'package:drinks_app/features/auth/presentation/register_screen.dart';
+import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
+import 'package:drinks_app/features/drinks/presentation/drinks_screen.dart';
+import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
+
+class AppRouter {
+  static const signUpScreen = "/signUp";
+  static const loginScreen = "/login";
+  static const forgetPassword = "/forgetPassword";
+  static const changePassword = "/changePassword";
+  static const verifyOtpCode = "/verifyOtpC`o`de";
+  static const homeScreen = "/homeScreen";
+  static const cartPage = "/cartPage";
+  static const itemDetailsScreen = "/itemDetailsScreen";
+  static const itemResultScreen = "/itemResultScreen";
+
+  static GoRouter router = GoRouter(
+    initialLocation: loginScreen,
+    errorPageBuilder:
+        (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: Scaffold(body: Center(child: Text(state.error.toString()))),
+        ),
+    routes: [
+      GoRoute(
+        path: homeScreen,
+        name: homeScreen,
+        builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: loginScreen,
+        name: loginScreen,
+        builder:
+            (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => LoginCubit()),
+                BlocProvider(create: (context) => GoogleCubit()),
+              ],
+              child: const LoginScreen(),
+            ),
+      ),
+      GoRoute(
+        path: signUpScreen,
+        name: signUpScreen,
+        builder:
+            (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => RegisterCubit()),
+                BlocProvider(create: (context) => GoogleCubit()),
+              ],
+              child: const RegisterScreen(),
+            ),
+      ),
+      GoRoute(
+        path: itemDetailsScreen,
+        name: itemDetailsScreen,
+        builder: (context, state) => const ItemDetailsScreen(),
+      ),
+      GoRoute(
+        path: itemResultScreen,
+        name: itemResultScreen,
+        builder: (context, state) => const DrinksScreen(),
+      ),
+
+      // GoRoute(
+      //   path: forgetPassword,
+      //   name: forgetPassword,
+      //   builder: (context, state) => const ForgetPasswordScreen(),
+      // ),
+      // GoRoute(
+      //   path: changePassword,
+      //   name: changePassword,
+      //   builder: (context, state) => const ChangepasswordScreen(),
+      // ),
+      // GoRoute(
+      //   path: verifyOtpCode,
+      //   name: verifyOtpCode,
+      //   builder: (context, state) => const VerifyOtpCodeScreen(),
+      // ),
+    ],
+  );
+}

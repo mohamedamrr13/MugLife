@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.bgScaffoldColor,
       drawer: Drawer(
-        backgroundColor: AppColors.bgScaffoldColor,
+        backgroundColor: AppColors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -57,21 +57,19 @@ class HomeScreen extends StatelessWidget {
       ),
       appBar: AppBar(
         forceMaterialTransparency: true,
-        scrolledUnderElevation: 0,
+        scrolledUnderElevation: 5,
         backgroundColor: AppColors.bgScaffoldColor,
 
         centerTitle: true,
-        title: Image.asset(
-          fit: BoxFit.cover,
-          "assets/images/appIcon.png",
-          color: Colors.black,
-          height: 90,
+        title: Text(
+          "M u g L i f e",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
         ),
         actions: [
           const Icon(
-            Icons.shopping_cart_outlined,
+            Icons.shopping_cart_checkout,
             color: AppColors.black,
-            size: 24,
+            size: 28,
           ),
 
           SizedBox(width: 20),
