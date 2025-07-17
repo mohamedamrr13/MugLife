@@ -8,6 +8,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bgScaffoldColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,7 +22,7 @@ class OnBoardingScreen extends StatelessWidget {
                     children: [
                       SizedBox(height: 80),
                       Text(
-                        "It’s time for a",
+                        "Time for a",
                         style: TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.w500,
@@ -48,7 +49,7 @@ class OnBoardingScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
             child: Text(
-              "The one-stop to find amazing drink mixes for any occassion.",
+              "The one-stop to find amazing drink mixes and food for any occassion.",
               style: TextStyle(color: Color(0xff010101), fontSize: 17),
             ),
           ),
