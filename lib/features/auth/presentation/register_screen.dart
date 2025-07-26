@@ -421,7 +421,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: Text(
                                     'Already have an account? Sign In!',
                                     style: TextStyle(
-                                      color: AppColors.mainColor,
+                                      color: AppColors.textPrimary,
                                       fontSize: 15,
                                     ),
                                   ),

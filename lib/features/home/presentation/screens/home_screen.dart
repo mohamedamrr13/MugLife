@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "M u g L i f e",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
         ),
         actions: [
           const Icon(

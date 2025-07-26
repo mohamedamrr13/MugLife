@@ -24,7 +24,7 @@ class AppRouter {
   static const itemResultScreen = "/itemResultScreen";
 
   static GoRouter router = GoRouter(
-    initialLocation: loginScreen,
+    initialLocation: homeScreen,
     errorPageBuilder:
         (context, state) => MaterialPage(
           key: state.pageKey,

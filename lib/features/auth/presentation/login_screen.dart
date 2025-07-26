@@ -32,31 +32,27 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        scrolledUnderElevation: 5,
-        backgroundColor: AppColors.white,
 
-        centerTitle: true,
-        title: Text(
-          "M u g L i f e",
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textPrimary,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
+            SizedBox(height: 80),
+
+            Text(
+              "M u g L i f e",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textPrimary,
+              ),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 50),
+                  SizedBox(height: 56),
                   Container(
                     constraints: BoxConstraints(maxWidth: double.infinity),
                     child: Form(
