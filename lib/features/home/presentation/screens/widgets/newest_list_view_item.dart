@@ -30,7 +30,7 @@ class NewestListViewItem extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            bottom: 0,
+            bottom: 40,
             left: 45,
             child: Container(
               width: 160,
@@ -42,7 +42,7 @@ class NewestListViewItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 15,
+            bottom: 55,
             left: 22,
             child: Container(
               width: 210,
