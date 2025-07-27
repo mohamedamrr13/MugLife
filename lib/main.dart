@@ -1,7 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/core/routing/app_router.dart';
-import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
-import 'package:drinks_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
