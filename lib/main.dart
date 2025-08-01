@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
-  // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
@@ -18,7 +17,6 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
-
   runApp(
     DevicePreview(
       enabled: false,
