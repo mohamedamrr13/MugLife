@@ -11,10 +11,11 @@ class CategoryItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xffFEF9E4),
+          // border: BoxBorder.all(color: AppColors.mainColor, width: 2),
           borderRadius: BorderRadius.circular(28),
           boxShadow: [
             BoxShadow(
-              color: AppColors.grey.withAlpha(22),
+              color: AppColors.black.withAlpha(22),
               blurRadius: 5,
               spreadRadius: 2,
             ),
