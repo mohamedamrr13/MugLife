@@ -27,8 +27,8 @@ class GoogleCubit extends Cubit<GoogleState> {
       emit(GoogleSuccess());
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      debugPrint(Failure.getMessageFromErrorCode(e.code));
-      emit(GoogleFailure(errMessage: Failure.getMessageFromErrorCode(e.code)));
+      debugPrint(FirebaseErrorMapper.fromCode(e.code).message);
+      emit(GoogleFailure(errMessage: FirebaseErrorMapper.fromCode(e.code).message));
     } catch (e) {
       debugPrint("Unexpected error: $e");
       emit(GoogleFailure(errMessage: "Google Sign-In was canceled"));
