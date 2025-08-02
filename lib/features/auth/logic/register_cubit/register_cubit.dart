@@ -17,7 +17,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           email: email, password: password);
       emit(RegisterSuccess());
     } on FirebaseAuthException catch (e) {
-      emit(RegisterFailure(Failure.getMessageFromErrorCode(e.code)));
+      emit(RegisterFailure(FirebaseErrorMapper.fromCode(e.code).message));
     }
   }
 
