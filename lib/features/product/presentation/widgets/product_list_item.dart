@@ -1,16 +1,17 @@
-import 'package:drinks_app/features/home/data/models/drink_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductListItem extends StatelessWidget {
-  const ProductListItem({super.key, required this.drinkModel});
-  final DrinkModel drinkModel;
+  const ProductListItem({super.key, required this.productModel});
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 30),
           child: Card(
             elevation: 3,
             color: AppColors.white,
@@ -18,15 +19,15 @@ class ProductListItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 70, horizontal: 3),
+              padding: EdgeInsets.symmetric(vertical: 80, horizontal: 3),
               child: Row(),
             ),
           ),
         ),
         Positioned(
-          top: -15,
-          left: 10,
-          bottom: 45,
+          top: 0,
+          left: 5,
+          bottom: 80,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
@@ -44,7 +45,14 @@ class ProductListItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Image(image: AssetImage(drinkModel.image), fit: BoxFit.cover),
+              SizedBox(
+                width: 100,
+                child: Image(
+                  height: 100,
+                  image: CachedNetworkImageProvider(productModel.image),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ],
           ),
         ),
@@ -56,11 +64,11 @@ class ProductListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                drinkModel.name,
+                productModel.name,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               Text(
-                drinkModel.title,
+                productModel.description,
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
               ),
             ],
@@ -72,11 +80,11 @@ class ProductListItem extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFF4A5568).withOpacity(0.1),
+              color: AppColors.mainColor.withAlpha(50),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              '£${drinkModel.price}', // Replace with actual price
+              '£${productModel.price}', // Replace with actual price
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -87,26 +95,13 @@ class ProductListItem extends StatelessWidget {
         ),
 
         Positioned(
-          right: 50,
+          right: 20,
           bottom: 50,
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.black87.withAlpha(180),
-                width: 1.5,
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Icon(
-                Icons.arrow_forward_ios_outlined,
-                color: Colors.black87.withAlpha(180),
-                size: 14,
-              ),
-            ),
+
+          child: Icon(
+            Icons.arrow_forward_ios_outlined,
+            color: Colors.black87.withAlpha(180),
+            size: 14,
           ),
         ),
       ],

@@ -3,6 +3,8 @@ import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
+import 'package:drinks_app/features/product/data/repo/get_products_by_category/get_products_by_category_repo_impl.dart';
+import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
 import 'package:drinks_app/features/product/presentation/product_result_screen.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo_impl.dart';
@@ -77,7 +79,14 @@ class AppRouter {
       GoRoute(
         path: itemResultScreen,
         name: itemResultScreen,
-        builder: (context, state) => const ProductResultScreen(),
+        builder: (context, state) {
+          return BlocProvider(
+            create:
+                (context) =>
+                    GetProductsByCategoryCubit(GetProductsByCategoryRepoImpl()),
+            child: ProductResultScreen(category: state.extra as String),
+          );
+        },
       ),
 
       // GoRoute(
