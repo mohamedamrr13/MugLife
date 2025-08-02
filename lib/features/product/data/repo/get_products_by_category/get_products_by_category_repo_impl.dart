@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:drinks_app/core/error_handling/faliure.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:drinks_app/features/product/data/repo/get_products_by_category/get_products_by_category_repo.dart';
 
-class GetProductsByCategoryRepoImpl {
+class GetProductsByCategoryRepoImpl implements GetProductsByCategoryRepo {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future<Either<Failure, List<ProductModel>>> getCategories(
+  @override
+  Future<Either<Failure, List<ProductModel>>> getProductsByCategory(
     String category,
   ) async {
     try {
