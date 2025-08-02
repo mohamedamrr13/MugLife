@@ -2,8 +2,8 @@ import 'package:drinks_app/features/home/data/models/drink_model.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class DrinkListItem extends StatelessWidget {
-  const DrinkListItem({super.key, required this.drinkModel});
+class ProductListItem extends StatelessWidget {
+  const ProductListItem({super.key, required this.drinkModel});
   final DrinkModel drinkModel;
   @override
   Widget build(BuildContext context) {

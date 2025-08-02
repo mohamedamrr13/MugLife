@@ -1,4 +1,4 @@
-import 'package:drinks_app/features/item/presentation/widgets/product_quantity_section.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_quantity_selector.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +57,7 @@ class ProductDetailsButtonsSection extends StatelessWidget {
           const SizedBox(width: 20),
           SizedBox(
             width: 115,
-            child: QuantitySelector(
+            child: ProductQuantitySelector(
               quantity: quantity,
               onQuantityChanged: onQuantityChanged,
             ),
