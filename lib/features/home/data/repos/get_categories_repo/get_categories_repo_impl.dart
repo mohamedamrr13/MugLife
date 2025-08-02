@@ -7,9 +7,13 @@ import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_cate
 class GetCategoriesRepoImpl implements GetCategoriesRepo {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   @override
-  Future<Either< Failure,List<CategoryModel>>> getCategories() async {
+  Future<Either<Failure, List<CategoryModel>>> getCategories() async {
     try {
-      final snapshot = await db.collection("categories").get();
+      final snapshot =
+          await db
+              .collection("categories")
+              .orderBy("createdAt", descending: false)
+              .get();
       final categories =
           snapshot.docs
               .map((doc) => CategoryModel.fromJson(doc.data()))

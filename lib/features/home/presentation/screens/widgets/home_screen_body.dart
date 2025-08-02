@@ -1,8 +1,10 @@
 import 'package:drinks_app/core/routing/app_router.dart';
+import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreenBody extends StatelessWidget {
@@ -31,7 +33,20 @@ class HomeScreenBody extends StatelessWidget {
             onTap: () {
               context.push(AppRouter.itemResultScreen);
             },
-            child: CategoreisListView()
+            child: BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+              builder: (context, state) {
+                if (state is GetCategoriesSuccess) {
+                  return CategoreisListView(categories: state.categories);
+                } else if (state is GetCategoriesFailure) {
+                  return Center(child: Text(state.errMessage));
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.textPrimary,
+                  ),
+                );
+              },
+            ),
           ),
           SizedBox(height: 24),
           Padding(

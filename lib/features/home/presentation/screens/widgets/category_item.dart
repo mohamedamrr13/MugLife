@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
-
+  const CategoryItem({super.key, required this.category});
+  final CategoryModel category;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,23 +28,24 @@ class CategoryItem extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Image.asset("assets/images/listviewimg.png", height: 100),
+              child: CachedNetworkImage(imageUrl: category.image, height: 100),
             ),
+            SizedBox(height: 10),
             Text(
-              "Shakes",
+              category.name,
               style: TextStyle(
-                fontSize: 16,
-                color: AppColors.paymentPageMainColor,
+                fontSize: 18,
+                color: AppColors.black.withAlpha(230),
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Text(
-              "50 mixes",
-              style: TextStyle(
-                color: Color(0xffFB7D8A),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            // Text(
+            //   "50 mixes",
+            //   style: TextStyle(
+            //     color: Color(0xffFB7D8A),
+            //     fontWeight: FontWeight.w600,
+            //   ),
+            // ),
           ],
         ),
       ),
