@@ -29,24 +29,19 @@ class HomeScreenBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-          GestureDetector(
-            onTap: () {
-              context.push(AppRouter.itemResultScreen);
+          BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+            builder: (context, state) {
+              if (state is GetCategoriesSuccess) {
+                return CategoreisListView(categories: state.categories);
+              } else if (state is GetCategoriesFailure) {
+                return Center(child: Text(state.errMessage));
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                ),
+              );
             },
-            child: BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
-              builder: (context, state) {
-                if (state is GetCategoriesSuccess) {
-                  return CategoreisListView(categories: state.categories);
-                } else if (state is GetCategoriesFailure) {
-                  return Center(child: Text(state.errMessage));
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.textPrimary,
-                  ),
-                );
-              },
-            ),
           ),
           SizedBox(height: 24),
           Padding(

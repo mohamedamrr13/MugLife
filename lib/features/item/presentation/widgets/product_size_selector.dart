@@ -1,5 +1,5 @@
 // Size Selector Widget Class
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_size_item.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_size_item.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 

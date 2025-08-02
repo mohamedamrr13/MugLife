@@ -1,14 +1,14 @@
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_quantity_section.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_quantity_section.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class ActionButtonsSection extends StatelessWidget {
+class ProductDetailsButtonsSection extends StatelessWidget {
   final int quantity;
   final Function(int) onQuantityChanged;
   final VoidCallback onAddToCart;
   final VoidCallback onBuyNow;
 
-  const ActionButtonsSection({
+  const ProductDetailsButtonsSection({
     super.key,
     required this.quantity,
     required this.onQuantityChanged,

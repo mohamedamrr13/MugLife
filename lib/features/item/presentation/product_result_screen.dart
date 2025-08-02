@@ -1,5 +1,5 @@
-import 'package:drinks_app/features/drinks/presentation/widgets/custom_appbar.dart';
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_list_view.dart';
+import 'package:drinks_app/features/item/presentation/widgets/custom_appbar.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_list_view.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +23,8 @@ class _DrinksScreenState extends State<DrinksScreen> {
           Container(height: 60, color: AppColors.white),
           CustomAppbar(
             color: AppColors.white,
-            title: "Drinks",
-            subTitle: "Choose Your Favourite Drink",
+            title: "Menu",
+            subTitle: "Choose Your Favourite",
 
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),

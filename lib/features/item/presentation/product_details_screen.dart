@@ -1,9 +1,9 @@
 // drinks_screen.dart
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_buttons_section.dart';
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_item.dart';
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_size_selector.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_details_buttons_section.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_details_image.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
-import 'package:drinks_app/features/drinks/presentation/widgets/custom_appbar.dart';
+import 'package:drinks_app/features/item/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
@@ -93,7 +93,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen>
               final scale = 1.1 - (currentIndex - index).abs() * 1;
               final translateY = (currentIndex - index).abs() * 400;
 
-              return DrinkItem(
+              return ProductItem(
                 drink: drinks[index],
                 scale: scale,
                 translateY: translateY,
@@ -132,7 +132,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen>
             left: 20,
             right: 20,
             bottom: 40,
-            child: ActionButtonsSection(
+            child: ProductDetailsButtonsSection(
               quantity: quantity,
               onQuantityChanged: _onQuantityChanged,
               onAddToCart: _onAddToCart,

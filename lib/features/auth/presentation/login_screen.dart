@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             width: 20,
                                             child: CircularProgressIndicator(
                                               strokeWidth: 3,
-                                              color: Colors.white,
+                                              color: AppColors.mainColor,
                                             ),
                                           )
                                           : Text(
@@ -281,7 +281,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 child:
                                                     CircularProgressIndicator(
                                                       strokeWidth: 3,
-                                                      color: Colors.black87,
+                                                      color:
+                                                          AppColors.mainColor,
                                                     ),
                                               )
                                               : Text(

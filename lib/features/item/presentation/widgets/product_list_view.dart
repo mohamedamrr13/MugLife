@@ -1,6 +1,6 @@
-import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
+import 'package:drinks_app/features/item/presentation/product_details_screen.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
-import 'package:drinks_app/features/drinks/presentation/widgets/drink_list_item.dart';
+import 'package:drinks_app/features/item/presentation/widgets/product_list_item.dart';
 import 'package:flutter/material.dart';
 
 class DrinkListView extends StatefulWidget {
