@@ -1,6 +1,8 @@
+import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/category_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoreisListView extends StatelessWidget {
   const CategoreisListView({super.key, required this.categories});
@@ -14,7 +16,12 @@ class CategoreisListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return CategoryItem(category: categories[index]);
+          return CategoryItem(
+            category: categories[index],
+            onTap: () {
+              context.push(AppRouter.itemResultScreen);
+            },
+          );
         },
       ),
     );

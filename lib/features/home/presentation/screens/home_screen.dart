@@ -19,30 +19,30 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(height: 60),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(CupertinoIcons.profile_circled, size: 26),
-                  SizedBox(width: 12),
-                  Text("P r o f i l e", style: TextStyle(fontSize: 20)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.arrow_outward_rounded, size: 26),
-                  SizedBox(width: 12),
-                  Text("O r d e r s", style: TextStyle(fontSize: 20)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.settings, size: 26),
-                  SizedBox(width: 12),
-                  Text("S e t t i n g s", style: TextStyle(fontSize: 20)),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Icon(CupertinoIcons.profile_circled, size: 26),
+              //     SizedBox(width: 12),
+              //     Text("P r o f i l e", style: TextStyle(fontSize: 20)),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Icon(Icons.arrow_outward_rounded, size: 26),
+              //     SizedBox(width: 12),
+              //     Text("O r d e r s", style: TextStyle(fontSize: 20)),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Icon(Icons.settings, size: 26),
+              //     SizedBox(width: 12),
+              //     Text("S e t t i n g s", style: TextStyle(fontSize: 20)),
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
