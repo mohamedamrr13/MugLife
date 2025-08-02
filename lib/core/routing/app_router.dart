@@ -5,6 +5,8 @@ import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
 import 'package:drinks_app/features/drinks/presentation/drink_details_screen.dart';
 import 'package:drinks_app/features/drinks/presentation/drinks_screen.dart';
+import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo_impl.dart';
+import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +26,7 @@ class AppRouter {
   static const itemResultScreen = "/itemResultScreen";
 
   static GoRouter router = GoRouter(
-    initialLocation: homeScreen,
+    initialLocation: loginScreen,
     errorPageBuilder:
         (context, state) => MaterialPage(
           key: state.pageKey,
@@ -34,7 +36,14 @@ class AppRouter {
       GoRoute(
         path: homeScreen,
         name: homeScreen,
-        builder: (context, state) => const HomeScreen(),
+        builder:
+            (context, state) => BlocProvider(
+              create:
+                  (context) =>
+                      GetCategoriesCubit(GetCategoriesRepoImpl())
+                        ..getCategories(),
+              child: const HomeScreen(),
+            ),
       ),
       GoRoute(
         path: loginScreen,
