@@ -19,7 +19,7 @@ class CategoreisListView extends StatelessWidget {
           return CategoryItem(
             category: categories[index],
             onTap: () {
-              context.push(AppRouter.itemResultScreen);
+              context.push(AppRouter.itemResultScreen,extra: categories[index].name.toLowerCase() );
             },
           );
         },

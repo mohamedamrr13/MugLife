@@ -1,12 +1,16 @@
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
-import 'package:drinks_app/features/home/data/models/drink_model.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_item.dart';
 import 'package:flutter/material.dart';
 
 class ProductListView extends StatefulWidget {
-  const ProductListView({super.key, required this.controller});
+  const ProductListView({
+    super.key,
+    required this.controller,
+    required this.products,
+  });
   final ScrollController controller;
-
+  final List<ProductModel> products;
   @override
   State<ProductListView> createState() => _ProductListViewState();
 }
@@ -18,11 +22,11 @@ class _ProductListViewState extends State<ProductListView> {
       child: ListView.builder(
         controller: widget.controller,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
-        itemCount: DrinkModel.drinks.length,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        itemCount: widget.products.length,
         itemBuilder: (context, index) {
-          final drinkModel = DrinkModel.drinks[index];
-          final listItem = ProductListItem(drinkModel: drinkModel);
+          final productModel = widget.products[index];
+          final listItem = ProductListItem(productModel: productModel);
           return AnimatedBuilder(
             animation: widget.controller,
             builder: (context, child) {

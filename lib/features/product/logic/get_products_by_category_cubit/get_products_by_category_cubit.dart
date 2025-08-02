@@ -17,8 +17,8 @@ class GetProductsByCategoryCubit extends Cubit<GetProductsByCategoryState> {
       category,
     );
     result.fold(
-      (failure) => GetProductsByCategoryFailure(failure.message),
-      (success) => GetProductsByCategorySuccess(success),
+      (failure) => emit(GetProductsByCategoryFailure(failure.message)),
+      (success) => emit(GetProductsByCategorySuccess(success)),
     );
   }
 }
