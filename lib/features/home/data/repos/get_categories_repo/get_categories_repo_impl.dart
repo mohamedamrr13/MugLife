@@ -19,11 +19,11 @@ class GetCategoriesRepoImpl implements GetCategoriesRepo {
               .map((doc) => CategoryModel.fromJson(doc.data()))
               .toList();
       return Right(categories);
-    } catch (e) {
+    } on Exception catch (e) {
       if (e is FirebaseException) {
         return Left(FirebaseErrorMapper.fromCode(e.message!));
       }
-      return Left(FirebaseErrorMapper.fromCode(e.toString()));
+      return Left(Failure(message: e.toString()));
     }
   }
 }

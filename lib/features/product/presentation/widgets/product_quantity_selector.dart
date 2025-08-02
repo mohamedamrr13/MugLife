@@ -1,11 +1,11 @@
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class QuantitySelector extends StatelessWidget {
+class ProductQuantitySelector extends StatelessWidget {
   final int quantity;
   final Function(int) onQuantityChanged;
 
-  const QuantitySelector({
+  const ProductQuantitySelector({
     super.key,
     required this.quantity,
     required this.onQuantityChanged,

@@ -1,17 +1,17 @@
-import 'package:drinks_app/features/item/presentation/product_details_screen.dart';
+import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
-import 'package:drinks_app/features/item/presentation/widgets/product_list_item.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_list_item.dart';
 import 'package:flutter/material.dart';
 
-class DrinkListView extends StatefulWidget {
-  const DrinkListView({super.key, required this.controller});
+class ProductListView extends StatefulWidget {
+  const ProductListView({super.key, required this.controller});
   final ScrollController controller;
 
   @override
-  State<DrinkListView> createState() => _DrinkListViewState();
+  State<ProductListView> createState() => _ProductListViewState();
 }
 
-class _DrinkListViewState extends State<DrinkListView> {
+class _ProductListViewState extends State<ProductListView> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -22,7 +22,7 @@ class _DrinkListViewState extends State<DrinkListView> {
         itemCount: DrinkModel.drinks.length,
         itemBuilder: (context, index) {
           final drinkModel = DrinkModel.drinks[index];
-          final listItem = DrinkListItem(drinkModel: drinkModel);
+          final listItem = ProductListItem(drinkModel: drinkModel);
           return AnimatedBuilder(
             animation: widget.controller,
             builder: (context, child) {
@@ -41,7 +41,7 @@ class _DrinkListViewState extends State<DrinkListView> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ItemDetailsScreen();
+                      return ProductDetailsScreen();
                     },
                   ),
                 );

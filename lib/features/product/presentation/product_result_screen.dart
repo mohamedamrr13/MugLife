@@ -1,16 +1,16 @@
-import 'package:drinks_app/features/item/presentation/widgets/custom_appbar.dart';
-import 'package:drinks_app/features/item/presentation/widgets/product_list_view.dart';
+import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class DrinksScreen extends StatefulWidget {
-  const DrinksScreen({super.key});
+class ProductResultScreen extends StatefulWidget {
+  const ProductResultScreen({super.key});
 
   @override
-  State<DrinksScreen> createState() => _DrinksScreenState();
+  State<ProductResultScreen> createState() => _ProductResultScreenState();
 }
 
-class _DrinksScreenState extends State<DrinksScreen> {
+class _ProductResultScreenState extends State<ProductResultScreen> {
   ScrollController controller = ScrollController();
 
   @override
@@ -40,7 +40,7 @@ class _DrinksScreenState extends State<DrinksScreen> {
             ),
           ),
 
-          DrinkListView(controller: controller),
+          ProductListView(controller: controller),
         ],
       ),
     );

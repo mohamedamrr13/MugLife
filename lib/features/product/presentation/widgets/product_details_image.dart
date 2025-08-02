@@ -1,13 +1,13 @@
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductDetailsImage extends StatelessWidget {
   final DrinkModel drink;
   final double scale;
   final double translateY;
   final double screenHeight;
 
-  const ProductItem({
+  const ProductDetailsImage({
     super.key,
     required this.drink,
     required this.scale,

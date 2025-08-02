@@ -1,22 +1,22 @@
 // drinks_screen.dart
-import 'package:drinks_app/features/item/presentation/widgets/product_details_buttons_section.dart';
-import 'package:drinks_app/features/item/presentation/widgets/product_details_image.dart';
-import 'package:drinks_app/features/item/presentation/widgets/product_size_selector.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_details_image.dart';
+import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/home/data/models/drink_model.dart';
-import 'package:drinks_app/features/item/presentation/widgets/custom_appbar.dart';
+import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-class ItemDetailsScreen extends StatefulWidget {
-  const ItemDetailsScreen({super.key});
+class ProductDetailsScreen extends StatefulWidget {
+  const ProductDetailsScreen({super.key});
 
   @override
-  State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _ItemDetailsScreenState extends State<ItemDetailsScreen>
+class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     with TickerProviderStateMixin {
   PageController pageController = PageController(viewportFraction: 0.6);
   double currentIndex = 0;
@@ -93,7 +93,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen>
               final scale = 1.1 - (currentIndex - index).abs() * 1;
               final translateY = (currentIndex - index).abs() * 400;
 
-              return ProductItem(
+              return ProductDetailsImage(
                 drink: drinks[index],
                 scale: scale,
                 translateY: translateY,
