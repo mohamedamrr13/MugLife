@@ -3,6 +3,7 @@ import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.d
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
+import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,12 +61,7 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
               } else if (state is GetProductsByCategoryFailure) {
                 return Center(child: Text(state.errMessage));
               }
-              return Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: AppColors.mainColor,
-                ),
-              );
+              return LoadingDataWidget();
             },
           ),
         ],
