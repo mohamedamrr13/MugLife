@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -92,92 +93,89 @@ class NewestListViewItem extends StatelessWidget {
                   // Cocktail image (centered)
                   Center(
                     child: Container(
-                      width: 120,
-                      height: 120,
+                      width: 200,
+                      height: 200,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white.withOpacity(0.2),
                       ),
-                      child: Center(
-                        child: Icon(
-                          Icons.local_bar,
-                          size: 60,
-                          color: Colors.white,
-                        ),
-                        // Replace with your image:
-                        // child: Image.asset(
-                        //   imageAsset,
-                        //   width: 100,
-                        //   height: 100,
-                        //   fit: BoxFit.contain,
-                        // ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(imageUrl: imageAsset),
                       ),
+                      // Replace with your image:
+                      // child: Image.asset(
+                      //   imageAsset,
+                      //   width: 100,
+                      //   height: 100,
+                      //   fit: BoxFit.contain,
+                      // ),
                     ),
                   ),
 
                   Spacer(),
 
                   // Bottom info section
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.local_bar_outlined,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        type,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Icon(
+                  //       Icons.local_bar_outlined,
+                  //       color: Colors.white,
+                  //       size: 18,
+                  //     ),
+                  //     SizedBox(width: 6),
+                  //     Text(
+                  //       type,
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
-                  SizedBox(height: 12),
+                  // SizedBox(height: 12),
 
-                  Row(
-                    children: [
-                      Icon(Icons.access_time, color: Colors.white, size: 18),
-                      SizedBox(width: 6),
-                      Text(
-                        duration,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      Spacer(),
-                      Text(
-                        difficulty,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Icon(Icons.access_time, color: Colors.white, size: 18),
+                  //     SizedBox(width: 6),
+                  //     Text(
+                  //       duration,
+                  //       style: TextStyle(color: Colors.white, fontSize: 16),
+                  //     ),
+                  //     Spacer(),
+                  //     Text(
+                  //       difficulty,
+                  //       style: TextStyle(color: Colors.white, fontSize: 16),
+                  //     ),
+                  //   ],
+                  // ),
 
-                  SizedBox(height: 12),
+                  // SizedBox(height: 12),
 
-                  Row(
-                    children: [
-                      Icon(Icons.favorite, color: Colors.white, size: 18),
-                      SizedBox(width: 6),
-                      Text(
-                        likes.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      Spacer(),
-                      // Star rating
-                      Row(
-                        children: List.generate(5, (index) {
-                          return Icon(
-                            index < rating ? Icons.star : Icons.star_border,
-                            color: Colors.amber,
-                            size: 18,
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Icon(Icons.favorite, color: Colors.white, size: 18),
+                  //     SizedBox(width: 6),
+                  //     Text(
+                  //       likes.toString(),
+                  //       style: TextStyle(color: Colors.white, fontSize: 16),
+                  //     ),
+                  //     Spacer(),
+                  //     // Star rating
+                  //     Row(
+                  //       children: List.generate(5, (index) {
+                  //         return Icon(
+                  //           index < rating ? Icons.star : Icons.star_border,
+                  //           color: Colors.amber,
+                  //           size: 18,
+                  //         );
+                  //       }),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

@@ -50,7 +50,7 @@ class ProductListItem extends StatelessWidget {
                 child: Image(
                   height: 100,
                   image: CachedNetworkImageProvider(productModel.image),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             ],

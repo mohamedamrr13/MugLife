@@ -1,14 +1,28 @@
-import 'package:drinks_app/core/routing/app_router.dart';
+import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
+import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-class HomeScreenBody extends StatelessWidget {
+class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
+
+  @override
+  State<HomeScreenBody> createState() => _HomeScreenBodyState();
+}
+
+class _HomeScreenBodyState extends State<HomeScreenBody> {
+  @override
+  void initState() {
+    BlocProvider.of<GetCategoriesCubit>(context).getCategories();
+    BlocProvider.of<GetFeaturedProductsCubit>(context).getFeaturedProducts();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +50,7 @@ class HomeScreenBody extends StatelessWidget {
               } else if (state is GetCategoriesFailure) {
                 return Center(child: Text(state.errMessage));
               }
-              return Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.mainColor,
-                ),
-              );
+              return LoadingDataWidget();
             },
           ),
           SizedBox(height: 24),
