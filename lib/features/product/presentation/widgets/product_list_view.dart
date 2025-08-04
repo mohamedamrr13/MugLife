@@ -1,6 +1,5 @@
 import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

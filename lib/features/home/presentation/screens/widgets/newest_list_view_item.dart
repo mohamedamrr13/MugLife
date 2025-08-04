@@ -78,6 +78,7 @@ class NewestListViewItem extends StatelessWidget {
                       height: 0.9,
                     ),
                   ),
+                  SizedBox(height: 7),
                   Text(
                     subtitle,
                     style: TextStyle(
