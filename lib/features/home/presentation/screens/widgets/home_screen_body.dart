@@ -1,4 +1,3 @@
-import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';

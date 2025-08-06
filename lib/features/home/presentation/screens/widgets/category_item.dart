@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CategoryItem extends StatefulWidget {
   const CategoryItem({super.key, required this.category,required this.onTap});
