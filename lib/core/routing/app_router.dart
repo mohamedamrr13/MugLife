@@ -22,9 +22,9 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class AppRouter {
   static const signUpScreen = "/signUp";
   static const loginScreen = "/login";
-  static const forgetPassword = "/forgetPassword";
-  static const changePassword = "/changePassword";
-  static const verifyOtpCode = "/verifyOtpC`o`de";
+  // static const forgetPassword = "/forgetPassword";
+  // static const changePassword = "/changePassword";
+  // static const verifyOtpCode = "/verifyOtpCode";
   static const homeScreen = "/homeScreen";
   static const cartPage = "/cartPage";
   static const itemDetailsScreen = "/itemDetailsScreen";
