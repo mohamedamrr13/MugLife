@@ -1,6 +1,5 @@
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
