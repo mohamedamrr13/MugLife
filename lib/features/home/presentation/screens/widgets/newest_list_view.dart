@@ -80,7 +80,7 @@ class _NewestItemsListViewState extends State<NewestItemsListView> {
         } else if (state is GetFeaturedProductsFailure) {
           return Center(child: Text(state.errMessage));
         }
-        return LoadingDataWidget();
+        return SizedBox(height: 410, child: LoadingDataWidget());
       },
     );
   }

@@ -6,15 +6,13 @@ class LoadingDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: SizedBox(
-          height: 50,
-          width: 50,
-          child: CircularProgressIndicator(
-            strokeWidth: 3,
-            color: AppColors.mainColor,
-          ),
+    return Center(
+      child: SizedBox(
+        height: 45,
+        width: 45,
+        child: CircularProgressIndicator(
+          strokeWidth: 4,
+          color: AppColors.mainColor,
         ),
       ),
     );

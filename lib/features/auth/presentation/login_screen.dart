@@ -5,9 +5,10 @@ import 'package:drinks_app/features/auth/presentation/widgets/custom_auth_appbar
 import 'package:drinks_app/features/auth/presentation/widgets/google_sign_in_button.dart';
 
 import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
-import 'package:drinks_app/utils/widgets/custom_button.dart';
-import 'package:drinks_app/utils/widgets/custom_textfield.dart';
+import 'package:drinks_app/utils/shared/custom_button.dart';
+import 'package:drinks_app/utils/shared/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -145,11 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                   if (state is GoogleFailure) {
                                     setState(() => isEnabled = true);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(state.errMessage),
-                                        backgroundColor: Colors.black,
-                                      ),
+
+                                    HelperFunctions.showErrorSnackBar(
+                                      state.errMessage,
+                                      MessageType.error,
+                                      context,
                                     );
                                   }
                                 },
