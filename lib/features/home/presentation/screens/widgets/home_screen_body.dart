@@ -49,7 +49,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               } else if (state is GetCategoriesFailure) {
                 return Center(child: Text(state.errMessage));
               }
-              return LoadingDataWidget();
+              return SizedBox(height: 200, child: LoadingDataWidget());
             },
           ),
           SizedBox(height: 24),
