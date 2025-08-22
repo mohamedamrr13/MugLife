@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
@@ -35,7 +35,7 @@ class CustomAppbar extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.black,
+                    color: AppTheme.black,
                   ),
                 ),
                 const SizedBox(height: 4),

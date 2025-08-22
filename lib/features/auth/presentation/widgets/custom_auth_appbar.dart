@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAuthAppbar extends StatelessWidget {
@@ -14,7 +14,7 @@ class CustomAuthAppbar extends StatelessWidget {
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w400,
-            color: AppColors.textPrimary,
+            color: AppTheme.textPrimary,
           ),
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductListItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class ProductListItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 0, vertical: 30),
           child: Card(
             elevation: 3,
-            color: AppColors.white,
+            color: AppTheme.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -80,7 +80,7 @@ class ProductListItem extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: AppColors.mainColor.withAlpha(50),
+              color: AppTheme.mainColor.withAlpha(50),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -88,7 +88,7 @@ class ProductListItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppColors.black,
+                color: AppTheme.black,
               ),
             ),
           ),

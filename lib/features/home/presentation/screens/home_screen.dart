@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,9 +8,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgScaffoldColor,
+      backgroundColor: AppTheme.bgScaffoldColor,
       drawer: Drawer(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppTheme.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         forceMaterialTransparency: true,
         scrolledUnderElevation: 5,
-        backgroundColor: AppColors.bgScaffoldColor,
+        backgroundColor: AppTheme.bgScaffoldColor,
 
         centerTitle: true,
         title: Text(
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           const Icon(
             Icons.shopping_cart_checkout,
-            color: AppColors.black,
+            color: AppTheme.black,
             size: 28,
           ),
 

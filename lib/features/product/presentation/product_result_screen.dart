@@ -1,7 +1,7 @@
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,25 +27,25 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgScaffoldColor,
+      backgroundColor: AppTheme.bgScaffoldColor,
 
       body: Column(
         children: [
-          Container(height: 60, color: AppColors.white),
+          Container(height: 60, color: AppTheme.white),
           CustomAppbar(
-            color: AppColors.white,
+            color: AppTheme.white,
             title: HelperFunctions.capitalize(widget.category),
             subTitle: "Choose Your Favourite",
 
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.mainColor.withAlpha(50),
+                color: AppTheme.mainColor.withAlpha(50),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
                 Icons.shopping_cart_outlined,
-                color: AppColors.black,
+                color: AppTheme.black,
                 size: 24,
               ),
             ),

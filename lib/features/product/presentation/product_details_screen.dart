@@ -4,7 +4,7 @@ import 'package:drinks_app/features/product/presentation/widgets/product_details
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +64,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     final size = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.bgScaffoldColor,
+      backgroundColor: AppTheme.bgScaffoldColor,
       body: Stack(
         children: [
           // App Bar
@@ -75,8 +75,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
             child: CustomAppbar(
               color: const Color(0xffF4F6F9),
               title: widget.products[currentIndex.round()].name,
-              subTitle:
-                  widget.products[currentIndex.round()].description,
+              subTitle: widget.products[currentIndex.round()].description,
               prefixIcon: Text(
                 "£${widget.products[currentIndex.round()].price + selectedIndex * 15}",
                 style: const TextStyle(

@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgScaffoldColor,
+      backgroundColor: AppTheme.bgScaffoldColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,7 +82,7 @@ class OnBoardingScreen extends StatelessWidget {
                       SizedBox(width: 6),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
-                        color: AppColors.white,
+                        color: AppTheme.white,
                         size: 15,
                       ),
                     ],

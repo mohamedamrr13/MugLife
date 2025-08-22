@@ -4,7 +4,7 @@ import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/custom_auth_appbar.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/google_sign_in_button.dart';
 
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppTheme.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Log In to Order',
                                 style: TextStyle(
                                   fontSize: 24,
-                                  color: AppColors.textPrimary,
+                                  color: AppTheme.textPrimary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Text(
                                     'Don\'t Have An Account? Sign Up!',
                                     style: TextStyle(
-                                      color: AppColors.textPrimary,
+                                      color: AppTheme.textPrimary,
                                       fontSize: 15,
                                     ),
                                   ),

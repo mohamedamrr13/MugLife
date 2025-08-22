@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class GoogleSignButton extends StatelessWidget {
@@ -28,13 +28,13 @@ class GoogleSignButton extends StatelessWidget {
                   width: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
-                    color: AppColors.mainColor,
+                    color: AppTheme.mainColor,
                   ),
                 )
                 : Text(
                   text,
                   style: const TextStyle(
-                    color: AppColors.textPrimary,
+                    color: AppTheme.textPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),

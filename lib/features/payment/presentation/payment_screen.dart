@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/payment/presentation/widgets/payment_form_input_configurations.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -28,7 +28,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: AppBar(
         forceMaterialTransparency: true,
         scrolledUnderElevation: 0,
-        backgroundColor: AppColors.bgScaffoldColor,
+        backgroundColor: AppTheme.bgScaffoldColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -38,7 +38,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         centerTitle: true,
         title: Text("C h e c k o u t"),
       ),
-      backgroundColor: AppColors.bgScaffoldColor,
+      backgroundColor: AppTheme.bgScaffoldColor,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: CustomScrollView(
@@ -95,7 +95,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       child: ElevatedButton(
                         onPressed: _isFormValid() ? _processPayment : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.paymentPageMainColor,
+                          backgroundColor: AppTheme.paymentPageMainColor,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -139,7 +139,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppConstants.processPayment),
-          backgroundColor: AppColors.greenBtnColor,
+          backgroundColor: AppTheme.greenBtnColor,
         ),
       );
     }

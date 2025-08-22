@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -32,26 +32,26 @@ class CustomTextFormField extends StatelessWidget {
         errorText: errorText,
         hintText: hintText,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.mainColor, width: 2),
+          borderSide: BorderSide(color: AppTheme.mainColor, width: 2),
           borderRadius: BorderRadius.circular(16),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey.withAlpha(50)),
+          borderSide: BorderSide(color: AppTheme.grey.withAlpha(50)),
           borderRadius: BorderRadius.circular(16),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey.withAlpha(50)),
+          borderSide: BorderSide(color: AppTheme.grey.withAlpha(50)),
           borderRadius: BorderRadius.circular(16),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 2,
-            color: AppColors.errorColor.withAlpha(200),
+            color: AppTheme.errorColor.withAlpha(200),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey.withAlpha(50)),
+          borderSide: BorderSide(color: AppTheme.grey.withAlpha(50)),
           borderRadius: BorderRadius.circular(16),
         ),
       ),
