@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -25,7 +25,7 @@ class CustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.mainColor,
+          backgroundColor: AppTheme.mainColor,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

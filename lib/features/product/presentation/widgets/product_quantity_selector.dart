@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductQuantitySelector extends StatelessWidget {
@@ -73,17 +73,17 @@ class QuantityButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppTheme.white,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.05),
+              color: AppTheme.black.withOpacity(0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
           ],
         ),
-        child: Icon(icon, size: 20, color: AppColors.mainColor),
+        child: Icon(icon, size: 20, color: AppTheme.mainColor),
       ),
     );
   }

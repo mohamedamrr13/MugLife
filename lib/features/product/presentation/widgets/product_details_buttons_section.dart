@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/product/presentation/widgets/product_quantity_selector.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsButtonsSection extends StatelessWidget {
@@ -21,11 +21,11 @@ class ProductDetailsButtonsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppTheme.white,
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.1),
+            color: AppTheme.black.withOpacity(0.1),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),
@@ -40,15 +40,15 @@ class ProductDetailsButtonsSection extends StatelessWidget {
               children: [
                 ActionButton(
                   text: "Add To Cart",
-                  bgColor: AppColors.mainColor,
-                  textColor: AppColors.white,
+                  bgColor: AppTheme.mainColor,
+                  textColor: AppTheme.white,
                   onPressed: onAddToCart,
                 ),
                 const SizedBox(height: 12),
                 ActionButton(
                   text: "Buy Now",
-                  bgColor: AppColors.greenBtnColor,
-                  textColor: AppColors.white,
+                  bgColor: AppTheme.greenBtnColor,
+                  textColor: AppTheme.white,
                   onPressed: onBuyNow,
                 ),
               ],

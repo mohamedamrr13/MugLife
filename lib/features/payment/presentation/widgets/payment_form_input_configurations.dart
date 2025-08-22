@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/constants/app_constants.dart';
 
 class PaymentFormInputConfigurations {
@@ -59,35 +59,35 @@ class PaymentFormInputConfigurations {
       labelText: labelText,
       hintText: hintText,
       labelStyle: TextStyle(
-        color: AppColors.paymentPageMainColor,
+        color: AppTheme.paymentPageMainColor,
         fontSize: AppConstants.fontSizeMedium,
         fontWeight: FontWeight.w500,
       ),
       hintStyle: TextStyle(
-        color: AppColors.paymentPageMainColor.withOpacity(0.6),
+        color: AppTheme.paymentPageMainColor.withOpacity(0.6),
         fontSize: AppConstants.fontSizeMedium,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusMedium),
         borderSide: BorderSide(
-          color: AppColors.paymentPageMainColor.withOpacity(0.3),
+          color: AppTheme.paymentPageMainColor.withOpacity(0.3),
           width: 1.5,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusMedium),
-        borderSide: BorderSide(color: AppColors.paymentPageMainColor, width: 2),
+        borderSide: BorderSide(color: AppTheme.paymentPageMainColor, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusMedium),
-        borderSide: BorderSide(color: AppColors.errorColor, width: 1.5),
+        borderSide: BorderSide(color: AppTheme.errorColor, width: 1.5),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusMedium),
-        borderSide: BorderSide(color: AppColors.errorColor, width: 2),
+        borderSide: BorderSide(color: AppTheme.errorColor, width: 2),
       ),
       filled: true,
-      fillColor: AppColors.paymentPageMainColor.withOpacity(0.05),
+      fillColor: AppTheme.paymentPageMainColor.withOpacity(0.05),
       contentPadding: EdgeInsets.symmetric(
         horizontal: AppConstants.paddingMedium,
         vertical: AppConstants.paddingMedium,
@@ -96,7 +96,7 @@ class PaymentFormInputConfigurations {
           prefixIcon != null
               ? Icon(
                 prefixIcon,
-                color: AppColors.paymentPageMainColor.withOpacity(0.7),
+                color: AppTheme.paymentPageMainColor.withOpacity(0.7),
               )
               : null,
     );
@@ -107,7 +107,7 @@ class PaymentFormInputConfigurations {
     double? letterSpacing,
   }) {
     return TextStyle(
-      color: AppColors.paymentPageMainColor,
+      color: AppTheme.paymentPageMainColor,
       fontSize: AppConstants.fontSizeLarge,
       fontWeight: fontWeight ?? FontWeight.w500,
       letterSpacing: letterSpacing,
@@ -152,27 +152,27 @@ class PaymentFormInputConfigurations {
       labelText: labelText,
       hintText: hintText,
       labelStyle: TextStyle(
-        color: AppColors.textSecondary,
+        color: AppTheme.textSecondary,
         fontSize: AppConstants.fontSizeMedium,
         fontWeight: FontWeight.w400,
       ),
       hintStyle: TextStyle(
-        color: AppColors.textSecondary.withOpacity(0.6),
+        color: AppTheme.textSecondary.withOpacity(0.6),
         fontSize: AppConstants.fontSizeSmall,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusSmall),
-        borderSide: BorderSide(color: AppColors.dividerColor, width: 1),
+        borderSide: BorderSide(color: AppTheme.dividerColor, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusSmall),
         borderSide: BorderSide(
-          color: AppColors.paymentPageMainColor,
+          color: AppTheme.paymentPageMainColor,
           width: 1.5,
         ),
       ),
       filled: true,
-      fillColor: AppColors.surfaceColor,
+      fillColor: AppTheme.surfaceColor,
       contentPadding: EdgeInsets.symmetric(
         horizontal: AppConstants.paddingSmall,
         vertical: AppConstants.paddingSmall,
@@ -181,7 +181,7 @@ class PaymentFormInputConfigurations {
           prefixIcon != null
               ? Icon(
                 prefixIcon,
-                color: AppColors.textSecondary.withOpacity(0.7),
+                color: AppTheme.textSecondary.withOpacity(0.7),
                 size: 20,
               )
               : null,
@@ -190,7 +190,7 @@ class PaymentFormInputConfigurations {
 
   static TextStyle _buildLightTextStyle({double? letterSpacing}) {
     return TextStyle(
-      color: AppColors.textPrimary,
+      color: AppTheme.textPrimary,
       fontSize: AppConstants.fontSizeMedium,
       fontWeight: FontWeight.w400,
       letterSpacing: letterSpacing,

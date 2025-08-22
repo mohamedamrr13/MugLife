@@ -3,7 +3,7 @@ import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/custom_auth_appbar.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/google_sign_in_button.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppTheme.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Sign Up',
                                 style: TextStyle(
                                   fontSize: 24,
-                                  color: AppColors.textPrimary,
+                                  color: AppTheme.textPrimary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -180,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                                   if (state is GoogleFailure) {
                                     setState(() => isEnabled = true);
-                                  HelperFunctions.showErrorSnackBar(
+                                    HelperFunctions.showErrorSnackBar(
                                       state.errMessage,
                                       MessageType.error,
                                       context,
@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: const Text(
                                     'Already have an account? Sign In!',
                                     style: TextStyle(
-                                      color: AppColors.textPrimary,
+                                      color: AppTheme.textPrimary,
                                       fontSize: 15,
                                     ),
                                   ),

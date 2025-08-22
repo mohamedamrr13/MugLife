@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class NewestListViewItem extends StatelessWidget {
@@ -37,7 +37,7 @@ class NewestListViewItem extends StatelessWidget {
               width: 160,
               height: 350,
               decoration: BoxDecoration(
-                color: AppColors.mainColor.withAlpha(50),
+                color: AppTheme.mainColor.withAlpha(50),
                 borderRadius: BorderRadius.circular(28),
               ),
             ),
@@ -49,7 +49,7 @@ class NewestListViewItem extends StatelessWidget {
               width: 210,
               height: 350,
               decoration: BoxDecoration(
-                color: AppColors.mainColor.withAlpha(100),
+                color: AppTheme.mainColor.withAlpha(100),
                 borderRadius: BorderRadius.circular(28),
               ),
             ),
@@ -59,7 +59,7 @@ class NewestListViewItem extends StatelessWidget {
             width: 250,
             height: 320,
             decoration: BoxDecoration(
-              color: AppColors.mainColor,
+              color: AppTheme.mainColor,
               borderRadius: BorderRadius.circular(28),
               boxShadow: [],
             ),

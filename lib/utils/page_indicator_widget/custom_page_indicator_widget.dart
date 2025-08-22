@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomPageIndicatorWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class CustomPageIndicatorWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color:
                 currentIndex.round() == index
-                    ? AppColors.mainColor
+                    ? AppTheme.mainColor
                     : Colors.grey[300],
             borderRadius: BorderRadius.circular(4),
           ),

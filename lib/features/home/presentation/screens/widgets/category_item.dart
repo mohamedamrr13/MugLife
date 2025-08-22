@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/home/data/models/category_model.dart';
-import 'package:drinks_app/utils/colors/app_colors.dart';
+import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatefulWidget {
-  const CategoryItem({super.key, required this.category,required this.onTap});
+  const CategoryItem({super.key, required this.category, required this.onTap});
   final CategoryModel category;
   final VoidCallback onTap;
 
@@ -17,7 +17,6 @@ class _CategoryItemState extends State<CategoryItem>
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<Color?> _borderColorAnimation;
-
 
   @override
   void initState() {
@@ -32,8 +31,8 @@ class _CategoryItemState extends State<CategoryItem>
     );
 
     _borderColorAnimation = ColorTween(
-      begin: AppColors.mainColor.withAlpha(100),
-      end: AppColors.mainColor,
+      begin: AppTheme.mainColor.withAlpha(100),
+      end: AppTheme.mainColor,
     ).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
@@ -46,21 +45,18 @@ class _CategoryItemState extends State<CategoryItem>
   }
 
   void _handleTapDown(TapDownDetails details) {
-    setState(() {
-    });
+    setState(() {});
     _animationController.forward();
   }
 
   void _handleTapUp(TapUpDetails details) {
-    setState(() {
-    });
+    setState(() {});
     _animationController.reverse();
     widget.onTap.call();
   }
 
   void _handleTapCancel() {
-    setState(() {
-    });
+    setState(() {});
     _animationController.reverse();
   }
 
@@ -79,17 +75,17 @@ class _CategoryItemState extends State<CategoryItem>
               scale: _scaleAnimation.value,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: AppTheme.white,
                   border: Border.all(
                     color:
                         _borderColorAnimation.value ??
-                        AppColors.mainColor.withAlpha(100),
+                        AppTheme.mainColor.withAlpha(100),
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(28),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.black.withAlpha(22),
+                      color: AppTheme.black.withAlpha(22),
                       blurRadius: 5,
                       spreadRadius: 2,
                     ),
@@ -110,7 +106,7 @@ class _CategoryItemState extends State<CategoryItem>
                       widget.category.name,
                       style: TextStyle(
                         fontSize: 18,
-                        color: AppColors.black.withAlpha(230),
+                        color: AppTheme.black.withAlpha(230),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
