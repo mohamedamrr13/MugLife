@@ -44,6 +44,7 @@ class _ProductListViewState extends State<ProductListView> {
               onTap: () {
                 context.push(
                   AppRouter.itemDetailsScreen,
+                  extra: {'list': widget.products, 'index': index.toDouble()},
                 );
               },
               child: listItem,

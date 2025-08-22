@@ -39,12 +39,6 @@ class CustomAppbar extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subTitle,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.black),
-                ),
               ],
             ),
             prefixIcon,

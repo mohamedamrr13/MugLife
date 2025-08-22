@@ -1,8 +1,7 @@
-// drinks_screen.dart
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_image.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
-import 'package:drinks_app/features/home/data/models/drink_model.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
 import 'package:drinks_app/utils/colors/app_colors.dart';
@@ -10,8 +9,13 @@ import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_wid
 import 'package:flutter/material.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
-
+  const ProductDetailsScreen({
+    super.key,
+    required this.products,
+    required this.currentIndex,
+  });
+  final List<ProductModel> products;
+  final double currentIndex;
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
@@ -19,13 +23,13 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     with TickerProviderStateMixin {
   PageController pageController = PageController(viewportFraction: 0.6);
-  double currentIndex = 0;
   int selectedIndex = 1;
   int quantity = 1;
-
+  late double currentIndex;
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.currentIndex;
     pageController.addListener(() {
       setState(() {
         currentIndex = pageController.page ?? 0;
@@ -38,8 +42,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     pageController.dispose();
     super.dispose();
   }
-
-  List<DrinkModel> drinks = DrinkModel.drinks;
 
   void _onSizeSelected(int index) {
     setState(() {
@@ -72,10 +74,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
             top: size * 0.05,
             child: CustomAppbar(
               color: const Color(0xffF4F6F9),
-              title: drinks[currentIndex.round()].name,
-              subTitle: drinks[currentIndex.round()].title,
+              title: widget.products[currentIndex.round()].name,
+              subTitle:
+                  widget.products[currentIndex.round()].description,
               prefixIcon: Text(
-                "£${drinks[currentIndex.round()].price + selectedIndex * 15}",
+                "£${widget.products[currentIndex.round()].price + selectedIndex * 15}",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -87,16 +90,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
           // Drinks PageView
           PageView.builder(
             controller: pageController,
-            itemCount: drinks.length,
+            itemCount: widget.products.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               final scale = 1.1 - (currentIndex - index).abs() * 1;
               final translateY = (currentIndex - index).abs() * 400;
 
               return ProductDetailsImage(
-                drink: drinks[index],
+                product: widget.products[index],
                 scale: scale,
-                translateY: translateY,
+                translateY: translateY.toDouble(),
                 screenHeight: size,
               );
             },
@@ -111,7 +114,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: CustomPageIndicatorWidget(
                 currentIndex: currentIndex,
-                listLength: drinks.length,
+                listLength: widget.products.length,
               ),
             ),
           ),
