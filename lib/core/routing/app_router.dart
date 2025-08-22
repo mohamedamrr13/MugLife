@@ -46,7 +46,8 @@ class AppRouter {
               providers: [
                 BlocProvider(
                   create:
-                      (context) => GetCategoriesCubit( getIt.get<GetCategoriesRepo>())
+                      (context) =>
+                          GetCategoriesCubit(getIt.get<GetCategoriesRepo>()),
                 ),
                 BlocProvider(
                   create:
@@ -85,7 +86,13 @@ class AppRouter {
       GoRoute(
         path: itemDetailsScreen,
         name: itemDetailsScreen,
-        builder: (context, state) => const ProductDetailsScreen(),
+        builder: (context, state) {
+          Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+          return ProductDetailsScreen(
+            currentIndex: extra['index'],
+            products: extra['list'],
+          );
+        },
       ),
       GoRoute(
         path: itemResultScreen,

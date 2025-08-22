@@ -60,7 +60,14 @@ class _NewestItemsListViewState extends State<NewestItemsListView> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: GestureDetector(
-                      onTap: () => context.push(AppRouter.itemDetailsScreen),
+                      onTap:
+                          () => context.push(
+                            AppRouter.itemDetailsScreen,
+                            extra: {
+                              'list': state.products,
+                              'index': index.toDouble(),
+                            },
+                          ),
                       child: NewestListViewItem(
                         title: product.name.split(' ').first,
                         subtitle: product.name.split(' ').last,

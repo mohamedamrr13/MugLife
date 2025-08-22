@@ -1,15 +1,17 @@
-import 'package:drinks_app/features/home/data/models/drink_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:drinks_app/features/product/data/models/product_model.dart';
+import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsImage extends StatelessWidget {
-  final DrinkModel drink;
+  final ProductModel product;
   final double scale;
   final double translateY;
   final double screenHeight;
 
   const ProductDetailsImage({
     super.key,
-    required this.drink,
+    required this.product,
     required this.scale,
     required this.translateY,
     required this.screenHeight,
@@ -26,7 +28,13 @@ class ProductDetailsImage extends StatelessWidget {
             SizedBox(height: screenHeight * 0.17),
             Stack(
               children: [
-                Image.asset(drink.image, height: screenHeight * 0.42),
+                CachedNetworkImage(
+                  placeholder: (context, url) {
+                    return LoadingDataWidget();
+                  },
+                  imageUrl: product.image,
+                  height: screenHeight * 0.42,
+                ),
                 Positioned(
                   bottom: 0,
                   right: 0,
