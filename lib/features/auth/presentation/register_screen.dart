@@ -3,7 +3,7 @@ import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/custom_auth_appbar.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/google_sign_in_button.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.white,
+      backgroundColor: Theme.of(context).scaffoldBgColor,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -73,17 +73,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 30),
+                              const SizedBox(height: 30),
                               Text(
                                 'Sign Up',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: AppTheme.textPrimary,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: context.textTheme.headlineSmall
+                                    ?.copyWith(
+                                      color: context.primaryTextColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
-                              SizedBox(height: 20),
-
+                              const SizedBox(height: 20),
                               CustomTextFormField(
                                 enabled: isEnabled,
                                 controller: _nameController,
@@ -210,12 +209,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       context,
                                     ).go(AppRouter.loginScreen);
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     'Already have an account? Sign In!',
-                                    style: TextStyle(
-                                      color: AppTheme.textPrimary,
-                                      fontSize: 15,
-                                    ),
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(color: context.primaryColor),
                                   ),
                                 ),
                               ),

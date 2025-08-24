@@ -2,7 +2,7 @@ import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categori
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +25,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +38,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.black.withAlpha(200),
+                color: theme.primaryTextColor,
               ),
             ),
           ),
@@ -60,7 +61,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.black.withAlpha(200),
+                color: theme.primaryTextColor,
               ),
             ),
           ),

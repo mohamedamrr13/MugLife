@@ -1,5 +1,6 @@
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/utils/theme/theme_toggle_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,46 +9,32 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgScaffoldColor,
+      backgroundColor: Theme.of(context).scaffoldBgColor,
       drawer: Drawer(
-        backgroundColor: AppTheme.white,
+        backgroundColor: Theme.of(context).scaffoldBgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             spacing: 40,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 60),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Icon(CupertinoIcons.profile_circled, size: 26),
-              //     SizedBox(width: 12),
-              //     Text("P r o f i l e", style: TextStyle(fontSize: 20)),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Icon(Icons.arrow_outward_rounded, size: 26),
-              //     SizedBox(width: 12),
-              //     Text("O r d e r s", style: TextStyle(fontSize: 20)),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Icon(Icons.settings, size: 26),
-              //     SizedBox(width: 12),
-              //     Text("S e t t i n g s", style: TextStyle(fontSize: 20)),
-              //   ],
-              // ),
+              const SizedBox(height: 60),
+              // Theme toggle in drawer
+              const ThemeToggleListTile(title: 'Theme'),
+              Divider(color: context.dividerColor),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(Icons.logout, size: 26),
-                  SizedBox(width: 12),
-                  Text("L o g o u t", style: TextStyle(fontSize: 20)),
+                  const SizedBox(width: 17),
+
+                  Icon(Icons.logout, size: 26, color: context.primaryTextColor),
+                  const SizedBox(width: 12),
+                  Text(
+                    "Logout",
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: context.primaryTextColor,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -57,24 +44,28 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         forceMaterialTransparency: true,
         scrolledUnderElevation: 5,
-        backgroundColor: AppTheme.bgScaffoldColor,
-
+        backgroundColor: context.backgroundColor,
+        iconTheme: IconThemeData(color: context.primaryTextColor),
         centerTitle: true,
         title: Text(
           "M u g L i f e",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+          style: context.textTheme.headlineSmall?.copyWith(
+            color: context.primaryTextColor,
+            fontWeight: FontWeight.w400,
+          ),
         ),
         actions: [
-          const Icon(
-            Icons.shopping_cart_checkout,
-            color: AppTheme.black,
-            size: 28,
-          ),
-
-          SizedBox(width: 20),
+          // Icon(
+          //   Icons.shopping_cart_checkout,
+          //   color: context.primaryTextColor,
+          //   size: 28,
+          // ),
+          // const SizedBox(width: 8),
+          const ThemeToggleButton(size: 40),
+          const SizedBox(width: 20),
         ],
       ),
-      body: HomeScreenBody(),
+      body: const HomeScreenBody(),
     );
   }
 }

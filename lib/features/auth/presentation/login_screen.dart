@@ -3,8 +3,7 @@ import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/custom_auth_appbar.dart';
 import 'package:drinks_app/features/auth/presentation/widgets/google_sign_in_button.dart';
-
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
@@ -36,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.white,
+      backgroundColor: Theme.of(context).scaffoldBgColor,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -70,16 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 30),
+                              const SizedBox(height: 30),
                               Text(
                                 'Log In to Order',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: AppTheme.textPrimary,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: context.textTheme.headlineSmall
+                                    ?.copyWith(
+                                      color: context.primaryTextColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
-                              SizedBox(height: 18),
+                              const SizedBox(height: 18),
                               CustomTextFormField(
                                 enabled: isEnabled,
                                 controller: _emailController,
@@ -146,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                   if (state is GoogleFailure) {
                                     setState(() => isEnabled = true);
-
                                     HelperFunctions.showErrorSnackBar(
                                       state.errMessage,
                                       MessageType.error,
@@ -170,18 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              // Center(
-                              //   child: TextButton(
-                              //     onPressed: () {},
-                              //     child: const Text(
-                              //       'Forgot Password ?',
-                              //       style: TextStyle(
-                              //         color: AppColors.textPrimary,
-                              //         fontSize: 16,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
                               Center(
                                 child: TextButton(
                                   onPressed: () {
@@ -189,12 +175,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                     ).go(AppRouter.signUpScreen);
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     'Don\'t Have An Account? Sign Up!',
-                                    style: TextStyle(
-                                      color: AppTheme.textPrimary,
-                                      fontSize: 15,
-                                    ),
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(color: context.primaryColor),
                                   ),
                                 ),
                               ),
