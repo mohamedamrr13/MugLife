@@ -1,9 +1,12 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
 import 'package:drinks_app/core/routing/app_router.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
+import 'package:drinks_app/utils/theme/theme_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,18 +36,27 @@ class DrinksApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        appBarTheme: const AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.light,
-          ),
-        ),
+    return BlocProvider(
+      create: (context) => ThemeCubit(),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, themeState) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme.copyWith(
+              textTheme: AppTheme.lightTheme.textTheme.apply(
+                fontFamily: 'Poppins',
+              ),
+            ),
+            darkTheme: AppTheme.darkTheme.copyWith(
+              textTheme: AppTheme.darkTheme.textTheme.apply(
+                fontFamily: 'Poppins',
+              ),
+            ),
+            themeMode: context.read<ThemeCubit>().getThemeMode(),
+            routerConfig: AppRouter.router,
+          );
+        },
       ),
-      routerConfig: AppRouter.router,
     );
   }
 }
