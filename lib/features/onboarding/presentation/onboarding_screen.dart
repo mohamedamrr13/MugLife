@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatelessWidget {

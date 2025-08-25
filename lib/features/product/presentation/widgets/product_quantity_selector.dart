@@ -1,4 +1,5 @@
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class ProductQuantitySelector extends StatelessWidget {
@@ -15,9 +16,27 @@ class ProductQuantitySelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color:
+            context.isDark
+                ? context.cardColor.withOpacity(0.8)
+                : Colors.grey[100],
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(
+          color:
+              context.isDark
+                  ? context.dividerColor.withOpacity(0.3)
+                  : Colors.grey[200]!,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color:
+                context.isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -34,10 +53,10 @@ class ProductQuantitySelector extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Text(
               quantity.toString(),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF2D3436),
+                color: context.primaryTextColor,
               ),
             ),
           ),
@@ -73,17 +92,27 @@ class QuantityButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppTheme.white,
+          color: context.surfaceColor,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppTheme.black.withOpacity(0.05),
+              color:
+                  context.isDark
+                      ? Colors.black.withOpacity(0.3)
+                      : Colors.black.withOpacity(0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
           ],
+          border:
+              context.isDark
+                  ? Border.all(
+                    color: context.dividerColor.withOpacity(0.2),
+                    width: 0.5,
+                  )
+                  : null,
         ),
-        child: Icon(icon, size: 20, color: AppTheme.mainColor),
+        child: Icon(icon, size: 20, color: context.primaryColor),
       ),
     );
   }

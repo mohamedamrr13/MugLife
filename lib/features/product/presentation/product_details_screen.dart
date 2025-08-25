@@ -4,8 +4,8 @@ import 'package:drinks_app/features/product/presentation/widgets/product_details
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -64,23 +64,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     final size = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppTheme.bgScaffoldColor,
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
           // App Bar
           Positioned(
             left: 0,
             right: 0,
-            top: size * 0.05,
             child: CustomAppbar(
-              color: const Color(0xffF4F6F9),
+              color: context.surfaceColor,
               title: widget.products[currentIndex.round()].name,
-              subTitle: widget.products[currentIndex.round()].description,
               prefixIcon: Text(
                 "£${widget.products[currentIndex.round()].price + selectedIndex * 15}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: context.primaryTextColor,
                 ),
               ),
             ),

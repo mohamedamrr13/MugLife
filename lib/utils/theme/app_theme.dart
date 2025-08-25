@@ -43,7 +43,7 @@ class AppTheme {
   static const Color lightDivider = Color(0xFFE5E5EA);
 
   // Dark theme colors (iOS 13+ inspired)
-  static const Color darkBackground = Color(0xFF1C1C1E); // True black for OLED
+  static const Color darkBackground = Color(0xFF000000); // True black for OLED
   static const Color darkSurface = Color(0xFF1C1C1E); // iOS dark surface
   static const Color darkCard = Color(0xFF2C2C2E); // iOS dark card
   static const Color darkDivider = Color(0xFF38383A);
@@ -271,6 +271,7 @@ class AppTheme {
         onSecondary: Colors.white,
         onSurface: darkPrimaryText,
         onSurfaceVariant: darkSecondaryText,
+        onBackground: darkPrimaryText,
         outline: darkDivider,
         outlineVariant: Color(0xFF2C2C2E),
       ),

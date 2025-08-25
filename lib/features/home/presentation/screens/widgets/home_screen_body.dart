@@ -2,6 +2,7 @@ import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categori
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,36 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 12),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Theme.of(context).primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: context.primaryColor.withOpacity(0.7),
+                    blurRadius: 1,
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppTheme.primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -73,39 +104,3 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     );
   }
 }
-
-
-
-
-         // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(12),
-          //       color: AppColors.white,
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: AppColors.grey.withAlpha(22),
-          //           blurRadius: 5,
-          //           spreadRadius: 2,
-          //         ),
-          //       ],
-          //     ),
-          //     child: TextField(
-          //       decoration: InputDecoration(
-          //         hintText: "Search",
-          //         focusedBorder: OutlineInputBorder(
-          //           borderSide: BorderSide(
-          //             color: AppColors.grey.withAlpha(100),
-          //             width: 2,
-          //           ),
-          //           borderRadius: BorderRadius.circular(12),
-          //         ),
-          //         enabledBorder: OutlineInputBorder(
-          //           borderSide: BorderSide(color: AppColors.grey.withAlpha(22)),
-          //           borderRadius: BorderRadius.circular(12),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),

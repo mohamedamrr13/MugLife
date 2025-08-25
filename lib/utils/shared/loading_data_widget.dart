@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDataWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class LoadingDataWidget extends StatelessWidget {
         width: 45,
         child: CircularProgressIndicator(
           strokeWidth: 4,
-          color: AppTheme.mainColor,
+          color: AppTheme.primaryColor,
         ),
       ),
     );
