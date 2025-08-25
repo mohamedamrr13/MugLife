@@ -1,6 +1,6 @@
 // Size Selector Widget Class
 import 'package:drinks_app/features/product/presentation/widgets/product_size_item.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SizeSelector extends StatelessWidget {
@@ -19,14 +19,24 @@ class SizeSelector extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 40),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       decoration: BoxDecoration(
-        color: AppTheme.white,
+        color: context.surfaceColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        border:
+            context.isDark
+                ? Border.all(
+                  color: context.dividerColor.withOpacity(0.2),
+                  width: 0.5,
+                )
+                : null,
         boxShadow: [
           BoxShadow(
-            color: AppTheme.black.withOpacity(0.1),
+            color:
+                context.isDark
+                    ? Colors.black.withOpacity(0.3)
+                    : Colors.black.withOpacity(0.1),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),

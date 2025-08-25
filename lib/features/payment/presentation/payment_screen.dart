@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/payment/presentation/widgets/payment_form_input_configurations.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -95,7 +95,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       child: ElevatedButton(
                         onPressed: _isFormValid() ? _processPayment : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.paymentPageMainColor,
+                          backgroundColor: AppTheme.paymentPageprimaryColor,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(

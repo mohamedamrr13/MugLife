@@ -55,13 +55,13 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          // Icon(
-          //   Icons.shopping_cart_checkout,
-          //   color: context.primaryTextColor,
-          //   size: 28,
-          // ),
+          Icon(
+            Icons.shopping_cart_checkout,
+            color: context.primaryTextColor,
+            size: 28,
+          ),
           // const SizedBox(width: 8),
-          const ThemeToggleButton(size: 40),
+          // const ThemeToggleButton(size: 40),
           const SizedBox(width: 20),
         ],
       ),

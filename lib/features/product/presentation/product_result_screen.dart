@@ -1,7 +1,7 @@
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,7 @@ class ProductResultScreen extends StatefulWidget {
 
 class _ProductResultScreenState extends State<ProductResultScreen> {
   ScrollController controller = ScrollController();
+
   @override
   void initState() {
     BlocProvider.of<GetProductsByCategoryCubit>(
@@ -26,31 +27,34 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.bgScaffoldColor,
+    // Use dynamic colors from theme
+    final theme = Theme.of(context);
+    final scaffoldBgColor = theme.scaffoldBackgroundColor;
+    final surfaceColor = theme.colorScheme.surface;
+    final primaryColor = theme.colorScheme.primary;
+    final onSurfaceColor = theme.colorScheme.onSurface;
 
+    return Scaffold(
+      backgroundColor: scaffoldBgColor,
       body: Column(
         children: [
-          Container(height: 60, color: AppTheme.white),
           CustomAppbar(
-            color: AppTheme.white,
+            color: surfaceColor,
             title: HelperFunctions.capitalize(widget.category),
             subTitle: "Choose Your Favourite",
-
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppTheme.mainColor.withAlpha(50),
+                color: primaryColor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.shopping_cart_outlined,
-                color: AppTheme.black,
+                color: onSurfaceColor,
                 size: 24,
               ),
             ),
           ),
-
           BlocBuilder<GetProductsByCategoryCubit, GetProductsByCategoryState>(
             builder: (context, state) {
               if (state is GetProductsByCategorySuccess) {
@@ -59,7 +63,12 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
                   products: state.products,
                 );
               } else if (state is GetProductsByCategoryFailure) {
-                return Center(child: Text(state.errMessage));
+                return Center(
+                  child: Text(
+                    state.errMessage,
+                    style: TextStyle(color: theme.colorScheme.error),
+                  ),
+                );
               }
               return LoadingDataWidget();
             },

@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/theming/app_colors.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 /// Extension on ThemeData to provide easy access to app-specific colors
@@ -19,7 +19,10 @@ extension AppThemeExtension on ThemeData {
           : const Color(0xFF1C1C1C); // darkBackground from AppTheme
 
   /// Get surface color from theme
-  Color get surfaceColor => colorScheme.surface;
+  Color get surfaceColor =>
+      brightness == Brightness.light
+          ? const Color(0xFFFFFFFF) // lightBackground from AppTheme
+          : const Color(0xFF1C1C1C); // darkBackground from AppTheme;
 
   /// Get card color from theme
   Color get cardColor => colorScheme.surfaceContainer;
@@ -91,7 +94,7 @@ extension ThemeContextExtension on BuildContext {
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   /// Get primary color
-  Color get primaryColor => AppTheme.mainColor;
+  Color get primaryColor => AppTheme.primaryColor;
 
   /// Get secondary color
   Color get secondaryColor => theme.secondaryColor;
@@ -104,7 +107,7 @@ extension ThemeContextExtension on BuildContext {
 
   /// Get card color
   Color get cardColor =>
-      isDark ? AppTheme.mainColor.withOpacity(0.15) : AppTheme.white;
+      isDark ? AppTheme.primaryColor.withOpacity(0.15) : AppTheme.white;
 
   /// Get primary text color
   Color get primaryTextColor => theme.primaryTextColor;

@@ -22,8 +22,8 @@ class _ProductListViewState extends State<ProductListView> {
     return Expanded(
       child: ListView.builder(
         controller: widget.controller,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         itemCount: widget.products.length,
         itemBuilder: (context, index) {
           final productModel = widget.products[index];
