@@ -1,4 +1,4 @@
-import 'package:drinks_app/core/di/service_locator.dart';
+import 'package:drinks_app/core/dI/service_locator.dart';
 import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
@@ -13,6 +13,7 @@ import 'package:drinks_app/features/product/presentation/product_details_screen.
 import 'package:drinks_app/features/product/presentation/product_result_screen.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,8 @@ import 'package:go_router/go_router.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
+    static const pageNavBar = '/pageNavBar';
+
   static const signUpScreen = "/signUp";
   static const loginScreen = "/login";
   // static const forgetPassword = "/forgetPassword";
@@ -39,25 +42,14 @@ class AppRouter {
         ),
     routes: [
       GoRoute(
+        path: pageNavBar,
+        builder: (context, state) => const CustomPageNavigationBar(),
+      ),
+      GoRoute(
         path: homeScreen,
         name: homeScreen,
         builder:
-            (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create:
-                      (context) =>
-                          GetCategoriesCubit(getIt.get<GetCategoriesRepo>()),
-                ),
-                BlocProvider(
-                  create:
-                      (context) => GetFeaturedProductsCubit(
-                        GetFeaturedProductsRepoImpl(),
-                      ),
-                ),
-              ],
-              child: const HomeScreen(),
-            ),
+            (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: loginScreen,

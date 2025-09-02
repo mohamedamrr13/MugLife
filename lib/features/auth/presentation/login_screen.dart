@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                   if (state is GoogleSuccess) {
                                     setState(() => isEnabled = true);
-                                    context.push(AppRouter.homeScreen);
+                                    context.push(AppRouter.pageNavBar);
                                   }
                                   if (state is GoogleFailure) {
                                     setState(() => isEnabled = true);

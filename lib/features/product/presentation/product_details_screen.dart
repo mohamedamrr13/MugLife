@@ -4,6 +4,7 @@ import 'package:drinks_app/features/product/presentation/widgets/product_details
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
 import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -22,17 +23,25 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     with TickerProviderStateMixin {
-  PageController pageController = PageController(viewportFraction: 0.6);
+  late PageController pageController;
   int selectedIndex = 1;
   int quantity = 1;
   late double currentIndex;
+
   @override
   void initState() {
     super.initState();
     currentIndex = widget.currentIndex;
+
+    // Initialize PageController with the correct initial page
+    pageController = PageController(
+      viewportFraction: 0.6,
+      initialPage: widget.currentIndex.round(), // This is the key fix
+    );
+
     pageController.addListener(() {
       setState(() {
-        currentIndex = pageController.page ?? 0;
+        currentIndex = pageController.page ?? widget.currentIndex;
       });
     });
   }
@@ -64,7 +73,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     final size = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
+      backgroundColor: context.theme.colorScheme.background,
       body: Stack(
         children: [
           // App Bar
@@ -72,7 +81,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
             left: 0,
             right: 0,
             child: CustomAppbar(
-              color: context.surfaceColor,
+              color: context.theme.scaffoldBackgroundColor,
               title: widget.products[currentIndex.round()].name,
               prefixIcon: Text(
                 "£${widget.products[currentIndex.round()].price + selectedIndex * 15}",

@@ -29,8 +29,7 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
   Widget build(BuildContext context) {
     // Use dynamic colors from theme
     final theme = Theme.of(context);
-    final scaffoldBgColor = theme.scaffoldBackgroundColor;
-    final surfaceColor = theme.colorScheme.surface;
+    final scaffoldBgColor = theme.colorScheme.background;
     final primaryColor = theme.colorScheme.primary;
     final onSurfaceColor = theme.colorScheme.onSurface;
 
@@ -39,7 +38,7 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
       body: Column(
         children: [
           CustomAppbar(
-            color: surfaceColor,
+            color: theme.colorScheme.background,
             title: HelperFunctions.capitalize(widget.category),
             subTitle: "Choose Your Favourite",
             prefixIcon: Container(
