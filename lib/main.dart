@@ -1,5 +1,5 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:drinks_app/core/di/service_locator.dart';
+import 'package:drinks_app/core/dI/service_locator.dart';
 import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_cubit.dart';
