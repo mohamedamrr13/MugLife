@@ -1,16 +1,7 @@
-import 'package:drinks_app/core/dI/service_locator.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
-import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
-import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
-import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
-import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
-import 'package:drinks_app/features/settings/presentation';
-import 'package:flutter/cupertino.dart';
+import 'package:drinks_app/features/settings/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomPageNavigationBar extends StatefulWidget {
   const CustomPageNavigationBar({super.key});
