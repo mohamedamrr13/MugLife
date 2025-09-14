@@ -4,8 +4,6 @@ import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/repo/get_products_by_category/get_products_by_category_repo_impl.dart';
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
@@ -64,7 +62,14 @@ class AppRouter {
       GoRoute(
         path: loginScreen,
         name: loginScreen,
-        builder: (context, state) => const LoginScreen(),
+        builder:
+            (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => LoginCubit()),
+                BlocProvider(create: (context) => GoogleCubit()),
+              ],
+              child: const LoginScreen(),
+            ),
       ),
       GoRoute(
         path: signUpScreen,
