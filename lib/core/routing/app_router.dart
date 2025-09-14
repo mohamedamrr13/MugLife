@@ -54,11 +54,7 @@ class AppRouter {
       ),
       GoRoute(
         path: pageNavBar,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => CartCubit(FirestoreCartRepository()),
-              child: const CustomPageNavigationBar(),
-            ),
+        builder: (context, state) => const CustomPageNavigationBar(),
       ),
       GoRoute(
         path: homeScreen,

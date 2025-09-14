@@ -63,7 +63,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             setState(() => isEnabled = false);
                           }
                           if (state is RegisterSuccess) {
-                            context.push(AppRouter.homeScreen);
+                            setState(() {
+                              isEnabled = true;
+                            });
                           }
                           if (state is RegisterFailure) {
                             setState(() => isEnabled = true);
@@ -175,7 +177,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                                   if (state is GoogleSuccess) {
                                     setState(() => isEnabled = true);
-                                    context.push(AppRouter.homeScreen);
                                   }
                                   if (state is GoogleFailure) {
                                     setState(() => isEnabled = true);
