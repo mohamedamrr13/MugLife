@@ -1,7 +1,10 @@
+import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/features/settings/presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomPageNavigationBar extends StatefulWidget {
   const CustomPageNavigationBar({super.key});
@@ -18,7 +21,10 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
     HomeScreen(),
 
     AccountScreen(),
-    CartScreen(),
+    BlocProvider(
+      create: (context) => CartCubit(FirestoreCartRepository()),
+      child: CartScreen(),
+    ),
 
     SettingsScreen(),
   ];

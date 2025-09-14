@@ -385,9 +385,6 @@ class CustomDrawer extends StatelessWidget {
                                     ),
                             onTap: () {
                               context.read<LoginCubit>().logout();
-                              if (state is LoginSuccess) {
-                                GoRouter.of(context).go(AppRouter.loginScreen);
-                              }
                             },
                           );
                         },
