@@ -24,7 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isEnabled = true;
+  //for disabling textfields
 
+  bool obscureText = true;
   @override
   void dispose() {
     _emailController.dispose();
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() => isEnabled = false);
                           }
                           if (state is LoginSuccess) {
-                            context.push(AppRouter.homeScreen);
+                            context.go(AppRouter.pageNavBar);
                           }
                           if (state is LoginFailure) {
                             setState(() => isEnabled = true);
@@ -98,12 +100,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 20),
                               CustomTextFormField(
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                  icon:
+                                      obscureText
+                                          ? Icon(Icons.visibility)
+                                          : Icon(Icons.visibility_off),
+                                ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 enabled: isEnabled,
                                 controller: _passwordController,
                                 hintText: 'Password',
-                                obscureText: true,
+                                obscureText: obscureText,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Please Enter Your Password";

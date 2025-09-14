@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
@@ -15,91 +16,344 @@ class HomeScreenBody extends StatefulWidget {
   State<HomeScreenBody> createState() => _HomeScreenBodyState();
 }
 
-class _HomeScreenBodyState extends State<HomeScreenBody> {
+class _HomeScreenBodyState extends State<HomeScreenBody>
+    with TickerProviderStateMixin {
+  late AnimationController _headerAnimationController;
+  late AnimationController _contentAnimationController;
+  late Animation<double> _headerSlideAnimation;
+  late Animation<double> _contentFadeAnimation;
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
+    super.initState();
+
+    _headerAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _contentAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
+    _headerSlideAnimation = Tween<double>(begin: -50, end: 0).animate(
+      CurvedAnimation(
+        parent: _headerAnimationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+
+    _contentFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _contentAnimationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
     BlocProvider.of<GetCategoriesCubit>(context).getCategories();
     BlocProvider.of<GetFeaturedProductsCubit>(context).getFeaturedProducts();
 
-    super.initState();
+    _headerAnimationController.forward();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _contentAnimationController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _headerAnimationController.dispose();
+    _contentAnimationController.dispose();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 12),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            context.primaryColor.withOpacity(0.02),
+            context.surfaceColor,
+          ],
+        ),
+      ),
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          // Add space for app bar
+          SliverToBoxAdapter(child: SizedBox(height: 120)),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).primaryColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: context.primaryColor.withOpacity(0.7),
-                    blurRadius: 1,
-                    spreadRadius: 1,
+          // Search Bar
+          SliverToBoxAdapter(
+            child: AnimatedBuilder(
+              animation: _contentFadeAnimation,
+              builder: (context, child) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Theme.of(context).primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: context.primaryColor.withOpacity(0.7),
+                          blurRadius: 1,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppTheme.primaryColor,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // Categories Section
+          SliverToBoxAdapter(
+            child: AnimatedBuilder(
+              animation: _contentFadeAnimation,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: _contentFadeAnimation.value,
+                  child: _buildCategoriesSection(context),
+                );
+              },
+            ),
+          ),
+
+          // Featured Products Section
+          SliverToBoxAdapter(
+            child: AnimatedBuilder(
+              animation: _contentFadeAnimation,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: _contentFadeAnimation.value,
+                  child: _buildFeaturedSection(context),
+                );
+              },
+            ),
+          ),
+
+          // Bottom spacing
+          SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoriesSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Categories",
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      color: context.primaryTextColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    height: 3,
+                    width: 40,
+                    margin: const EdgeInsets.only(top: 4),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          context.primaryColor,
+                          context.primaryColor.withOpacity(0.5),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ],
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppTheme.primaryColor,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
+              TextButton.icon(
+                onPressed: () {
+                  // Navigate to all categories
+                },
+                icon: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: context.primaryColor,
+                  size: 20,
+                ),
+                label: Text(
+                  "See All",
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-          SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              "Categories",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-                color: theme.primaryTextColor,
-              ),
-            ),
-          ),
-          SizedBox(height: 16),
-          BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
-            builder: (context, state) {
-              if (state is GetCategoriesSuccess) {
-                return CategoreisListView(categories: state.categories);
-              } else if (state is GetCategoriesFailure) {
-                return Center(child: Text(state.errMessage));
-              }
-              return SizedBox(height: 200, child: LoadingDataWidget());
-            },
-          ),
-          SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              "Check Out Our New Recipes",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-                color: theme.primaryTextColor,
-              ),
-            ),
-          ),
-          SizedBox(height: 16),
+        ),
+        BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+          builder: (context, state) {
+            if (state is GetCategoriesSuccess) {
+              return CategoreisListView(categories: state.categories);
+            } else if (state is GetCategoriesFailure) {
+              return _buildErrorWidget(context, state.errMessage);
+            }
+            return SizedBox(height: 200, child: LoadingDataWidget());
+          },
+        ),
+      ],
+    );
+  }
 
-          NewestItemsListView(),
-        ],
+  Widget _buildFeaturedSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Featured Recipes",
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      color: context.primaryTextColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    height: 3,
+                    width: 60,
+                    margin: const EdgeInsets.only(top: 4),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          context.primaryColor,
+                          context.primaryColor.withOpacity(0.5),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      context.primaryColor.withOpacity(0.1),
+                      context.primaryColor.withOpacity(0.05),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: context.primaryColor.withOpacity(0.3),
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.star_rounded,
+                      color: context.primaryColor,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      "Trending",
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: context.primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        NewestItemsListView(),
+      ],
+    );
+  }
+
+  Widget _buildErrorWidget(BuildContext context, String message) {
+    return Container(
+      height: 200,
+      margin: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.red.withOpacity(0.3), width: 1),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline_rounded, color: Colors.red, size: 48),
+            const SizedBox(height: 16),
+            Text(
+              "Oops! Something went wrong",
+              style: context.textTheme.titleMedium?.copyWith(
+                color: Colors.red,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              message,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: Colors.red.withOpacity(0.7),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () {
+                BlocProvider.of<GetCategoriesCubit>(context).getCategories();
+              },
+              icon: Icon(Icons.refresh_rounded),
+              label: Text("Retry"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
