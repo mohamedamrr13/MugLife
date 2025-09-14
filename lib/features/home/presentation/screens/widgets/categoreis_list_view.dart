@@ -10,7 +10,7 @@ class CategoreisListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 220,
       child: ListView.builder(
         padding: EdgeInsets.only(left: 16),
         scrollDirection: Axis.horizontal,
@@ -19,7 +19,10 @@ class CategoreisListView extends StatelessWidget {
           return CategoryItem(
             category: categories[index],
             onTap: () {
-              context.push(AppRouter.itemResultScreen,extra: categories[index].name.toLowerCase() );
+              context.push(
+                AppRouter.itemResultScreen,
+                extra: categories[index].name.toLowerCase(),
+              );
             },
           );
         },

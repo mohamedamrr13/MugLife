@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -14,7 +13,9 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
       await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       emit(LoginSuccess());
     } on FirebaseAuthException catch (e) {
       debugPrint(e.code);
@@ -23,4 +24,15 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  Future<void> logout() async {
+    emit(LoginLoading());
+    try {
+      await firebaseAuth.signOut();
+      emit(LoginSuccess());
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.code);
+      debugPrint(FirebaseErrorMapper.fromCode(e.code).message);
+      emit(LoginFailure(FirebaseErrorMapper.fromCode(e.code).message));
+    }
+  }
 }

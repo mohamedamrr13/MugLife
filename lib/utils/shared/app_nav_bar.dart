@@ -17,10 +17,10 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
   final List<Widget> pages = [
     HomeScreen(),
 
-    SettingsScreen(),
     AccountScreen(),
-
     CartScreen(),
+
+    SettingsScreen(),
   ];
 
   @override
