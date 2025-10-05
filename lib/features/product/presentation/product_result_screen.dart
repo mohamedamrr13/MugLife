@@ -7,6 +7,7 @@ import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class ProductResultScreen extends StatefulWidget {
   const ProductResultScreen({super.key, required this.category});
@@ -22,7 +23,6 @@ class _ProductResultScreenState extends State<ProductResultScreen>
   late AnimationController _headerAnimationController;
   late AnimationController _contentAnimationController;
   late Animation<double> _headerSlideAnimation;
-  late Animation<double> _contentFadeAnimation;
   final TextEditingController _searchController = TextEditingController();
 
   String selectedFilter = 'All';
@@ -54,13 +54,6 @@ class _ProductResultScreenState extends State<ProductResultScreen>
       CurvedAnimation(
         parent: _headerAnimationController,
         curve: Curves.easeOutCubic,
-      ),
-    );
-
-    _contentFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _contentAnimationController,
-        curve: Curves.easeInOut,
       ),
     );
 
@@ -107,6 +100,9 @@ class _ProductResultScreenState extends State<ProductResultScreen>
             _buildCustomAppBar(context),
 
             // Products Section
+            _buildProductsSection(context),
+
+            // Optional: Add bottom spacing
           ],
         ),
       ),
@@ -147,8 +143,8 @@ class _ProductResultScreenState extends State<ProductResultScreen>
                 ),
               ),
               child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+                child: LiquidGlassLayer(
+                  settings: LiquidGlassSettings(),
                   child: Container(
                     decoration: BoxDecoration(
                       color:
@@ -222,8 +218,8 @@ class _ProductResultScreenState extends State<ProductResultScreen>
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: LiquidGlassLayer(
+            settings: LiquidGlassSettings(),
             child: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -260,8 +256,8 @@ class _ProductResultScreenState extends State<ProductResultScreen>
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: LiquidGlassLayer(
+              settings: LiquidGlassSettings(),
               child: IconButton(
                 icon: Icon(
                   Icons.shopping_cart_rounded,
@@ -284,127 +280,26 @@ class _ProductResultScreenState extends State<ProductResultScreen>
     return BlocBuilder<GetProductsByCategoryCubit, GetProductsByCategoryState>(
       builder: (context, state) {
         if (state is GetProductsByCategorySuccess) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  context.isDark
-                      ? Colors.white.withOpacity(0.05)
-                      : Colors.white.withOpacity(0.8),
-                  context.isDark
-                      ? Colors.white.withOpacity(0.02)
-                      : Colors.white.withOpacity(0.4),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color:
-                    context.isDark
-                        ? Colors.white.withOpacity(0.1)
-                        : Colors.white.withOpacity(0.6),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color:
-                      context.isDark
-                          ? Colors.black.withOpacity(0.3)
-                          : context.primaryColor.withOpacity(0.08),
-                  blurRadius: 30,
-                  offset: const Offset(0, 15),
-                  spreadRadius: -5,
-                ),
+          return SliverFillRemaining(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Section Header
+                ProductListView(products: state.products),
               ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Section Header
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Products",
-                              style: context.textTheme.headlineSmall?.copyWith(
-                                color: context.primaryTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              height: 3,
-                              width: 40,
-                              margin: const EdgeInsets.only(top: 4),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    context.primaryColor,
-                                    context.primaryColor.withOpacity(0.5),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                context.primaryColor.withOpacity(0.2),
-                                context.primaryColor.withOpacity(0.1),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: context.primaryColor.withOpacity(0.3),
-                              width: 1,
-                            ),
-                          ),
-                          child: Text(
-                            "${state.products.length} items",
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // Products List
-                    ProductListView(
-                      controller: controller,
-                      products: state.products,
-                    ),
-                  ],
-                ),
-              ),
             ),
           );
         } else if (state is GetProductsByCategoryFailure) {
-          return _buildErrorWidget(context, state.errMessage);
+          return SliverToBoxAdapter(
+            child: _buildErrorWidget(context, state.errMessage),
+          );
         }
-        return Container(
-          height: 400,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: LoadingDataWidget(),
+        return SliverToBoxAdapter(
+          child: Container(
+            height: 400,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: const LoadingDataWidget(),
+          ),
         );
       },
     );
@@ -424,8 +319,8 @@ class _ProductResultScreenState extends State<ProductResultScreen>
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        child: LiquidGlassLayer(
+          settings: LiquidGlassSettings(),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

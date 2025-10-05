@@ -1,7 +1,6 @@
 import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
-import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,22 +11,50 @@ class AppWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
+        // Show loading while checking auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
-        } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(child: Text("Error Something Went Wrong")),
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
           );
-        } else if (snapshot.hasData) {
-          return CustomPageNavigationBar();
-        } else if (GoRouter.of(context).state.matchedLocation ==
-            AppRouter.loginScreen) {
-          return LoginScreen();
+        }
+
+        // Handle any errors
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Authentication Error',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text('Something went wrong: ${snapshot.error}'),
+                ],
+              ),
+            ),
+          );
+        }
+
+        // User is authenticated - show main app
+        if (snapshot.hasData) {
+          return const CustomPageNavigationBar();
+        }
+
+        // User not authenticated - check current route to show correct screen
+        final currentRoute = GoRouter.of(context).state.matchedLocation;
+
+        if (currentRoute == AppRouter.signUpScreen) {
+          return const RegisterScreen();
         } else {
-          return RegisterScreen();
+          // Default to login screen for any other case
+          return const LoginScreen();
         }
       },
     );

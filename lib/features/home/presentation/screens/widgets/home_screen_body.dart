@@ -164,50 +164,28 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Categories",
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      color: context.primaryTextColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    height: 3,
-                    width: 40,
-                    margin: const EdgeInsets.only(top: 4),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.primaryColor,
-                          context.primaryColor.withOpacity(0.5),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ],
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  // Navigate to all categories
-                },
-                icon: Icon(
-                  Icons.arrow_forward_rounded,
-                  color: context.primaryColor,
-                  size: 20,
+              Text(
+                "Categories",
+                style: context.textTheme.headlineSmall?.copyWith(
+                  color: context.primaryTextColor,
+                  fontWeight: FontWeight.bold,
                 ),
-                label: Text(
-                  "See All",
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: context.primaryColor,
-                    fontWeight: FontWeight.w600,
+              ),
+              Container(
+                height: 3,
+                width: 40,
+                margin: const EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      context.primaryColor,
+                      context.primaryColor.withOpacity(0.5),
+                    ],
                   ),
+                  borderRadius: BorderRadius.circular(2),
                 ),
               ),
             ],

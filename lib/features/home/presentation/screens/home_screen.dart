@@ -15,31 +15,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create:
-              (context) => GetCategoriesCubit(getIt.get<GetCategoriesRepo>()),
-        ),
-        BlocProvider(
-          create:
-              (context) =>
-                  GetFeaturedProductsCubit(GetFeaturedProductsRepoImpl()),
-        ),
-      ],
-      child: Scaffold(
-        backgroundColor: context.surfaceColor,
-        extendBodyBehindAppBar: true,
-        drawer: CustomDrawer(),
-        appBar: CustomAppBar(),
-        body: const HomeScreenBody(),
-      ),
+    return Scaffold(
+      backgroundColor: context.surfaceColor,
+      extendBodyBehindAppBar: true,
+      drawer: CustomDrawer(),
+      appBar: CustomAppBar(),
+      body: const HomeScreenBody(),
     );
   }
 }
@@ -75,8 +63,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         child: ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: LiquidGlassLayer(
+            settings: LiquidGlassSettings(thickness: 200),
             child: Container(
               decoration: BoxDecoration(
                 color: context.surfaceColor.withOpacity(0.8),
@@ -93,49 +81,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       leading: Builder(
         builder:
-            (context) => Container(
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: context.primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: context.primaryColor.withOpacity(0.2),
-                  width: 1,
-                ),
+            (context) => IconButton(
+              icon: Icon(
+                Icons.menu_rounded,
+                color: context.primaryTextColor,
+                size: 24,
               ),
-              child: IconButton(
-                icon: Icon(
-                  Icons.menu_rounded,
-                  color: context.primaryTextColor,
-                  size: 24,
-                ),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
             ),
       ),
       centerTitle: true,
-      title: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.primaryColor.withOpacity(0.1),
-              context.primaryColor.withOpacity(0.05),
-            ],
-          ),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: context.primaryColor.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
-        child: Text(
-          "MugLife",
-          style: context.textTheme.headlineSmall?.copyWith(
-            color: context.primaryTextColor,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.2,
-          ),
+      title: Text(
+        "MugLife",
+        style: context.textTheme.headlineSmall?.copyWith(
+          color: context.primaryTextColor,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 5,
         ),
       ),
     );

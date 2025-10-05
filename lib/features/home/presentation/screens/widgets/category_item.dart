@@ -4,6 +4,7 @@ import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class CategoryItem extends StatefulWidget {
   const CategoryItem({super.key, required this.category, required this.onTap});
@@ -83,7 +84,8 @@ class _CategoryItemState extends State<CategoryItem>
   @override
   Widget build(BuildContext context) {
     // Define clampedHover based on _hoverAnimation.value
-    final double clampedHover = _hoverAnimation.value.clamp(0.0, 1.0);
+    
+    _hoverAnimation.value.clamp(0.0, 1.0);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -149,7 +151,7 @@ class _CategoryItemState extends State<CategoryItem>
                               ),
                       blurRadius: 25 + (_hoverAnimation.value * 10),
                       offset: Offset(0, 12 + (_hoverAnimation.value * 5)),
-                      spreadRadius: -5,
+                      spreadRadius: -2,
                     ),
                     // Glow effect when pressed
                     if (_isPressed) ...[
@@ -173,11 +175,11 @@ class _CategoryItemState extends State<CategoryItem>
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: (15 + (clampedHover * 5)).clamp(10.0, 20.0),
-                      sigmaY: (15 + (clampedHover * 5)).clamp(10.0, 20.0),
+                  child: LiquidGlass(
+                    shape: LiquidRoundedRectangle(
+                      borderRadius: Radius.circular(22),
                     ),
+                    settings: LiquidGlassSettings(),
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -230,18 +232,18 @@ class _CategoryItemState extends State<CategoryItem>
                                           : context.primaryColor.withOpacity(
                                             0.1,
                                           ),
-                                  blurRadius: 15,
+                                  blurRadius: 5,
                                   offset: const Offset(0, 8),
                                 ),
                               ],
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                  sigmaX: 10,
-                                  sigmaY: 10,
+                              child: LiquidGlass(
+                                shape: LiquidRoundedRectangle(
+                                  borderRadius: Radius.circular(360),
                                 ),
+                                settings: LiquidGlassSettings(),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
@@ -351,8 +353,8 @@ class _CategoryItemState extends State<CategoryItem>
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                              child: LiquidGlassLayer(
+                                settings: LiquidGlassSettings(),
                                 child: Center(
                                   child: Text(
                                     widget.category.name,
