@@ -1,4 +1,4 @@
-import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/features/product/presentation/product_shipping_view.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
@@ -8,6 +8,7 @@ import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.d
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({
@@ -65,7 +66,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   }
 
   void _onAddToCart() {
-    // Implement add to cart functionality
+    BlocProvider.of<CartCubit>(
+      context,
+    ).addToCart(widget.products[currentIndex.toInt()]);
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("Added To Cart")));
   }
 
   @override

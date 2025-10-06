@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/cart_item_model.dart';
 
 abstract class CartRepository {
-  Stream<List<CartItemModel>> getCartItems();
-  Future<void> addToCart(CartItemModel item);
+  Stream<List<ProductModel>> getCartItems();
+  Future<void> addToCart(ProductModel item);
   Future<void> updateCartItem(String itemId, int quantity);
   Future<void> removeFromCart(String itemId);
   Future<void> clearCart();
@@ -26,7 +26,7 @@ class FirestoreCartRepository implements CartRepository {
   }
 
   @override
-  Stream<List<CartItemModel>> getCartItems() {
+  Stream<List<ProductModel>> getCartItems() {
     if (_userId == null) {
       return Stream.value([]);
     }
@@ -34,31 +34,36 @@ class FirestoreCartRepository implements CartRepository {
     return _cartCollection.orderBy('addedAt', descending: true).snapshots().map(
       (snapshot) {
         return snapshot.docs
-            .map((doc) => CartItemModel.fromFirestore(doc))
+            .map((doc) => ProductModel.fromFirestore(doc))
             .toList();
       },
     );
   }
 
   @override
-  Future<void> addToCart(CartItemModel item) async {
+  Future<void> addToCart(ProductModel item) async {
     if (_userId == null) {
       throw Exception('User not authenticated');
+    }
+
+    // Ensure item has cart-specific fields
+    if (!item.isCartItem) {
+      throw Exception('Product must be converted to cart item first');
     }
 
     // Check if item with same product ID and size already exists
     final existingQuery =
         await _cartCollection
-            .where('productId', isEqualTo: item.productId)
+            .where('name', isEqualTo: item.name)
             .where('size', isEqualTo: item.size)
             .get();
 
     if (existingQuery.docs.isNotEmpty) {
       // Update existing item quantity
       final existingDoc = existingQuery.docs.first;
-      final existingItem = CartItemModel.fromFirestore(existingDoc);
+      final existingItem = ProductModel.fromFirestore(existingDoc);
       await existingDoc.reference.update({
-        'quantity': existingItem.quantity + item.quantity,
+        'quantity': (existingItem.quantity ?? 0) + (item.quantity ?? 1),
       });
     } else {
       // Add new item
@@ -115,7 +120,7 @@ class FirestoreCartRepository implements CartRepository {
     double total = 0.0;
 
     for (final doc in cartItems.docs) {
-      final item = CartItemModel.fromFirestore(doc);
+      final item = ProductModel.fromFirestore(doc);
       total += item.totalPrice;
     }
 
@@ -132,8 +137,8 @@ class FirestoreCartRepository implements CartRepository {
     int count = 0;
 
     for (final doc in cartItems.docs) {
-      final item = CartItemModel.fromFirestore(doc);
-      count += item.quantity;
+      final item = ProductModel.fromFirestore(doc);
+      count += item.quantity ?? 0;
     }
 
     return count;
@@ -142,23 +147,27 @@ class FirestoreCartRepository implements CartRepository {
 
 // Local storage implementation for offline support
 class LocalCartRepository implements CartRepository {
-  final List<CartItemModel> _cartItems = [];
+  final List<ProductModel> _cartItems = [];
 
   @override
-  Stream<List<CartItemModel>> getCartItems() {
+  Stream<List<ProductModel>> getCartItems() {
     return Stream.value(List.from(_cartItems));
   }
 
   @override
-  Future<void> addToCart(CartItemModel item) async {
+  Future<void> addToCart(ProductModel item) async {
+    if (!item.isCartItem) {
+      throw Exception('Product must be converted to cart item first');
+    }
+
     final existingIndex = _cartItems.indexWhere(
-      (cartItem) =>
-          cartItem.productId == item.productId && cartItem.size == item.size,
+      (cartItem) => cartItem.name == item.name && cartItem.size == item.size,
     );
 
     if (existingIndex != -1) {
       _cartItems[existingIndex] = _cartItems[existingIndex].copyWith(
-        quantity: _cartItems[existingIndex].quantity + item.quantity,
+        quantity:
+            (_cartItems[existingIndex].quantity ?? 0) + (item.quantity ?? 1),
       );
     } else {
       _cartItems.add(
@@ -193,13 +202,21 @@ class LocalCartRepository implements CartRepository {
     _cartItems.clear();
   }
 
-  @override
+@override
   Future<double> getCartTotal() async {
-    return _cartItems.fold(0.0, (total, item) => item.totalPrice);
+    double total = 0.0;
+    for (final item in _cartItems) {
+      total += item.totalPrice;
+    }
+    return total;
   }
 
   @override
   Future<int> getCartItemCount() async {
-    return _cartItems.fold(0, (count, item) => item.quantity);
+    int count = 0;
+    for (final item in _cartItems) {
+      count += item.quantity ?? 0;
+    }
+    return count;
   }
 }

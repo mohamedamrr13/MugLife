@@ -20,7 +20,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
     with TickerProviderStateMixin {
   late AnimationController _headerAnimationController;
   late AnimationController _contentAnimationController;
-  late Animation<double> _headerSlideAnimation;
   late Animation<double> _contentFadeAnimation;
   final TextEditingController _searchController = TextEditingController();
 
@@ -38,12 +37,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
       vsync: this,
     );
 
-    _headerSlideAnimation = Tween<double>(begin: -50, end: 0).animate(
-      CurvedAnimation(
-        parent: _headerAnimationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
 
     _contentFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(

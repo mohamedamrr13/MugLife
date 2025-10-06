@@ -1,12 +1,4 @@
-import 'dart:ui';
-
-import 'package:drinks_app/core/dI/service_locator.dart';
-import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
-import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
-import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
-import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
-import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
@@ -14,7 +6,6 @@ import 'package:drinks_app/utils/theme/theme_toggle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class HomeScreen extends StatelessWidget {

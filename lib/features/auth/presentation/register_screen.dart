@@ -8,7 +8,6 @@ import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/validation/text_validation.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:drinks_app/utils/shared/custom_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
