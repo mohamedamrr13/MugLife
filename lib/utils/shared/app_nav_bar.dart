@@ -3,7 +3,6 @@ import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart'
 import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
-import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo_impl.dart';
 import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
@@ -13,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomPageNavigationBar extends StatefulWidget {
-  const CustomPageNavigationBar({super.key});
-
+  const CustomPageNavigationBar({super.key, this.reroutingIndex});
+  final int? reroutingIndex;
   @override
   State<CustomPageNavigationBar> createState() =>
       _CustomPageNavigationBarState();
@@ -52,7 +51,7 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      body: pages[currentIndex],
+      body: pages[widget.reroutingIndex ?? currentIndex],
       bottomNavigationBar: Container(
         height: 70,
         decoration: BoxDecoration(color: colorScheme.primary.withAlpha(100)),

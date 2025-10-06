@@ -245,11 +245,7 @@ class CustomDrawer extends StatelessWidget {
                       onTap: () {},
                       isSelected: true,
                     ),
-                    DrawerItem(
-                      icon: Icons.favorite_rounded,
-                      title: "Favorites",
-                      onTap: () {},
-                    ),
+
                     DrawerItem(
                       icon: Icons.history_rounded,
                       title: "Order History",
