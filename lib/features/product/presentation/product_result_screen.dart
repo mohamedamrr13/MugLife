@@ -112,6 +112,7 @@ class _ProductResultScreenState extends State<ProductResultScreen>
   Widget _buildCustomAppBar(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 140,
+      collapsedHeight: 80,
       floating: false,
       pinned: true,
       backgroundColor: Colors.transparent,

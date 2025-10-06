@@ -1,10 +1,10 @@
+import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
+import 'package:drinks_app/features/product/presentation/product_shipping_view.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_image.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
-import 'package:drinks_app/features/payment/presentation/payment_screen.dart';
-import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +151,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return PaymentScreen();
+                        return ShippingScreen();
                       },
                     ),
                   ),
