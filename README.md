@@ -147,7 +147,7 @@ lib/
 - Enhanced `CustomButton` with icon support and theme awareness
 
 ### 2. Cart System
-- Complete cart data models (`CartItemModel`)
+- Complete cart data models (`ProductModel`)
 - Cart state management (`CartCubit`, `CartState`)
 - Full cart UI implementation with all necessary widgets
 

@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final CartItemModel item;
+  final ProductModel item;
   final Function(int) onQuantityChanged;
   final VoidCallback onRemove;
 
@@ -182,8 +182,8 @@ class CartItemWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (item.quantity > 1) {
-                          onQuantityChanged(item.quantity - 1);
+                        if (item.quantity! > 1) {
+                          onQuantityChanged(item.quantity! - 1);
                         }
                       },
                       child: Container(
@@ -191,7 +191,7 @@ class CartItemWidget extends StatelessWidget {
                         height: 32,
                         decoration: BoxDecoration(
                           color:
-                              item.quantity > 1
+                              item.quantity! > 1
                                   ? (isDark
                                       ? AppTheme.darkprimaryColor
                                       : AppTheme.primaryColor)
@@ -224,7 +224,7 @@ class CartItemWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        onQuantityChanged(item.quantity + 1);
+                        onQuantityChanged(item.quantity! + 1);
                       },
                       child: Container(
                         width: 32,

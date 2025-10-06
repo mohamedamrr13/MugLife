@@ -5,6 +5,8 @@ import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
 import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
@@ -109,9 +111,12 @@ class AppRouter {
         name: itemDetailsScreen,
         builder: (context, state) {
           Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
-          return ProductDetailsScreen(
-            currentIndex: extra['index'],
-            products: extra['list'],
+          return BlocProvider(
+            create: (context) => CartCubit(FirestoreCartRepository()),
+            child: ProductDetailsScreen(
+              currentIndex: extra['index'],
+              products: extra['list'],
+            ),
           );
         },
       ),
