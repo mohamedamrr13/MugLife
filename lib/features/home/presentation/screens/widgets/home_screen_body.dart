@@ -98,7 +98,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Theme.of(context).primaryColor,
+                      color:
+                          Theme.of(context).isDark ? Colors.grey : Colors.white,
                       boxShadow: [
                         BoxShadow(
                           color: context.primaryColor.withOpacity(0.7),
@@ -152,7 +153,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
           ),
 
           // Bottom spacing
-          SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
       ),
     );
