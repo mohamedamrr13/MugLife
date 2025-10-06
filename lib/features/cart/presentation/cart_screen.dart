@@ -19,13 +19,7 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: theme.colorScheme.onSurface,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+
         title: Text(
           'My Cart',
           style: theme.textTheme.headlineSmall?.copyWith(
@@ -64,7 +58,7 @@ class CartScreen extends StatelessWidget {
               ),
             );
           }
-    
+
           if (state.error != null) {
             return Center(
               child: Column(
@@ -101,11 +95,11 @@ class CartScreen extends StatelessWidget {
               ),
             );
           }
-    
+
           if (state.isEmpty) {
             return const EmptyCartWidget();
           }
-    
+
           return Column(
             children: [
               // Cart Items List
@@ -133,7 +127,7 @@ class CartScreen extends StatelessWidget {
                   },
                 ),
               ),
-    
+
               // Cart Summary and Checkout
               Container(
                 decoration: BoxDecoration(

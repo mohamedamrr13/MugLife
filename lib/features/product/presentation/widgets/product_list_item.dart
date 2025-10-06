@@ -11,7 +11,7 @@ class ProductListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       decoration: BoxDecoration(
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(24),
@@ -37,7 +37,7 @@ class ProductListItem extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: Container(
-          height: 140,
+          height: 160,
           child: Stack(
             children: [
               // Background gradient overlay for visual depth
@@ -89,8 +89,8 @@ class ProductListItem extends StatelessWidget {
                       Hero(
                         tag: 'product-${productModel.name}',
                         child: Container(
-                          width: 90,
-                          height: 90,
+                          width: 70,
+                          height: 70,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color:

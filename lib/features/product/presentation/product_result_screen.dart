@@ -102,7 +102,8 @@ class _ProductResultScreenState extends State<ProductResultScreen>
             // Products Section
             _buildProductsSection(context),
 
-            // Optional: Add bottom spacing
+            // Bottom spacing
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
           ],
         ),
       ),
@@ -111,7 +112,7 @@ class _ProductResultScreenState extends State<ProductResultScreen>
 
   Widget _buildCustomAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 140,
+      expandedHeight: 100,
       collapsedHeight: 80,
       floating: false,
       pinned: true,
@@ -281,14 +282,10 @@ class _ProductResultScreenState extends State<ProductResultScreen>
     return BlocBuilder<GetProductsByCategoryCubit, GetProductsByCategoryState>(
       builder: (context, state) {
         if (state is GetProductsByCategorySuccess) {
-          return SliverFillRemaining(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Section Header
-                ProductListView(products: state.products),
-              ],
-            ),
+          // Use SliverList instead of SliverFillRemaining
+          return ProductListView(
+            products: state.products,
+            scrollController: controller, // Pass the parent's controller
           );
         } else if (state is GetProductsByCategoryFailure) {
           return SliverToBoxAdapter(
