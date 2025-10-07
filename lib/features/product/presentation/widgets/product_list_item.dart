@@ -36,7 +36,7 @@ class ProductListItem extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
-        child: Container(
+        child: SizedBox(
           height: 160,
           child: Stack(
             children: [
@@ -89,8 +89,8 @@ class ProductListItem extends StatelessWidget {
                       Hero(
                         tag: 'product-${productModel.name}',
                         child: Container(
-                          width: 70,
-                          height: 70,
+                          width: 90,
+                          height: 90,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color:
@@ -101,7 +101,7 @@ class ProductListItem extends StatelessWidget {
                           child: ClipOval(
                             child: CachedNetworkImage(
                               imageUrl: productModel.image,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitHeight,
                               placeholder:
                                   (context, url) => Container(
                                     decoration: BoxDecoration(
@@ -144,7 +144,7 @@ class ProductListItem extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 20, 20, 20),
+                  padding: const EdgeInsets.fromLTRB(8, 20, 20, 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,7 +171,7 @@ class ProductListItem extends StatelessWidget {
                                 color: context.secondaryTextColor,
                                 height: 1.3,
                               ),
-                              maxLines: 2,
+                              maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],

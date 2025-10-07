@@ -19,7 +19,7 @@ class ProductListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           final productModel = products[index];
