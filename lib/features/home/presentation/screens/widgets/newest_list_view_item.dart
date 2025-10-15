@@ -32,9 +32,9 @@ class NewestListViewItem extends StatelessWidget {
         children: [
           Positioned(
             bottom: 40,
-            left: 45,
+            left: MediaQuery.of(context).size.width * 0.05 + 20,
             child: Container(
-              width: 160,
+              width: 170,
               height: 350,
               decoration: BoxDecoration(
                 color: AppTheme.primaryColor.withAlpha(50),
@@ -44,7 +44,7 @@ class NewestListViewItem extends StatelessWidget {
           ),
           Positioned(
             bottom: 55,
-            left: 22,
+            left: MediaQuery.of(context).size.width * 0.05,
             child: Container(
               width: 210,
               height: 350,
@@ -104,79 +104,10 @@ class NewestListViewItem extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: CachedNetworkImage(imageUrl: imageAsset),
                       ),
-                      // Replace with your image:
-                      // child: Image.asset(
-                      //   imageAsset,
-                      //   width: 100,
-                      //   height: 100,
-                      //   fit: BoxFit.contain,
-                      // ),
                     ),
                   ),
 
                   Spacer(),
-
-                  // Bottom info section
-                  // Row(
-                  //   children: [
-                  //     Icon(
-                  //       Icons.local_bar_outlined,
-                  //       color: Colors.white,
-                  //       size: 18,
-                  //     ),
-                  //     SizedBox(width: 6),
-                  //     Text(
-                  //       type,
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w500,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-
-                  // SizedBox(height: 12),
-
-                  // Row(
-                  //   children: [
-                  //     Icon(Icons.access_time, color: Colors.white, size: 18),
-                  //     SizedBox(width: 6),
-                  //     Text(
-                  //       duration,
-                  //       style: TextStyle(color: Colors.white, fontSize: 16),
-                  //     ),
-                  //     Spacer(),
-                  //     Text(
-                  //       difficulty,
-                  //       style: TextStyle(color: Colors.white, fontSize: 16),
-                  //     ),
-                  //   ],
-                  // ),
-
-                  // SizedBox(height: 12),
-
-                  // Row(
-                  //   children: [
-                  //     Icon(Icons.favorite, color: Colors.white, size: 18),
-                  //     SizedBox(width: 6),
-                  //     Text(
-                  //       likes.toString(),
-                  //       style: TextStyle(color: Colors.white, fontSize: 16),
-                  //     ),
-                  //     Spacer(),
-                  //     // Star rating
-                  //     Row(
-                  //       children: List.generate(5, (index) {
-                  //         return Icon(
-                  //           index < rating ? Icons.star : Icons.star_border,
-                  //           color: Colors.amber,
-                  //           size: 18,
-                  //         );
-                  //       }),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,7 +54,7 @@ class ShippingScreenState extends State<ShippingScreen> {
           builder:
               (context) => PaymentView(
                 onPaymentSuccess: () {
-                  Navigator.pop(context);
+                  debugPrint("Success");
                 },
                 onPaymentError: () {
                   ScaffoldMessenger.of(
@@ -88,15 +91,15 @@ class ShippingScreenState extends State<ShippingScreen> {
                       label: 'Full Name',
                       hint: 'Enter your full name',
                       prefixIcon: Icons.person_outline,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        if (value.length < 3) {
-                          return 'Name must be at least 3 characters';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter your name';
+                      //   }
+                      //   if (value.length < 3) {
+                      //     return 'Name must be at least 3 characters';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     const SizedBox(height: 16),
                     ShippingTextField(
@@ -109,15 +112,15 @@ class ShippingScreenState extends State<ShippingScreen> {
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(15),
                       ],
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your phone number';
-                        }
-                        if (value.length < 10) {
-                          return 'Please enter a valid phone number';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter your phone number';
+                      //   }
+                      //   if (value.length < 10) {
+                      //     return 'Please enter a valid phone number';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     const SizedBox(height: 32),
                     ShippingSectionHeader(title: 'Shipping Address'),
@@ -127,12 +130,12 @@ class ShippingScreenState extends State<ShippingScreen> {
                       label: 'Address Line 1',
                       hint: 'Street address',
                       prefixIcon: Icons.location_on_outlined,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your address';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter your address';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     const SizedBox(height: 16),
                     ShippingTextField(
@@ -150,12 +153,12 @@ class ShippingScreenState extends State<ShippingScreen> {
                             label: 'City',
                             hint: 'Enter city',
                             prefixIcon: Icons.location_city_outlined,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Required';
-                              }
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Required';
+                            //   }
+                            //   return null;
+                            // },
                           ),
                         ),
                       ],

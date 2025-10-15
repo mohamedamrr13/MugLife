@@ -53,6 +53,7 @@ dependencies:
   liquid_glass_renderer: ^0.1.1-dev.10
   pay_with_paymob: ^1.4.0
   shared_preferences: ^2.2.2
+  skeletonizer: ^2.1.0+1
   sqflite: ^2.4.2
   url_launcher: ^6.3.2
 

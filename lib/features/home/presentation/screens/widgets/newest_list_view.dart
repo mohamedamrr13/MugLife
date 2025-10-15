@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class NewestItemsListView extends StatefulWidget {
-  const NewestItemsListView({super.key});
+class FeaturedItemsListView extends StatefulWidget {
+  const FeaturedItemsListView({super.key});
 
   @override
-  State<NewestItemsListView> createState() => _NewestItemsListViewState();
+  State<FeaturedItemsListView> createState() => _FeaturedItemsListViewState();
 }
 
-class _NewestItemsListViewState extends State<NewestItemsListView> {
+class _FeaturedItemsListViewState extends State<FeaturedItemsListView> {
   final PageController _pageController = PageController(viewportFraction: 0.7);
   int _currentIndex = 0;
 
