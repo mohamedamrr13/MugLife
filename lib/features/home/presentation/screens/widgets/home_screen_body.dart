@@ -1,13 +1,16 @@
 import 'dart:ui';
+import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
+import 'package:drinks_app/utils/helper/secure_storage.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
-import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -26,7 +29,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
   @override
   void initState() {
     super.initState();
-
+    initializePaymentData();
     _headerAnimationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -36,7 +39,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-
 
     _contentFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
@@ -52,6 +54,34 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
     Future.delayed(const Duration(milliseconds: 300), () {
       _contentAnimationController.forward();
     });
+  }
+
+  void initializePaymentData() async {
+    PaymobSecureStorage.setApiKey();
+    PaymobSecureStorage.setMobileWalletId();
+    PaymobSecureStorage.setTransactionId();
+
+    PaymentData.initialize(
+      style: Style(
+        scaffoldColor:
+            ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.white,
+        textStyle: TextStyle(
+          color:
+              ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.black,
+        ),
+        primaryColor: AppTheme.primaryColor,
+        appBarBackgroundColor: AppTheme.primaryColor,
+        circleProgressColor: AppTheme.primaryColor,
+        buttonStyle: ButtonStyle(
+          iconColor: WidgetStatePropertyAll(Colors.white),
+        ),
+      ),
+      apiKey: (await AppSecureStorage.getString('api_key'))!,
+      integrationCardId: (await AppSecureStorage.getString('transaction_id'))!,
+      iframeId: "934476",
+      integrationMobileWalletId:
+          (await AppSecureStorage.getString('wallet_id'))!,
+    );
   }
 
   @override
@@ -126,7 +156,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
               builder: (context, child) {
                 return Opacity(
                   opacity: _contentFadeAnimation.value,
-                  child: _buildCategoriesSection(context),
+                  child: CategoriesSection(),
                 );
               },
             ),
@@ -139,7 +169,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
               builder: (context, child) {
                 return Opacity(
                   opacity: _contentFadeAnimation.value,
-                  child: _buildFeaturedSection(context),
+                  child: FeaturedSection(),
                 );
               },
             ),
@@ -150,55 +180,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
       ),
     );
   }
+}
 
-  Widget _buildCategoriesSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Categories",
-                style: context.textTheme.headlineSmall?.copyWith(
-                  color: context.primaryTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                height: 3,
-                width: 40,
-                margin: const EdgeInsets.only(top: 4),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      context.primaryColor,
-                      context.primaryColor.withOpacity(0.5),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ],
-          ),
-        ),
-        BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
-          builder: (context, state) {
-            if (state is GetCategoriesSuccess) {
-              return CategoreisListView(categories: state.categories);
-            } else if (state is GetCategoriesFailure) {
-              return _buildErrorWidget(context, state.errMessage);
-            }
-            return SizedBox(height: 200, child: LoadingDataWidget());
-          },
-        ),
-      ],
-    );
-  }
+class FeaturedSection extends StatelessWidget {
+  const FeaturedSection({super.key});
 
-  Widget _buildFeaturedSection(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -273,12 +261,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
             ],
           ),
         ),
-        NewestItemsListView(),
+        FeaturedItemsListView(),
       ],
     );
   }
+}
 
-  Widget _buildErrorWidget(BuildContext context, String message) {
+class ErrorWidget extends StatelessWidget {
+  const ErrorWidget({super.key, required this.message});
+  final String message;
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 200,
       margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -326,6 +319,70 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
           ],
         ),
       ),
+    );
+  }
+}
+
+class CategoriesSection extends StatelessWidget {
+  const CategoriesSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Categories",
+                style: context.textTheme.headlineSmall?.copyWith(
+                  color: context.primaryTextColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                height: 3,
+                width: 40,
+                margin: const EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      context.primaryColor,
+                      context.primaryColor.withOpacity(0.5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ],
+          ),
+        ),
+        BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+          builder: (context, state) {
+            if (state is GetCategoriesSuccess) {
+              return CategoreisListView(categories: state.categories);
+            } else if (state is GetCategoriesFailure) {
+              return ErrorWidget(message: state.errMessage);
+            }
+            // Loading state with Skeletonizer
+            return Skeletonizer(
+              enabled: true,
+              child: CategoreisListView(
+                categories: List.generate(
+                  4,
+                  (index) => CategoryModel(
+                    image: '',
+                    name: '',
+                  ), // Create dummy Category objects
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

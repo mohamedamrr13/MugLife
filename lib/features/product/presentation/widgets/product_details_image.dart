@@ -30,7 +30,7 @@ class ProductDetailsImage extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   placeholder: (context, url) {
-                    return LoadingDataWidget();
+                    return Icon(Icons.image);
                   },
                   imageUrl: product.image,
                   height: screenHeight * 0.42,
