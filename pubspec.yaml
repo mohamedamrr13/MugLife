@@ -41,6 +41,9 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_credit_card: ^4.1.0
+  flutter_dotenv: ^6.0.0
+  flutter_paymob: ^1.0.8
+  flutter_secure_storage: ^9.2.4
   flutter_svg: ^2.2.0
   get_it: ^8.2.0
   go_router: ^16.0.0
@@ -48,6 +51,7 @@ dependencies:
   google_sign_in: ^6.2.2
   iconsax: ^0.0.8
   liquid_glass_renderer: ^0.1.1-dev.10
+  pay_with_paymob: ^1.4.0
   shared_preferences: ^2.2.2
   sqflite: ^2.4.2
   url_launcher: ^6.3.2
@@ -72,6 +76,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - .env
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

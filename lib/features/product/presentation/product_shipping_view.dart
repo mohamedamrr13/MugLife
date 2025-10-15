@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 class ShippingScreen extends StatefulWidget {
   const ShippingScreen({super.key});
@@ -44,7 +45,23 @@ class ShippingScreenState extends State<ShippingScreen> {
         'saveAddress': saveAddress,
       };
 
-      Navigator.pop(context, shippingData);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder:
+              (context) => PaymentView(
+                onPaymentSuccess: () {
+                  Navigator.pop(context);
+                },
+                onPaymentError: () {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Error happened")));
+                },
+                price: 100,
+              ),
+        ),
+      );
     }
   }
 
