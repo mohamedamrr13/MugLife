@@ -41,7 +41,7 @@ class ProductDetailsImage extends StatelessWidget {
                   left: 10,
                   child: Opacity(
                     opacity: 0.6,
-                    child: Image.asset("assets/drinks/Ellipse 2.png"),
+                    child: Image.asset("assets/images/Ellipse 2.png"),
                   ),
                 ),
               ],
