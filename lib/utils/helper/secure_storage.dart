@@ -18,14 +18,7 @@ class AppSecureStorage {
     }
   }
 
-  static Future<String?> getInt(String key) async {
-    try {
-      return await _storage.read(key: key);
-    } catch (e) {
-      print('Error reading secure storage: $e');
-      return null;
-    }
-  }
+
 
   /// Get boolean value from secure storage
   static Future<bool?> getBool(String key) async {
@@ -49,14 +42,7 @@ class AppSecureStorage {
     }
   }
 
-  static Future<void> setInt(String key, String value) async {
-    try {
-      await _storage.write(key: key, value: value);
-    } catch (e) {
-      print('Error writing to secure storage: $e');
-      rethrow;
-    }
-  }
+
 
   /// Set boolean value in secure storage
   static Future<void> setBool(String key, bool value) async {

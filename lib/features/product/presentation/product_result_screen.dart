@@ -145,47 +145,44 @@ class _ProductResultScreenState extends State<ProductResultScreen>
                 ),
               ),
               child: ClipRRect(
-                child: LiquidGlassLayer(
-                  settings: LiquidGlassSettings(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          context.isDark
-                              ? Colors.white.withOpacity(0.05)
-                              : Colors.white.withOpacity(0.3),
-                      border: Border(
-                        bottom: BorderSide(
-                          color:
-                              context.isDark
-                                  ? Colors.white.withOpacity(0.1)
-                                  : context.primaryColor.withOpacity(0.15),
-                          width: 0.5,
-                        ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color:
+                        context.isDark
+                            ? Colors.white.withOpacity(0.05)
+                            : Colors.white.withOpacity(0.3),
+                    border: Border(
+                      bottom: BorderSide(
+                        color:
+                            context.isDark
+                                ? Colors.white.withOpacity(0.1)
+                                : context.primaryColor.withOpacity(0.15),
+                        width: 0.5,
                       ),
                     ),
-                    child: FlexibleSpaceBar(
-                      titlePadding: const EdgeInsets.only(left: 70, bottom: 16),
-                      title: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            HelperFunctions.capitalize(widget.category),
-                            style: context.textTheme.headlineSmall?.copyWith(
-                              color: context.primaryTextColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  ),
+                  child: FlexibleSpaceBar(
+                    titlePadding: const EdgeInsets.only(left: 70, bottom: 16),
+                    title: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          HelperFunctions.capitalize(widget.category),
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            color: context.primaryTextColor,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(height: 2),
-                          Text(
-                            "Choose Your Favourite",
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.primaryTextColor.withOpacity(0.7),
-                              fontWeight: FontWeight.w500,
-                            ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          "Choose Your Favourite",
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.primaryTextColor.withOpacity(0.7),
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -220,16 +217,13 @@ class _ProductResultScreenState extends State<ProductResultScreen>
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: LiquidGlassLayer(
-            settings: LiquidGlassSettings(),
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: context.primaryTextColor,
-                size: 20,
-              ),
-              onPressed: () => Navigator.pop(context),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: context.primaryTextColor,
+              size: 20,
             ),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
       ),
@@ -258,18 +252,15 @@ class _ProductResultScreenState extends State<ProductResultScreen>
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: LiquidGlassLayer(
-              settings: LiquidGlassSettings(),
-              child: IconButton(
-                icon: Icon(
-                  Icons.shopping_cart_rounded,
-                  color: Colors.white,
-                  size: 22,
-                ),
-                onPressed: () {
-                  // Navigate to cart
-                },
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart_rounded,
+                color: Colors.white,
+                size: 22,
               ),
+              onPressed: () {
+                // Navigate to cart
+              },
             ),
           ),
         ),
@@ -317,52 +308,49 @@ class _ProductResultScreenState extends State<ProductResultScreen>
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
-        child: LiquidGlassLayer(
-          settings: LiquidGlassSettings(),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.error_outline_rounded, color: Colors.red, size: 64),
-                const SizedBox(height: 20),
-                Text(
-                  "Oops! Something went wrong",
-                  style: context.textTheme.titleLarge?.copyWith(
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline_rounded, color: Colors.red, size: 64),
+              const SizedBox(height: 20),
+              Text(
+                "Oops! Something went wrong",
+                style: context.textTheme.titleLarge?.copyWith(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: Colors.red.withOpacity(0.8),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: () {
+                  BlocProvider.of<GetProductsByCategoryCubit>(
+                    context,
+                  ).getProductsByCategory(widget.category);
+                },
+                icon: Icon(Icons.refresh_rounded),
+                label: Text("Try Again"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
                   ),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  message,
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: Colors.red.withOpacity(0.8),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    BlocProvider.of<GetProductsByCategoryCubit>(
-                      context,
-                    ).getProductsByCategory(widget.category);
-                  },
-                  icon: Icon(Icons.refresh_rounded),
-                  label: Text("Try Again"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -84,7 +84,7 @@ class _CategoryItemState extends State<CategoryItem>
   @override
   Widget build(BuildContext context) {
     // Define clampedHover based on _hoverAnimation.value
-    
+
     _hoverAnimation.value.clamp(0.0, 1.0);
 
     return Padding(
@@ -175,207 +175,192 @@ class _CategoryItemState extends State<CategoryItem>
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: LiquidGlass(
-                    shape: LiquidRoundedRectangle(
-                      borderRadius: Radius.circular(22),
-                    ),
-                    settings: LiquidGlassSettings(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            context.isDark
-                                ? Colors.white.withOpacity(0.03)
-                                : Colors.white.withOpacity(0.2),
-                            context.isDark
-                                ? Colors.white.withOpacity(0.01)
-                                : Colors.white.withOpacity(0.1),
-                          ],
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 20),
-                          // Image container with improved stability
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  context.isDark
-                                      ? Colors.white.withOpacity(0.1)
-                                      : Colors.white.withOpacity(0.6),
-                                  context.isDark
-                                      ? Colors.white.withOpacity(0.05)
-                                      : Colors.white.withOpacity(0.3),
-                                ],
-                              ),
-                              border: Border.all(
-                                color:
-                                    context.isDark
-                                        ? Colors.white.withOpacity(0.2)
-                                        : Colors.white.withOpacity(0.4),
-                                width: 1,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      context.isDark
-                                          ? Colors.black.withOpacity(0.3)
-                                          : context.primaryColor.withOpacity(
-                                            0.1,
-                                          ),
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 8),
-                                ),
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: LiquidGlass(
-                                shape: LiquidRoundedRectangle(
-                                  borderRadius: Radius.circular(360),
-                                ),
-                                settings: LiquidGlassSettings(),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        context.isDark
-                                            ? Colors.white.withOpacity(0.05)
-                                            : Colors.white.withOpacity(0.3),
-                                        context.isDark
-                                            ? Colors.white.withOpacity(0.02)
-                                            : Colors.white.withOpacity(0.1),
-                                      ],
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.all(12),
-                                  child: CachedNetworkImage(
-                                    imageUrl: widget.category.image,
-                                    fit: BoxFit.cover,
-                                    placeholder:
-                                        (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                context.primaryColor
-                                                    .withOpacity(0.2),
-                                                context.primaryColor
-                                                    .withOpacity(0.1),
-                                              ],
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Center(
-                                            child: SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: CircularProgressIndicator(
-                                                color: context.primaryColor,
-                                                strokeWidth: 2,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                    errorWidget:
-                                        (context, url, error) => Container(
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Colors.red.withOpacity(0.2),
-                                                Colors.red.withOpacity(0.1),
-                                              ],
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Icon(
-                                            Icons.error_outline_rounded,
-                                            color: Colors.red,
-                                            size: 28,
-                                          ),
-                                        ),
-                                    fadeInDuration: const Duration(
-                                      milliseconds: 300,
-                                    ),
-                                    fadeOutDuration: const Duration(
-                                      milliseconds: 300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          // Category name with stable positioning
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            constraints: const BoxConstraints(
-                              minHeight: 36, // Ensure consistent height
-                              maxWidth: 136, // Prevent overflow
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  context.isDark
-                                      ? Colors.white.withOpacity(0.08)
-                                      : Colors.white.withOpacity(0.5),
-                                  context.isDark
-                                      ? Colors.white.withOpacity(0.03)
-                                      : Colors.white.withOpacity(0.2),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color:
-                                    context.isDark
-                                        ? Colors.white.withOpacity(0.15)
-                                        : Colors.white.withOpacity(0.6),
-                                width: 1,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: LiquidGlassLayer(
-                                settings: LiquidGlassSettings(),
-                                child: Center(
-                                  child: Text(
-                                    widget.category.name,
-                                    style: context.textTheme.titleMedium?.copyWith(
-                                      color: context.primaryTextColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize:
-                                          14, // Fixed font size to prevent layout shifts
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          context.isDark
+                              ? Colors.white.withOpacity(0.03)
+                              : Colors.white.withOpacity(0.2),
+                          context.isDark
+                              ? Colors.white.withOpacity(0.01)
+                              : Colors.white.withOpacity(0.1),
                         ],
                       ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+                        // Image container with improved stability
+                        Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                context.isDark
+                                    ? Colors.white.withOpacity(0.1)
+                                    : Colors.white.withOpacity(0.6),
+                                context.isDark
+                                    ? Colors.white.withOpacity(0.05)
+                                    : Colors.white.withOpacity(0.3),
+                              ],
+                            ),
+                            border: Border.all(
+                              color:
+                                  context.isDark
+                                      ? Colors.white.withOpacity(0.2)
+                                      : Colors.white.withOpacity(0.4),
+                              width: 1,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    context.isDark
+                                        ? Colors.black.withOpacity(0.3)
+                                        : context.primaryColor.withOpacity(0.1),
+                                blurRadius: 5,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    context.isDark
+                                        ? Colors.white.withOpacity(0.05)
+                                        : Colors.white.withOpacity(0.3),
+                                    context.isDark
+                                        ? Colors.white.withOpacity(0.02)
+                                        : Colors.white.withOpacity(0.1),
+                                  ],
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.category.image,
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    (context, url) => Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            context.primaryColor.withOpacity(
+                                              0.2,
+                                            ),
+                                            context.primaryColor.withOpacity(
+                                              0.1,
+                                            ),
+                                          ],
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Center(
+                                        child: SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            color: context.primaryColor,
+                                            strokeWidth: 2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                errorWidget:
+                                    (context, url, error) => Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.red.withOpacity(0.2),
+                                            Colors.red.withOpacity(0.1),
+                                          ],
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.error_outline_rounded,
+                                        color: Colors.red,
+                                        size: 28,
+                                      ),
+                                    ),
+                                fadeInDuration: const Duration(
+                                  milliseconds: 300,
+                                ),
+                                fadeOutDuration: const Duration(
+                                  milliseconds: 300,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Category name with stable positioning
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          constraints: const BoxConstraints(
+                            minHeight: 36, // Ensure consistent height
+                            maxWidth: 136, // Prevent overflow
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                context.isDark
+                                    ? Colors.white.withOpacity(0.08)
+                                    : Colors.white.withOpacity(0.5),
+                                context.isDark
+                                    ? Colors.white.withOpacity(0.03)
+                                    : Colors.white.withOpacity(0.2),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color:
+                                  context.isDark
+                                      ? Colors.white.withOpacity(0.15)
+                                      : Colors.white.withOpacity(0.6),
+                              width: 1,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Center(
+                              child: Text(
+                                widget.category.name,
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: context.primaryTextColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize:
+                                      14, // Fixed font size to prevent layout shifts
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),

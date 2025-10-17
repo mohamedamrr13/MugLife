@@ -29,7 +29,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
   @override
   void initState() {
     super.initState();
-    initializePaymentData();
+   // initializePaymentData();
     _headerAnimationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -56,33 +56,33 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
     });
   }
 
-  void initializePaymentData() async {
-    PaymobSecureStorage.setApiKey();
-    PaymobSecureStorage.setMobileWalletId();
-    PaymobSecureStorage.setTransactionId();
+  // void initializePaymentData() async {
+  //   PaymobSecureStorage.setApiKey();
+  //   PaymobSecureStorage.setMobileWalletId();
+  //   PaymobSecureStorage.setTransactionId();
 
-    PaymentData.initialize(
-      style: Style(
-        scaffoldColor:
-            ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.white,
-        textStyle: TextStyle(
-          color:
-              ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.black,
-        ),
-        primaryColor: AppTheme.primaryColor,
-        appBarBackgroundColor: AppTheme.primaryColor,
-        circleProgressColor: AppTheme.primaryColor,
-        buttonStyle: ButtonStyle(
-          iconColor: WidgetStatePropertyAll(Colors.white),
-        ),
-      ),
-      apiKey: (await AppSecureStorage.getString('api_key'))!,
-      integrationCardId: (await AppSecureStorage.getString('transaction_id'))!,
-      iframeId: "934476",
-      integrationMobileWalletId:
-          (await AppSecureStorage.getString('wallet_id'))!,
-    );
-  }
+  //   PaymentData.initialize(
+  //     style: Style(
+  //       scaffoldColor:
+  //           ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.white,
+  //       textStyle: TextStyle(
+  //         color:
+  //             ThemeMode.system == ThemeMode.dark ? Colors.white : Colors.black,
+  //       ),
+  //       primaryColor: AppTheme.primaryColor,
+  //       appBarBackgroundColor: AppTheme.primaryColor,
+  //       circleProgressColor: AppTheme.primaryColor,
+  //       buttonStyle: ButtonStyle(
+  //         iconColor: WidgetStatePropertyAll(Colors.white),
+  //       ),
+  //     ),
+  //     apiKey: (await AppSecureStorage.getString('api_key'))!,
+  //     integrationCardId: (await AppSecureStorage.getString('transaction_id'))!,
+  //     iframeId: "934476",
+  //     integrationMobileWalletId:
+  //         (await AppSecureStorage.getString('wallet_id'))!,
+  //   );
+  // }
 
   @override
   void dispose() {
