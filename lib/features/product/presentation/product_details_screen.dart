@@ -1,6 +1,6 @@
 import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/features/product/presentation/product_shipping_view.dart';
+import 'package:drinks_app/features/payment/presentation/product_shipping_view.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_image.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';

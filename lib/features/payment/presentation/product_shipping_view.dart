@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:drinks_app/features/payment/presentation/payment_options_view.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
-import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 class ShippingScreen extends StatefulWidget {
   const ShippingScreen({super.key});
@@ -36,7 +37,7 @@ class ShippingScreenState extends State<ShippingScreen> {
     super.dispose();
   }
 
-  void handleContinue() {
+  void handleContinue() async {
     if (formKey.currentState!.validate()) {
       final shippingData = {
         'name': nameController.text,
@@ -47,22 +48,12 @@ class ShippingScreenState extends State<ShippingScreen> {
 
         'saveAddress': saveAddress,
       };
-
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder:
-              (context) => PaymentView(
-                onPaymentSuccess: () {
-                  debugPrint("Success");
-                },
-                onPaymentError: () {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Error happened")));
-                },
-                price: 100,
-              ),
+          builder: (context) {
+            return PaymentView();
+          },
         ),
       );
     }
@@ -235,16 +226,13 @@ class ShippingAppBar extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: LiquidGlassLayer(
-            settings: LiquidGlassSettings(blur: 5, refractiveIndex: 1),
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: context.primaryTextColor,
-                size: 20,
-              ),
-              onPressed: () => Navigator.pop(context),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: context.primaryTextColor,
+              size: 20,
             ),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
       ),
@@ -266,45 +254,42 @@ class ShippingAppBar extends StatelessWidget {
           ),
         ),
         child: ClipRRect(
-          child: LiquidGlassLayer(
-            settings: LiquidGlassSettings(),
-            child: Container(
-              decoration: BoxDecoration(
-                color:
-                    context.isDark
-                        ? Colors.white.withOpacity(0.05)
-                        : Colors.white.withOpacity(0.3),
-                border: Border(
-                  bottom: BorderSide(
-                    color:
-                        context.isDark
-                            ? Colors.white.withOpacity(0.1)
-                            : context.primaryColor.withOpacity(0.15),
-                    width: 0.5,
-                  ),
+          child: Container(
+            decoration: BoxDecoration(
+              color:
+                  context.isDark
+                      ? Colors.white.withOpacity(0.05)
+                      : Colors.white.withOpacity(0.3),
+              border: Border(
+                bottom: BorderSide(
+                  color:
+                      context.isDark
+                          ? Colors.white.withOpacity(0.1)
+                          : context.primaryColor.withOpacity(0.15),
+                  width: 0.5,
                 ),
               ),
-              child: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.only(left: 60, bottom: 16),
-                title: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Shipping Details',
-                      style: context.textTheme.titleLarge?.copyWith(
-                        color: context.primaryTextColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+            ),
+            child: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.only(left: 60, bottom: 16),
+              title: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Shipping Details',
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: context.primaryTextColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      'Enter your delivery information',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: context.secondaryTextColor,
-                      ),
+                  ),
+                  Text(
+                    'Enter your delivery information',
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: context.secondaryTextColor,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

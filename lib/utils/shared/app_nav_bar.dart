@@ -10,6 +10,7 @@ import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/features/settings/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class CustomPageNavigationBar extends StatefulWidget {
   const CustomPageNavigationBar({super.key, this.reroutingIndex});

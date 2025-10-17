@@ -34,16 +34,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         child: ClipRRect(
-          child: LiquidGlassLayer(
-            settings: LiquidGlassSettings(thickness: 200),
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.surfaceColor.withOpacity(0.8),
-                border: Border(
-                  bottom: BorderSide(
-                    color: context.primaryColor.withOpacity(0.2),
-                    width: 0.5,
-                  ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.surfaceColor.withOpacity(0.8),
+              border: Border(
+                bottom: BorderSide(
+                  color: context.primaryColor.withOpacity(0.2),
+                  width: 0.5,
                 ),
               ),
             ),
