@@ -1,5 +1,6 @@
 import 'package:drinks_app/core/di/service_locator.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
