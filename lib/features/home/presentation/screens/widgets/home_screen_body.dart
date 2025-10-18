@@ -4,12 +4,10 @@ import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categori
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categoreis_list_view.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
-import 'package:drinks_app/utils/helper/secure_storage.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pay_with_paymob/pay_with_paymob.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreenBody extends StatefulWidget {
@@ -29,7 +27,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
   @override
   void initState() {
     super.initState();
-   // initializePaymentData();
+    // initializePaymentData();
     _headerAnimationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -111,43 +109,43 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
           // Add space for app bar
           SliverToBoxAdapter(child: SizedBox(height: 120)),
 
-          // Search Bar
-          SliverToBoxAdapter(
-            child: AnimatedBuilder(
-              animation: _contentFadeAnimation,
-              builder: (context, child) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color:
-                          Theme.of(context).isDark ? Colors.grey : Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: context.primaryColor.withOpacity(0.7),
-                          blurRadius: 1,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppTheme.primaryColor,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          // // Search Bar
+          // SliverToBoxAdapter(
+          //   child: AnimatedBuilder(
+          //     animation: _contentFadeAnimation,
+          //     builder: (context, child) {
+          //       return Padding(
+          //         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(12),
+          //             color:
+          //                 Theme.of(context).isDark ? Colors.grey : Colors.white,
+          //             boxShadow: [
+          //               BoxShadow(
+          //                 color: context.primaryColor.withOpacity(0.7),
+          //                 blurRadius: 1,
+          //                 spreadRadius: 1,
+          //               ),
+          //             ],
+          //           ),
+          //           child: TextField(
+          //             decoration: InputDecoration(
+          //               hintText: "Search",
+          //               focusedBorder: OutlineInputBorder(
+          //                 borderSide: BorderSide(
+          //                   color: AppTheme.primaryColor,
+          //                   width: 2,
+          //                 ),
+          //                 borderRadius: BorderRadius.circular(12),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
 
           // Categories Section
           SliverToBoxAdapter(

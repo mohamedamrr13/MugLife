@@ -5,7 +5,7 @@ import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
 import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';

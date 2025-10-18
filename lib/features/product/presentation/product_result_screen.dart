@@ -7,7 +7,6 @@ import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class ProductResultScreen extends StatefulWidget {
   const ProductResultScreen({super.key, required this.category});
