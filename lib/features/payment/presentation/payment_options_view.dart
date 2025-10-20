@@ -1,3 +1,4 @@
+import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
@@ -11,7 +12,7 @@ class PaymentView extends StatefulWidget {
 
 class _PaymentViewState extends State<PaymentView> {
   String _selectedPaymentMethod = 'Card';
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +62,7 @@ class _PaymentViewState extends State<PaymentView> {
           const SizedBox(height: 30),
           const Spacer(),
           _buildConfirmPaymentButton(context),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -110,8 +112,10 @@ class _PaymentViewState extends State<PaymentView> {
 
   Widget _buildConfirmPaymentButton(BuildContext context) {
     return Center(
-      child: ElevatedButton(
+      child: CustomButton(
+        isLoading: isLoading,
         onPressed: () async {
+          isLoading = true;
           if (_selectedPaymentMethod == 'Card') {
             await FlutterPaymob.instance.payWithCard(
               title: Text("Card Payment"), // Optional - Custom title AppBar
@@ -132,22 +136,13 @@ class _PaymentViewState extends State<PaymentView> {
                 }
               },
             );
-          }else{
-            
+          } else {
+            //TODO: Pay With Cash
           }
+          isLoading = false;
         },
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: context.primaryColor,
-          foregroundColor: Colors.white,
-        ),
-        child: const Text(
-          'Confirm Payment',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
+        text: 'Confirm Payment',
+        width: 300,
       ),
     );
   }

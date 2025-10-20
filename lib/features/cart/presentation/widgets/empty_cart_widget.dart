@@ -68,7 +68,7 @@ class EmptyCartWidget extends StatelessWidget {
             const SizedBox(height: 48),
 
             // Start Shopping Button
-            CustomElevatedButton(
+            CustomButton(
               onPressed: () {
                 Navigator.pushReplacement(
                   context,

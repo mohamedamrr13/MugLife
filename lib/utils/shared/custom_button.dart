@@ -1,7 +1,7 @@
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
-class CustomElevatedButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
   final bool isLoading;
@@ -15,7 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? elevation;
 
-  const CustomElevatedButton({
+  const CustomButton({
     super.key,
     required this.onPressed,
     required this.text,

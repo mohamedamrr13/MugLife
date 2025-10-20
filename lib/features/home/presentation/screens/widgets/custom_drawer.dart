@@ -64,12 +64,13 @@ class CustomDrawer extends StatelessWidget {
                           size: 40,
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
                       Text(
                         "Welcome Back!",
                         style: context.textTheme.headlineSmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
                       Text(
