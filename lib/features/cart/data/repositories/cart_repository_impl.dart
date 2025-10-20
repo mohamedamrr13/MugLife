@@ -19,7 +19,7 @@ class FirestoreCartRepository implements CartRepository {
   @override
   Stream<List<ProductModel>> getCartItems() {
     if (_userId == null) {
-      return Stream.value([]);
+      return Stream.error(Exception('User not authenticated'));
     }
 
     return _cartCollection.orderBy('addedAt', descending: true).snapshots().map(
@@ -37,15 +37,18 @@ class FirestoreCartRepository implements CartRepository {
       throw Exception('User not authenticated');
     }
 
-    // Ensure item has cart-specific fields
     if (!item.isCartItem) {
       throw Exception('Product must be converted to cart item first');
+    }
+
+    if (item.id.isEmpty) {
+      throw Exception('Product ID cannot be empty');
     }
 
     // Check if item with same product ID and size already exists
     final existingQuery =
         await _cartCollection
-            .where('name', isEqualTo: item.name)
+            .where('productId', isEqualTo: item.id)
             .where('size', isEqualTo: item.size)
             .get();
 
@@ -57,8 +60,11 @@ class FirestoreCartRepository implements CartRepository {
         'quantity': (existingItem.quantity ?? 0) + (item.quantity ?? 1),
       });
     } else {
-      // Add new item
-      await _cartCollection.add(item.toFirestore());
+      // Add new item with addedAt timestamp
+      final itemData = item.toFirestore();
+      itemData['productId'] = item.id;
+      itemData['addedAt'] = FieldValue.serverTimestamp();
+      await _cartCollection.add(itemData);
     }
   }
 
@@ -107,15 +113,19 @@ class FirestoreCartRepository implements CartRepository {
       return 0.0;
     }
 
-    final cartItems = await _cartCollection.get();
-    double total = 0.0;
+    try {
+      final cartItems = await _cartCollection.get();
+      double total = 0.0;
 
-    for (final doc in cartItems.docs) {
-      final item = ProductModel.fromFirestore(doc);
-      total += item.totalPrice;
+      for (final doc in cartItems.docs) {
+        final item = ProductModel.fromFirestore(doc);
+        total += item.totalPrice;
+      }
+
+      return total;
+    } catch (e) {
+      throw Exception('Failed to calculate cart total: $e');
     }
-
-    return total;
   }
 
   @override
@@ -124,90 +134,18 @@ class FirestoreCartRepository implements CartRepository {
       return 0;
     }
 
-    final cartItems = await _cartCollection.get();
-    int count = 0;
+    try {
+      final cartItems = await _cartCollection.get();
+      int count = 0;
 
-    for (final doc in cartItems.docs) {
-      final item = ProductModel.fromFirestore(doc);
-      count += item.quantity ?? 0;
+      for (final doc in cartItems.docs) {
+        final item = ProductModel.fromFirestore(doc);
+        count += item.quantity ?? 0;
+      }
+
+      return count;
+    } catch (e) {
+      throw Exception('Failed to get cart item count: $e');
     }
-
-    return count;
-  }
-}
-
-// Local storage implementation for offline support
-class LocalCartRepository implements CartRepository {
-  final List<ProductModel> _cartItems = [];
-
-  @override
-  Stream<List<ProductModel>> getCartItems() {
-    return Stream.value(List.from(_cartItems));
-  }
-
-  @override
-  Future<void> addToCart(ProductModel item) async {
-    if (!item.isCartItem) {
-      throw Exception('Product must be converted to cart item first');
-    }
-
-    final existingIndex = _cartItems.indexWhere(
-      (cartItem) => cartItem.name == item.name && cartItem.size == item.size,
-    );
-
-    if (existingIndex != -1) {
-      _cartItems[existingIndex] = _cartItems[existingIndex].copyWith(
-        quantity:
-            (_cartItems[existingIndex].quantity ?? 0) + (item.quantity ?? 1),
-      );
-    } else {
-      _cartItems.add(
-        item.copyWith(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          addedAt: DateTime.now(),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<void> updateCartItem(String itemId, int quantity) async {
-    if (quantity <= 0) {
-      await removeFromCart(itemId);
-      return;
-    }
-
-    final index = _cartItems.indexWhere((item) => item.id == itemId);
-    if (index != -1) {
-      _cartItems[index] = _cartItems[index].copyWith(quantity: quantity);
-    }
-  }
-
-  @override
-  Future<void> removeFromCart(String itemId) async {
-    _cartItems.removeWhere((item) => item.id == itemId);
-  }
-
-  @override
-  Future<void> clearCart() async {
-    _cartItems.clear();
-  }
-
-  @override
-  Future<double> getCartTotal() async {
-    double total = 0.0;
-    for (final item in _cartItems) {
-      total += item.totalPrice;
-    }
-    return total;
-  }
-
-  @override
-  Future<int> getCartItemCount() async {
-    int count = 0;
-    for (final item in _cartItems) {
-      count += item.quantity ?? 0;
-    }
-    return count;
   }
 }

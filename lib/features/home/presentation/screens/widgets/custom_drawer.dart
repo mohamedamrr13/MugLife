@@ -1,13 +1,21 @@
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
+import 'package:drinks_app/features/home/presentation/screens/widgets/drawer_item.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/theme/theme_toggle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  bool isSelected = false;
+  DrawerItemTypt selectedItem = DrawerItemTypt.home;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -84,18 +92,32 @@ class CustomDrawer extends StatelessWidget {
                   DrawerItem(
                     icon: Icons.home_rounded,
                     title: "Home",
-                    onTap: () {},
-                    isSelected: true,
+                    onTap: () {
+                      setState(() {
+                        selectedItem = DrawerItemTypt.home;
+                      });
+                    },
+                    isSelected: selectedItem == DrawerItemTypt.home,
                   ),
                   DrawerItem(
                     icon: Icons.history_rounded,
                     title: "Order History",
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        selectedItem = DrawerItemTypt.orderHistory;
+                      });
+                    },
+                    isSelected: selectedItem == DrawerItemTypt.orderHistory,
                   ),
                   DrawerItem(
                     icon: Icons.notifications_rounded,
                     title: "Notifications",
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        selectedItem = DrawerItemTypt.notificationss;
+                      });
+                    },
+                    isSelected: selectedItem == DrawerItemTypt.notificationss,
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -183,65 +205,6 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DrawerItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback onTap;
-  final bool isSelected;
-  const DrawerItem({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onTap,
-    this.isSelected = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        gradient:
-            isSelected
-                ? LinearGradient(
-                  colors: [
-                    context.primaryColor.withOpacity(0.1),
-                    context.primaryColor.withOpacity(0.05),
-                  ],
-                )
-                : null,
-        borderRadius: BorderRadius.circular(16),
-        border:
-            isSelected
-                ? Border.all(
-                  color: context.primaryColor.withOpacity(0.3),
-                  width: 1,
-                )
-                : null,
-      ),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color:
-              isSelected
-                  ? context.primaryColor
-                  : context.primaryTextColor.withOpacity(0.7),
-          size: 24,
-        ),
-        title: Text(
-          title,
-          style: context.textTheme.titleMedium?.copyWith(
-            color: isSelected ? context.primaryColor : context.primaryTextColor,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-          ),
-        ),
-        onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }

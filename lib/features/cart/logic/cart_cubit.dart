@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
 import 'package:drinks_app/features/cart/logic/cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  final CartRepository _cartRepository;
+  final FirestoreCartRepository _cartRepository;
   StreamSubscription<List<ProductModel>>? _cartSubscription;
 
   CartCubit(this._cartRepository) : super(CartState.initial()) {

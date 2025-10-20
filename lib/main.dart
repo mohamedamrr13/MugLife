@@ -26,7 +26,7 @@ void main() async {
       await AppSecureStorage.getString('transaction_id') ?? '',
     ), // Card integration ID
     walletIntegrationId: int.parse(
-      await AppSecureStorage.getString('wallet_id') ?? '',
+      await AppSecureStorage.getString('wallet_id') ?? '0',
     ), // Wallet integration ID
 
     iFrameID: 934476, // Paymob iframe ID
@@ -43,7 +43,7 @@ void main() async {
   );
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) {
         return const DrinksApp();
       },

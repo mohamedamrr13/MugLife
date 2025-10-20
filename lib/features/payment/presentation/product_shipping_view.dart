@@ -267,7 +267,6 @@ class ShippingAppBar extends StatelessWidget {
               ),
             ),
             child: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.only(left: 60, bottom: 16),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

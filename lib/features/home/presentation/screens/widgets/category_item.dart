@@ -1,10 +1,7 @@
-import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class CategoryItem extends StatefulWidget {
   const CategoryItem({super.key, required this.category, required this.onTap});
@@ -83,8 +80,6 @@ class _CategoryItemState extends State<CategoryItem>
 
   @override
   Widget build(BuildContext context) {
-    // Define clampedHover based on _hoverAnimation.value
-
     _hoverAnimation.value.clamp(0.0, 1.0);
 
     return Padding(
@@ -251,32 +246,6 @@ class _CategoryItemState extends State<CategoryItem>
                               child: CachedNetworkImage(
                                 imageUrl: widget.category.image,
                                 fit: BoxFit.cover,
-                                placeholder:
-                                    (context, url) => Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            context.primaryColor.withOpacity(
-                                              0.2,
-                                            ),
-                                            context.primaryColor.withOpacity(
-                                              0.1,
-                                            ),
-                                          ],
-                                        ),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Center(
-                                        child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            color: context.primaryColor,
-                                            strokeWidth: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                 errorWidget:
                                     (context, url, error) => Container(
                                       decoration: BoxDecoration(

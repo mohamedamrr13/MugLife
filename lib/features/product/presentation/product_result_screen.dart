@@ -161,7 +161,7 @@ class _ProductResultScreenState extends State<ProductResultScreen>
                     ),
                   ),
                   child: FlexibleSpaceBar(
-                    titlePadding: const EdgeInsets.only(left: 70, bottom: 16),
+                    titlePadding: const EdgeInsets.only(bottom: 16),
                     title: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,

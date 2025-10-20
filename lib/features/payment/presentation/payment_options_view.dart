@@ -141,7 +141,9 @@ class _PaymentViewState extends State<PaymentView> {
           } else {
             //TODO: Pay With Cash
           }
-          isLoading = false;
+          setState(() {
+            isLoading = false;
+          });
         },
         text: 'Confirm Payment',
         width: 300,

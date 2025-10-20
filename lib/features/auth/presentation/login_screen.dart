@@ -24,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isEnabled = true;
-  //for disabling textfields
 
   bool obscureText = true;
   @override
