@@ -152,7 +152,7 @@ class CartScreen extends StatelessWidget {
                     children: [
                       CartSummaryWidget(state: state),
                       const SizedBox(height: 20),
-                      CustomElevatedButton(
+                      CustomButton(
                         onPressed: () {
                           _proceedToCheckout(context, state);
                         },

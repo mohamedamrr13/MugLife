@@ -152,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                               ),
                               const SizedBox(height: 30),
-                              CustomElevatedButton(
+                              CustomButton(
                                 onPressed:
                                     isEnabled
                                         ? () {

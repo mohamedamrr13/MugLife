@@ -1,13 +1,8 @@
-import 'dart:math';
-
-import 'package:dio/dio.dart';
 import 'package:drinks_app/features/payment/presentation/payment_options_view.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
-import 'package:flutter_paymob/flutter_paymob.dart';
-import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class ShippingScreen extends StatefulWidget {
   const ShippingScreen({super.key});
@@ -165,7 +160,7 @@ class ShippingScreenState extends State<ShippingScreen> {
                       },
                     ),
                     const SizedBox(height: 32),
-                    CustomElevatedButton(
+                    CustomButton(
                       onPressed: handleContinue,
                       text: 'Continue to Payment',
                       icon: Icon(Icons.arrow_forward_rounded, size: 20),

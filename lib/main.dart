@@ -13,6 +13,8 @@ import 'package:flutter_paymob/flutter_paymob.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   initServiceLocator();
   await dotenv.load(fileName: ".env");
   PaymobSecureStorage.setApiKey();
@@ -26,9 +28,9 @@ void main() async {
     walletIntegrationId: int.parse(
       await AppSecureStorage.getString('wallet_id') ?? '',
     ), // Wallet integration ID
+
     iFrameID: 934476, // Paymob iframe ID
   );
-  await Firebase.initializeApp();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
