@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "264570631185",
+    "firebase_url": "https://muglife-34b23-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "muglife-34b23",
+    "storage_bucket": "muglife-34b23.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264570631185:android:020e9d5b87638ec833adb0",
+        "android_client_info": {
+          "package_name": "com.moamr.muglife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264570631185-0t8j5jkfl80ektlq05eta61srj0k5nsh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moamr.muglife",
+            "certificate_hash": "3c6b27c58764353b53e4bfd741c24a2f27a92cbc"
+          }
+        },
+        {
+          "client_id": "264570631185-r4090hpfrpkfd2mn3c1t62n22p8mv6i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj4wvAloppsJ1oe2Cz3Hvxv15wQuvkBkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264570631185-r4090hpfrpkfd2mn3c1t62n22p8mv6i3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "264570631185-cb80fnoe8ip0cao9olfrmoib1eoso9mj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drinksApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
