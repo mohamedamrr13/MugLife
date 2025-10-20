@@ -13,191 +13,176 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: context.surfaceColor,
       elevation: 0,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              context.primaryColor.withOpacity(0.05),
-              context.surfaceColor,
-            ],
-          ),
-        ),
-        child: Column(
-          children: [
-            // Header Section
-            Container(
-              height: 250,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    context.primaryColor,
-                    context.primaryColor.withOpacity(0.8),
-                  ],
-                ),
-              ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
-                            width: 2,
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.person_rounded,
-                          color: Colors.white,
-                          size: 40,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        "Welcome Back!",
-                        style: context.textTheme.headlineSmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        "user@muglife.com",
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.white.withOpacity(0.8),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+      child: Column(
+        children: [
+          // Header Section
+          Container(
+            height: 250,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  context.primaryColor,
+                  context.primaryColor.withOpacity(0.8),
+                ],
               ),
             ),
-
-            // Menu Items
-            Expanded(
+            child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const SizedBox(height: 20),
-                    DrawerItem(
-                      icon: Icons.home_rounded,
-                      title: "Home",
-                      onTap: () {},
-                      isSelected: true,
-                    ),
-
-                    DrawerItem(
-                      icon: Icons.history_rounded,
-                      title: "Order History",
-                      onTap: () {},
-                    ),
-                    DrawerItem(
-                      icon: Icons.notifications_rounded,
-                      title: "Notifications",
-                      onTap: () {},
-                    ),
-
-                    const SizedBox(height: 20),
                     Container(
-                      height: 1,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.transparent,
-                            context.dividerColor,
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Theme Toggle
-                    Container(
-                      decoration: BoxDecoration(
-                        color: context.cardColor,
-                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white.withOpacity(0.2),
+                        shape: BoxShape.circle,
                         border: Border.all(
-                          color: context.primaryColor.withOpacity(0.2),
-                          width: 1,
+                          color: Colors.white.withOpacity(0.3),
+                          width: 2,
                         ),
                       ),
-                      child: const ThemeToggleListTile(),
-                    ),
-
-                    const Spacer(),
-
-                    // Logout Button
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.red.withOpacity(0.1),
-                            Colors.red.withOpacity(0.05),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: Colors.red.withOpacity(0.3),
-                          width: 1,
-                        ),
-                      ),
-                      child: BlocConsumer<LoginCubit, LoginState>(
-                        listener: (context, state) {
-                          if (state is LoginFailure) {
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(SnackBar(content: Text("Fuck")));
-                          }
-                        },
-                        builder: (context, state) {
-                          return ListTile(
-                            leading: Icon(
-                              Icons.logout_rounded,
-                              color: Colors.red,
-                              size: 24,
-                            ),
-                            title:
-                                state is LoginLoading
-                                    ? CircularProgressIndicator(
-                                      color: AppTheme.primaryColor,
-                                    )
-                                    : Text(
-                                      "Logout",
-                                      style: context.textTheme.titleMedium
-                                          ?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                            onTap: () {
-                              context.read<LoginCubit>().logout();
-                            },
-                          );
-                        },
+                      child: Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                        size: 40,
                       ),
                     ),
                     const SizedBox(height: 20),
+                    Text(
+                      "Welcome Back!",
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "user@muglife.com",
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+
+          // Menu Items - Scrollable
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  DrawerItem(
+                    icon: Icons.home_rounded,
+                    title: "Home",
+                    onTap: () {},
+                    isSelected: true,
+                  ),
+                  DrawerItem(
+                    icon: Icons.history_rounded,
+                    title: "Order History",
+                    onTap: () {},
+                  ),
+                  DrawerItem(
+                    icon: Icons.notifications_rounded,
+                    title: "Notifications",
+                    onTap: () {},
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 1,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          context.dividerColor,
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Theme Toggle
+                  Container(
+                    decoration: BoxDecoration(
+                      color: context.cardColor,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: context.primaryColor.withOpacity(0.2),
+                        width: 1,
+                      ),
+                    ),
+                    child: const ThemeToggleListTile(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Logout Button
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.red.withOpacity(0.1),
+                          Colors.red.withOpacity(0.05),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Colors.red.withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: BlocConsumer<LoginCubit, LoginState>(
+                      listener: (context, state) {
+                        if (state is LoginFailure) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text("Fuck")));
+                        }
+                      },
+                      builder: (context, state) {
+                        return ListTile(
+                          leading: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                          title:
+                              state is LoginLoading
+                                  ? CircularProgressIndicator(
+                                    color: AppTheme.primaryColor,
+                                  )
+                                  : Text(
+                                    "Logout",
+                                    style: context.textTheme.titleMedium
+                                        ?.copyWith(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                          onTap: () {
+                            context.read<LoginCubit>().logout();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

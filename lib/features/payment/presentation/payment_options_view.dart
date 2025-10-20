@@ -115,7 +115,9 @@ class _PaymentViewState extends State<PaymentView> {
       child: CustomButton(
         isLoading: isLoading,
         onPressed: () async {
-          isLoading = true;
+          setState(() {
+            isLoading = true;
+          });
           if (_selectedPaymentMethod == 'Card') {
             await FlutterPaymob.instance.payWithCard(
               title: Text("Card Payment"), // Optional - Custom title AppBar

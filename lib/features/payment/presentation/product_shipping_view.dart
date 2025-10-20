@@ -40,12 +40,13 @@ class ShippingScreenState extends State<ShippingScreen> {
         'addressLine1': addressLine1Controller.text,
         'addressLine2': addressLine2Controller.text,
         'city': cityController.text,
-
         'saveAddress': saveAddress,
+        'amount': 150.0,
       };
       Navigator.push(
         context,
         MaterialPageRoute(
+          settings: RouteSettings(arguments: shippingData),
           builder: (context) {
             return PaymentView();
           },
