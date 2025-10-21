@@ -91,7 +91,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               color: context.theme.scaffoldBackgroundColor,
               title: widget.products[currentIndex.round()].name,
               prefixIcon: Text(
-                "£${widget.products[currentIndex.round()].price + selectedIndex * 15}",
+                "${widget.products[currentIndex.round()].price + selectedIndex * 15} L.E",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

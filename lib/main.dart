@@ -1,36 +1,19 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/core/dI/service_locator.dart';
 import 'package:drinks_app/core/routing/app_router.dart';
-import 'package:drinks_app/utils/helper/secure_storage.dart';
+import 'package:drinks_app/features/payment/data/payment_manager.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_paymob/flutter_paymob.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  await PaymentManager.initializePaymentGateway();
   initServiceLocator();
-  await dotenv.load(fileName: ".env");
-  PaymobSecureStorage.setApiKey();
-  PaymobSecureStorage.setMobileWalletId();
-  PaymobSecureStorage.setTransactionId();
-  await FlutterPaymob.instance.initialize(
-    apiKey: await (AppSecureStorage.getString('api_key')) ?? '',
-    integrationID: int.parse(
-      await AppSecureStorage.getString('transaction_id') ?? '',
-    ), // Card integration ID
-    walletIntegrationId: int.parse(
-      await AppSecureStorage.getString('wallet_id') ?? '0',
-    ), // Wallet integration ID
-
-    iFrameID: 934476, // Paymob iframe ID
-  );
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -43,7 +26,7 @@ void main() async {
   );
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: true,
       builder: (context) {
         return const DrinksApp();
       },
