@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks_app/features/product/data/models/product_model.dart';
+import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final ProductModel item;
+  final CartItemModel item;
   final Function(int) onQuantityChanged;
   final VoidCallback onRemove;
 
@@ -47,7 +47,7 @@ class CartItemWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: item.image,
+                imageUrl: item.product.image,
                 fit: BoxFit.cover,
                 placeholder:
                     (context, url) => Container(
@@ -89,7 +89,7 @@ class CartItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item.name,
+                  item.product.name,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -117,7 +117,7 @@ class CartItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '£${item.price.toStringAsFixed(2)}',
+                      '£${item.product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,

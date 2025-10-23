@@ -3,7 +3,6 @@ import 'package:drinks_app/core/error_handling/faliure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:meta/meta.dart';
 
 part 'google_state.dart';
 
@@ -28,7 +27,9 @@ class GoogleCubit extends Cubit<GoogleState> {
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       debugPrint(FirebaseErrorMapper.fromCode(e.code).message);
-      emit(GoogleFailure(errMessage: FirebaseErrorMapper.fromCode(e.code).message));
+      emit(
+        GoogleFailure(errMessage: FirebaseErrorMapper.fromCode(e.code).message),
+      );
     } catch (e) {
       debugPrint("Unexpected error: $e");
       emit(GoogleFailure(errMessage: "Google Sign-In was canceled"));

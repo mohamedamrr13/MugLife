@@ -1,17 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
 import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:drinks_app/features/settings/account_screen.dart';
 import 'package:drinks_app/features/settings/presentation.dart';
+import 'package:drinks_app/utils/shared/app_navbar_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class CustomPageNavigationBar extends StatefulWidget {
   const CustomPageNavigationBar({super.key, this.reroutingIndex});
@@ -41,11 +42,13 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
     ),
 
     AccountScreen(),
+
     BlocProvider(
-      create: (context) => CartCubit(FirestoreCartRepository()),
+      create:
+          (context) =>
+              CartCubit(FirestoreCartRepository(FirebaseFirestore.instance)),
       child: CartScreen(),
     ),
-
     SettingsScreen(),
   ];
 
@@ -61,63 +64,51 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(width: 5),
-            _buildNavIcon(
-              currentIndex == 0 ? Icons.home : Icons.home_outlined,
-              0,
+            NabBarIcon(
+              iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
+              pageIndex: 0,
+              onPressed: () {
+                setState(() {
+                  currentIndex = 0;
+                });
+              },
             ),
-            _buildNavIcon(
-              currentIndex == 1 ? Icons.person : Icons.person_outline,
-              1,
+            NabBarIcon(
+              iconData: currentIndex == 1 ? Icons.person : Icons.person_outline,
+              pageIndex: 1,
+              onPressed: () {
+                setState(() {
+                  currentIndex = 1;
+                });
+              },
             ),
-            _buildNavIcon(
-              currentIndex == 2
-                  ? Icons.shopping_bag
-                  : Icons.shopping_bag_outlined,
-              2,
+
+            NabBarIcon(
+              iconData:
+                  currentIndex == 2
+                      ? Icons.shopping_bag
+                      : Icons.shopping_bag_outlined,
+              pageIndex: 2,
+              onPressed: () {
+                setState(() {
+                  currentIndex = 2;
+                });
+              },
             ),
-            _buildNavIcon(
-              currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
-              3,
+            NabBarIcon(
+              iconData:
+                  currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
+              pageIndex: 3,
+              onPressed: () {
+                setState(() {
+                  currentIndex = 3;
+                });
+              },
             ),
             SizedBox(width: 5),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildNavIcon(IconData iconData, int pageIndex) {
-    return Expanded(
-      child: TextButton(
-        style: ButtonStyle(
-          shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(12),
-            ),
-          ),
-        ),
-        onPressed: () {
-          setState(() {
-            currentIndex = pageIndex;
-          });
-        },
-        child: Icon(iconData, size: 24),
-      ),
-    );
-  }
-}
-
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Account'),
-        automaticallyImplyLeading: false,
-      ),
-      body: const Center(child: Text('Account Screen')),
     );
   }
 }

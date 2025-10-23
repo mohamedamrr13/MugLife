@@ -3,8 +3,10 @@ import 'package:drinks_app/features/home/presentation/screens/widgets/drawer_ite
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:drinks_app/utils/theme/theme_toggle_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -71,10 +73,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ),
                     ),
                     Text(
-                      "user@muglife.com",
+                      FirebaseAuth.instance.currentUser?.email ?? '',
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.white.withOpacity(0.8),
                       ),
+                      maxLines: 2,
                     ),
                   ],
                 ),
@@ -194,6 +197,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   ),
                           onTap: () {
                             context.read<LoginCubit>().logout();
+                            SharedPreferences.getInstance().then((prefs) {
+                              prefs.remove('userId');
+                            });
                           },
                         );
                       },

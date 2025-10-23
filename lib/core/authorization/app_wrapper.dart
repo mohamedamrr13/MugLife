@@ -5,6 +5,7 @@ import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppWrapper extends StatelessWidget {
   const AppWrapper({super.key});
@@ -14,14 +15,13 @@ class AppWrapper extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        // Show loading while checking auth state
+        // show loading while checking auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
 
-        // Handle any errors
         if (snapshot.hasError) {
           return Scaffold(
             body: Center(
@@ -42,18 +42,18 @@ class AppWrapper extends StatelessWidget {
           );
         }
 
-        // User is authenticated - show main app
         if (snapshot.hasData) {
+          SharedPreferences.getInstance().then((prefs) {
+            prefs.setString('userId', snapshot.data!.uid);
+          });
           return const CustomPageNavigationBar();
         }
 
-        // User not authenticated - check current route to show correct screen
         final currentRoute = GoRouter.of(context).state.matchedLocation;
 
         if (currentRoute == AppRouter.signUpScreen) {
           return const RegisterScreen();
         } else {
-          // Default to login screen for any other case
           return const LoginScreen();
         }
       },

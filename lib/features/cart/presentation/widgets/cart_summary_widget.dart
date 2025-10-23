@@ -1,4 +1,4 @@
-import 'package:drinks_app/features/cart/logic/cart_state.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class CartSummaryWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                '${state.total} items',
+                '3 items',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -52,23 +52,12 @@ class CartSummaryWidget extends StatelessWidget {
         const SizedBox(height: 16),
 
         // Price Breakdown
-        _buildSummaryRow(
-          'Subtotal',
-          '£${state.subtotal.toStringAsFixed(2)}',
-          isDark,
-        ),
-        const SizedBox(height: 8),
-        _buildSummaryRow(
-          'Tax (10%)',
-          '£${state.tax.toStringAsFixed(2)}',
-          isDark,
-        ),
+        _buildSummaryRow('Subtotal', '£${12.99.toStringAsFixed(2)}', isDark),
+
         const SizedBox(height: 8),
         _buildSummaryRow(
           'Delivery Fee',
-          state.deliveryFee > 0
-              ? '£${state.deliveryFee.toStringAsFixed(2)}'
-              : 'Free',
+          0 > 0 ? '£${0.0.toStringAsFixed(2)}' : 'Free',
           isDark,
         ),
 
@@ -98,7 +87,7 @@ class CartSummaryWidget extends StatelessWidget {
               ),
             ),
             Text(
-              '£${state.total.toStringAsFixed(2)}',
+              '£${12.99.toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -111,7 +100,7 @@ class CartSummaryWidget extends StatelessWidget {
         const SizedBox(height: 16),
 
         // Savings or Promo Code Section (Optional)
-        if (state.deliveryFee == 0)
+        if (true)
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(

@@ -1,4 +1,4 @@
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/features/payment/presentation/product_shipping_view.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_details_buttons_section.dart';
@@ -68,7 +68,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   void _onAddToCart() {
     BlocProvider.of<CartCubit>(
       context,
-    ).addToCart(widget.products[currentIndex.toInt()]);
+    ).addProductToCart(widget.products[currentIndex.toInt()]);
 
     ScaffoldMessenger.of(
       context,

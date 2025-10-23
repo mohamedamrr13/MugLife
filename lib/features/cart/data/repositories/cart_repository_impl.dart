@@ -1,151 +1,127 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirestoreCartRepository implements CartRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore;
 
-  String? get _userId => _auth.currentUser?.uid;
-
-  CollectionReference get _cartCollection {
-    if (_userId == null) {
-      throw Exception('User not authenticated');
-    }
-    return _firestore.collection('users').doc(_userId).collection('cart');
+  FirestoreCartRepository(this._firestore);
+  Future<String?> get userId async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId');
   }
 
   @override
-  Stream<List<ProductModel>> getCartItems() {
-    if (_userId == null) {
-      return Stream.error(Exception('User not authenticated'));
-    }
-
-    return _cartCollection.orderBy('addedAt', descending: true).snapshots().map(
-      (snapshot) {
-        return snapshot.docs
-            .map((doc) => ProductModel.fromFirestore(doc))
-            .toList();
-      },
+  Future<void> addProduct(ProductModel item) async {
+    debugPrint(
+      'Adding product to cart: ${item.name} , ${(await isItemInCart(item)).toString()}, user ID: ${await userId}  ',
     );
-  }
-
-  @override
-  Future<void> addToCart(ProductModel item) async {
-    if (_userId == null) {
-      throw Exception('User not authenticated');
-    }
-
-    if (!item.isCartItem) {
-      throw Exception('Product must be converted to cart item first');
-    }
-
-    if (item.id.isEmpty) {
-      throw Exception('Product ID cannot be empty');
-    }
-
-    // Check if item with same product ID and size already exists
-    final existingQuery =
-        await _cartCollection
-            .where('productId', isEqualTo: item.id)
-            .where('size', isEqualTo: item.size)
-            .get();
-
-    if (existingQuery.docs.isNotEmpty) {
-      // Update existing item quantity
-      final existingDoc = existingQuery.docs.first;
-      final existingItem = ProductModel.fromFirestore(existingDoc);
-      await existingDoc.reference.update({
-        'quantity': (existingItem.quantity ?? 0) + (item.quantity ?? 1),
-      });
+    if (await isItemInCart(item)) {
+      return _firestore
+          .collection('cart')
+          .doc(await userId)
+          .collection('items')
+          .where('product.name', isEqualTo: item.name)
+          .get()
+          .then((querySnapshot) {
+            if (querySnapshot.docs.isNotEmpty) {
+              final doc = querySnapshot.docs.first;
+              final currentQuantity = doc['quantity'] ?? 1;
+              debugPrint('Current quantity: $currentQuantity');
+              return doc.reference.update({'quantity': currentQuantity + 1});
+            }
+          })
+          .catchError((error) {
+            print('Error updating item quantity: $error');
+          });
     } else {
-      // Add new item with addedAt timestamp
-      final itemData = item.toFirestore();
-      itemData['productId'] = item.id;
-      itemData['addedAt'] = FieldValue.serverTimestamp();
-      await _cartCollection.add(itemData);
+      final cartItem = CartItemModel(
+        product: item,
+        quantity: 1,
+        size: 'M',
+        addedAt: DateTime.now(),
+      );
+      _firestore
+          .collection('cart')
+          .doc(await userId)
+          .collection('items')
+          .add(cartItem.toFirestore());
+      debugPrint('Added new item to cart: ${item.name}');
     }
   }
 
   @override
-  Future<void> updateCartItem(String itemId, int quantity) async {
-    if (_userId == null) {
-      throw Exception('User not authenticated');
-    }
-
-    if (quantity <= 0) {
-      await removeFromCart(itemId);
-      return;
-    }
-
-    await _cartCollection.doc(itemId).update({'quantity': quantity});
+  Future<bool> isItemInCart(ProductModel item) async {
+    return _firestore
+        .collection('cart')
+        .doc(await userId)
+        .collection('items')
+        .where('product.name', isEqualTo: item.name)
+        .get()
+        .then((querySnapshot) {
+          return querySnapshot.docs.isNotEmpty;
+        })
+        .catchError((error) {
+          debugPrint('Error checking item in cart: $error');
+          return false;
+        });
   }
 
   @override
-  Future<void> removeFromCart(String itemId) async {
-    if (_userId == null) {
-      throw Exception('User not authenticated');
-    }
-
-    await _cartCollection.doc(itemId).delete();
-  }
-
-  @override
-  Future<void> clearCart() async {
-    if (_userId == null) {
-      throw Exception('User not authenticated');
-    }
-
-    final batch = _firestore.batch();
-    final cartItems = await _cartCollection.get();
-
-    for (final doc in cartItems.docs) {
-      batch.delete(doc.reference);
-    }
-
-    await batch.commit();
-  }
-
-  @override
-  Future<double> getCartTotal() async {
-    if (_userId == null) {
-      return 0.0;
-    }
-
-    try {
-      final cartItems = await _cartCollection.get();
-      double total = 0.0;
-
-      for (final doc in cartItems.docs) {
-        final item = ProductModel.fromFirestore(doc);
-        total += item.totalPrice;
+  void clearCart() {
+    _firestore.collection('cart').get().then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        doc.reference.delete();
       }
-
-      return total;
-    } catch (e) {
-      throw Exception('Failed to calculate cart total: $e');
-    }
+    });
   }
 
   @override
-  Future<int> getCartItemCount() async {
-    if (_userId == null) {
-      return 0;
-    }
+  Future<int> getCartItemCount() {
+    // TODO: implement getCartItemCount
+    throw UnimplementedError();
+  }
 
-    try {
-      final cartItems = await _cartCollection.get();
-      int count = 0;
+  @override
+  Stream<List<CartItemModel>> getCartItems() {
+    // TODO: implement getCartItems
+    throw UnimplementedError();
+  }
 
-      for (final doc in cartItems.docs) {
-        final item = ProductModel.fromFirestore(doc);
-        count += item.quantity ?? 0;
-      }
+  @override
+  Future<double> getCartTotal() {
+    // TODO: implement getCartTotal
+    throw UnimplementedError();
+  }
 
-      return count;
-    } catch (e) {
-      throw Exception('Failed to get cart item count: $e');
-    }
+  @override
+  Future<void> removeFromCart(String itemId) {
+    // TODO: implement removeFromCart
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateCartItem(String itemId, int quantity) {
+    // TODO: implement updateCartItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isCartEmpty() {
+    return _firestore
+        .collection('cart')
+        .doc(userId.toString())
+        .collection('items')
+        .get()
+        .then((querySnapshot) {
+          return querySnapshot.docs.isEmpty;
+        })
+        .catchError((error) {
+          print('Error checking if cart is empty: $error');
+          return false;
+        });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/authorization/app_wrapper.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
 import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
@@ -6,7 +7,7 @@ import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dar
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
 import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
@@ -59,23 +60,7 @@ class AppRouter {
       ),
       GoRoute(
         path: pageNavBar,
-        builder:
-            (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create:
-                      (context) =>
-                          GetCategoriesCubit(getIt.get<GetCategoriesRepo>()),
-                ),
-                BlocProvider(
-                  create:
-                      (context) => GetFeaturedProductsCubit(
-                        GetFeaturedProductsRepoImpl(),
-                      ),
-                ),
-              ],
-              child: const CustomPageNavigationBar(),
-            ),
+        builder: (context, state) => const CustomPageNavigationBar(),
       ),
       GoRoute(
         path: homeScreen,
@@ -112,7 +97,10 @@ class AppRouter {
         builder: (context, state) {
           Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
           return BlocProvider(
-            create: (context) => CartCubit(FirestoreCartRepository()),
+            create:
+                (context) => CartCubit(
+                  FirestoreCartRepository(FirebaseFirestore.instance),
+                ),
             child: ProductDetailsScreen(
               currentIndex: extra['index'],
               products: extra['list'],

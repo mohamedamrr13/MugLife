@@ -1,8 +1,9 @@
-import 'package:drinks_app/features/cart/logic/cart_cubit.dart';
-import 'package:drinks_app/features/cart/logic/cart_state.dart';
+import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_summary_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/empty_cart_widget.dart';
+import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,28 +31,25 @@ class CartScreen extends StatelessWidget {
         actions: [
           BlocBuilder<CartCubit, CartState>(
             builder: (context, state) {
-              if (state.isNotEmpty) {
-                return TextButton(
-                  onPressed: () {
-                    _showClearCartDialog(context);
-                  },
-                  child: Text(
-                    'Clear',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
+              return TextButton(
+                onPressed: () {
+                  _showClearCartDialog(context);
+                },
+                child: Text(
+                  'Clear',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.w500,
                   ),
-                );
-              }
-              return const SizedBox.shrink();
+                ),
+              );
             },
           ),
         ],
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          if (state.isLoading) {
+          if (state is CartLoading) {
             return Center(
               child: CircularProgressIndicator(
                 color: theme.colorScheme.primary,
@@ -59,7 +57,7 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          if (state.error != null) {
+          if (state is CartFailure) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +76,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    state.error!,
+                    state.errMessage,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -87,7 +85,7 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<CartCubit>().clearError();
+                      // context.read<CartCubit>().clearError();
                     },
                     child: const Text('Retry'),
                   ),
@@ -96,7 +94,7 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          if (state.isEmpty) {
+          if (context.read<CartCubit>().isCartEmpty() == true) {
             return const EmptyCartWidget();
           }
 
@@ -109,19 +107,33 @@ class CartScreen extends StatelessWidget {
                     horizontal: 16,
                     vertical: 8,
                   ),
-                  itemCount: state.items.length,
+                  itemCount: 10,
                   itemBuilder: (context, index) {
-                    final item = state.items[index];
                     return CartItemWidget(
-                      item: item,
+                      item: CartItemModel(
+                        product: ProductModel(
+                          name: 'Sample Drink',
+                          description: 'A refreshing sample beverage.',
+                          category: 'Beverage',
+                          image: 'https://via.placeholder.com/150',
+                          price: 4.99,
+                        ),
+                        size: 'Regular',
+                        addedAt: DateTime.now(),
+                      ),
                       onQuantityChanged: (newQuantity) {
-                        context.read<CartCubit>().updateQuantity(
-                          item.id,
-                          newQuantity,
+                        context.read<CartCubit>().addProductToCart(
+                          ProductModel(
+                            name: 'Sample Drink',
+                            description: 'A refreshing sample beverage.',
+                            category: 'Beverage',
+                            image: 'https://via.placeholder.com/150',
+                            price: 4.99,
+                          ),
                         );
                       },
                       onRemove: () {
-                        context.read<CartCubit>().removeFromCart(item.id);
+                        // context.read<CartCubit>().removeFromCart(item.id);
                       },
                     );
                   },
@@ -202,7 +214,7 @@ class CartScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context.read<CartCubit>().clearCart();
+                //context.read<CartCubit>().clearCart();
                 Navigator.pop(context);
               },
               child: Text(
