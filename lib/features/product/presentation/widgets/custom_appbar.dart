@@ -46,6 +46,7 @@ class CustomAppbar extends StatelessWidget {
                           color: colorScheme.onSurface,
                           letterSpacing: -1,
                           height: 1.1,
+                          fontSize: 24,
                         ),
                       ),
                       const SizedBox(height: 4),

@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding();
   await Firebase.initializeApp();
   await PaymentManager.initializePaymentGateway();
   initServiceLocator();
@@ -26,7 +26,7 @@ void main() async {
   );
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) {
         return const DrinksApp();
       },

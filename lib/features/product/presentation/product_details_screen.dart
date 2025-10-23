@@ -34,10 +34,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     super.initState();
     currentIndex = widget.currentIndex;
 
-    // Initialize PageController with the correct initial page
     pageController = PageController(
       viewportFraction: 0.6,
-      initialPage: widget.currentIndex.round(), // This is the key fix
+      initialPage: widget.currentIndex.round(),
     );
 
     pageController.addListener(() {

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsImage extends StatelessWidget {
@@ -33,20 +34,23 @@ class ProductDetailsImage extends StatelessWidget {
                     return Icon(Icons.image);
                   },
                   imageUrl: product.image,
-                  height: screenHeight * 0.42,
+                  height: screenHeight * 0.36,
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 10,
-                  child: Opacity(
-                    opacity: 0.6,
-                    child: Image.asset("assets/images/Ellipse 2.png"),
+                if (!Theme.of(context).isDark)
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Opacity(
+                      opacity: 0.6,
+                      child: Image.asset(
+                        "assets/images/Ellipse 2.png",
+                        width: 10,
+                      ),
+                    ),
                   ),
-                ),
               ],
             ),
-            const SizedBox(height: 20),
           ],
         ),
       ),
