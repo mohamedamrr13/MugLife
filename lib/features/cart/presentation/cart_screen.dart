@@ -130,6 +130,8 @@ class CartScreen extends StatelessWidget {
                             image: 'https://via.placeholder.com/150',
                             price: 4.99,
                           ),
+                          1,
+                          'Regular',
                         );
                       },
                       onRemove: () {

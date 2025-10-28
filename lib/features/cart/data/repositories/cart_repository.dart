@@ -3,7 +3,7 @@ import 'package:drinks_app/features/product/data/models/product_model.dart';
 
 abstract class CartRepository {
   Stream<List<CartItemModel>> getCartItems();
-  Future<void> addProduct(ProductModel item);
+  Future<void> addProduct(ProductModel item, int quantity, String size);
   Future<void> updateCartItem(String itemId, int quantity);
   Future<void> removeFromCart(String itemId);
   void clearCart();

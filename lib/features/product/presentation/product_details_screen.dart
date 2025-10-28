@@ -65,9 +65,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   }
 
   void _onAddToCart() {
-    BlocProvider.of<CartCubit>(
-      context,
-    ).addProductToCart(widget.products[currentIndex.toInt()]);
+    BlocProvider.of<CartCubit>(context).addProductToCart(
+      widget.products[currentIndex.toInt()],
+      quantity,
+      selectedIndex == 0
+          ? 'Small'
+          : selectedIndex == 1
+          ? 'Medium'
+          : 'Large',
+    );
 
     ScaffoldMessenger.of(
       context,

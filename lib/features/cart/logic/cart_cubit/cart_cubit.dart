@@ -10,10 +10,10 @@ class CartCubit extends Cubit<CartState> {
   CartCubit(this.cartRepository) : super(CartInitial());
   final CartRepository cartRepository;
 
-  Future<void> addProductToCart(product) async {
+  Future<void> addProductToCart(product, qunatity, size) async {
     emit(CartLoading());
     try {
-      await cartRepository.addProduct(product);
+      await cartRepository.addProduct(product, qunatity, size);
       emit(CartItemAdded());
     } on FirebaseException catch (e) {
       emit(CartFailure(errMessage: e.message ?? "An error occurred"));

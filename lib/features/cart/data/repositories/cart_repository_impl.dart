@@ -15,7 +15,7 @@ class FirestoreCartRepository implements CartRepository {
   }
 
   @override
-  Future<void> addProduct(ProductModel item) async {
+  Future<void> addProduct(ProductModel item, int quantity, String size) async {
     debugPrint(
       'Adding product to cart: ${item.name} , ${(await isItemInCart(item)).toString()}, user ID: ${await userId}  ',
     );
@@ -31,7 +31,13 @@ class FirestoreCartRepository implements CartRepository {
               final doc = querySnapshot.docs.first;
               final currentQuantity = doc['quantity'] ?? 1;
               debugPrint('Current quantity: $currentQuantity');
-              return doc.reference.update({'quantity': currentQuantity + 1});
+              return doc.reference
+                  .update({'quantity': currentQuantity + quantity})
+                  .then((_) {
+                    debugPrint(
+                      'Updated item quantity: ${item.name}, New quantity: ${currentQuantity + quantity}',
+                    );
+                  });
             }
           })
           .catchError((error) {
