@@ -8,6 +8,7 @@ class ProductModel {
   final String image;
   final double price;
   final bool isFeatured;
+  final String? size;
 
   ProductModel({
     this.id = '',
@@ -17,7 +18,30 @@ class ProductModel {
     required this.image,
     required this.price,
     this.isFeatured = false,
+    this.size = 'Medium',
   });
+
+  ProductModel copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? category,
+    String? image,
+    double? price,
+    bool? isFeatured,
+    String? size,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      image: image ?? this.image,
+      price: price ?? this.price,
+      isFeatured: isFeatured ?? this.isFeatured,
+      size: size ?? this.size,
+    );
+  }
 
   Map<String, dynamic> toFirestore() {
     final Map<String, dynamic> map = {
@@ -27,6 +51,7 @@ class ProductModel {
       'image': image,
       'price': price,
       'isFeatured': isFeatured,
+      'size': size,
     };
 
     return map;
@@ -56,6 +81,7 @@ class ProductModel {
       image: data['image'] ?? '',
       price: _parseDouble(data['price']),
       isFeatured: _parseBool(data['isFeatured']),
+      size: data['size'] ?? 'Medium',
     );
   }
 
@@ -68,6 +94,7 @@ class ProductModel {
       image: json['image'] ?? '',
       price: _parseDouble(json['price']),
       isFeatured: _parseBool(json['isFeatured']),
+      size: json['size'] ?? 'Medium',
     );
   }
 

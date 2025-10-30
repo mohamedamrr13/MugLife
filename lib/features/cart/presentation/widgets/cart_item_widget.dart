@@ -103,7 +103,7 @@ class CartItemWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Size: ${item.size}',
+                  'Size: ${item.product.size}',
                   style: TextStyle(
                     fontSize: 14,
                     color:

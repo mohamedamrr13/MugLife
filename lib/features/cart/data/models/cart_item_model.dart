@@ -4,11 +4,9 @@ class CartItemModel {
   final ProductModel product;
   int quantity;
   final DateTime addedAt;
-  final String size;
   CartItemModel({
     required this.product,
     this.quantity = 1,
-    required this.size,
     required this.addedAt,
   });
 
@@ -28,7 +26,6 @@ class CartItemModel {
     return {
       'product': product.toFirestore(),
       'quantity': quantity,
-      'size': size,
       'addedAt': addedAt.toIso8601String(),
     };
   }
@@ -38,7 +35,6 @@ class CartItemModel {
     return CartItemModel(
       product: ProductModel.fromDocument(doc),
       quantity: data['quantity'] ?? 1,
-      size: data['size'] ?? 'M',
       addedAt: DateTime.parse(
         data['addedAt'] ?? DateTime.now().toIso8601String(),
       ),

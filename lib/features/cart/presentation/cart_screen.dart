@@ -117,8 +117,8 @@ class CartScreen extends StatelessWidget {
                           category: 'Beverage',
                           image: 'https://via.placeholder.com/150',
                           price: 4.99,
+                          size: 'Regular',
                         ),
-                        size: 'Regular',
                         addedAt: DateTime.now(),
                       ),
                       onQuantityChanged: (newQuantity) {

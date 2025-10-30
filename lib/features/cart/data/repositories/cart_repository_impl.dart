@@ -19,7 +19,9 @@ class FirestoreCartRepository implements CartRepository {
     debugPrint(
       'Adding product to cart: ${item.name} , ${(await isItemInCart(item)).toString()}, user ID: ${await userId}  ',
     );
-    if (await isItemInCart(item)) {
+    if (await isItemInCart(item) && size == item.size) {
+      debugPrint('Item already in cart, updating quantity: ${item.name}');
+      item.copyWith(size: size);
       return _firestore
           .collection('cart')
           .doc(await userId)
@@ -45,9 +47,8 @@ class FirestoreCartRepository implements CartRepository {
           });
     } else {
       final cartItem = CartItemModel(
-        product: item,
+        product: item.copyWith(size: size),
         quantity: 1,
-        size: 'M',
         addedAt: DateTime.now(),
       );
       _firestore
