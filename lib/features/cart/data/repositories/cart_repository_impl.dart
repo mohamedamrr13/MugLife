@@ -16,17 +16,18 @@ class FirestoreCartRepository implements CartRepository {
 
   @override
   Future<void> addProduct(ProductModel item, int quantity, String size) async {
+    final ProductModel itemWithSize = item.copyWith(size: size);
     debugPrint(
-      'Adding product to cart: ${item.name} , ${(await isItemInCart(item)).toString()}, user ID: ${await userId}  ',
+      'Adding product to cart: ${item.name} , ${(await isItemInCart(itemWithSize)).toString()}, user ID: ${await userId}  ',
     );
-    if (await isItemInCart(item) && size == item.size) {
+    if (await isItemInCart(itemWithSize)) {
       debugPrint('Item already in cart, updating quantity: ${item.name}');
-      item.copyWith(size: size);
       return _firestore
           .collection('cart')
           .doc(await userId)
           .collection('items')
           .where('product.name', isEqualTo: item.name)
+          .where('product.size', isEqualTo: size)
           .get()
           .then((querySnapshot) {
             if (querySnapshot.docs.isNotEmpty) {
@@ -37,7 +38,7 @@ class FirestoreCartRepository implements CartRepository {
                   .update({'quantity': currentQuantity + quantity})
                   .then((_) {
                     debugPrint(
-                      'Updated item quantity: ${item.name}, New quantity: ${currentQuantity + quantity}',
+                      'Updated item quantity: ${item.name}, New quantity: ${currentQuantity + quantity}, size: $size',
                     );
                   });
             }
@@ -48,7 +49,7 @@ class FirestoreCartRepository implements CartRepository {
     } else {
       final cartItem = CartItemModel(
         product: item.copyWith(size: size),
-        quantity: 1,
+        quantity: quantity,
         addedAt: DateTime.now(),
       );
       _firestore
@@ -67,6 +68,7 @@ class FirestoreCartRepository implements CartRepository {
         .doc(await userId)
         .collection('items')
         .where('product.name', isEqualTo: item.name)
+        .where('product.size', isEqualTo: item.size)
         .get()
         .then((querySnapshot) {
           return querySnapshot.docs.isNotEmpty;
