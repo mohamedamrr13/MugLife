@@ -14,6 +14,9 @@ class FirestoreCartRepository implements CartRepository {
     return prefs.getString('userId');
   }
 
+  CollectionReference<Map<String, dynamic>> get _cartCollection =>
+      _firestore.collection('cart').doc(userId.toString()).collection('items');
+
   @override
   Future<void> addProduct(ProductModel item, int quantity, String size) async {
     final ProductModel itemWithSize = item.copyWith(size: size);
@@ -22,10 +25,7 @@ class FirestoreCartRepository implements CartRepository {
     );
     if (await isItemInCart(itemWithSize)) {
       debugPrint('Item already in cart, updating quantity: ${item.name}');
-      return _firestore
-          .collection('cart')
-          .doc(await userId)
-          .collection('items')
+      return _cartCollection
           .where('product.name', isEqualTo: item.name)
           .where('product.size', isEqualTo: size)
           .get()
@@ -44,7 +44,7 @@ class FirestoreCartRepository implements CartRepository {
             }
           })
           .catchError((error) {
-            print('Error updating item quantity: $error');
+            debugPrint('Error updating item quantity: $error');
           });
     } else {
       final cartItem = CartItemModel(
@@ -52,82 +52,62 @@ class FirestoreCartRepository implements CartRepository {
         quantity: quantity,
         addedAt: DateTime.now(),
       );
-      _firestore
-          .collection('cart')
-          .doc(await userId)
-          .collection('items')
-          .add(cartItem.toFirestore());
+
+      _cartCollection.add(cartItem.toFirestore());
       debugPrint('Added new item to cart: ${item.name}');
     }
   }
 
   @override
   Future<bool> isItemInCart(ProductModel item) async {
-    return _firestore
-        .collection('cart')
-        .doc(await userId)
-        .collection('items')
+    return _cartCollection
         .where('product.name', isEqualTo: item.name)
         .where('product.size', isEqualTo: item.size)
         .get()
         .then((querySnapshot) {
           return querySnapshot.docs.isNotEmpty;
-        })
-        .catchError((error) {
-          debugPrint('Error checking item in cart: $error');
-          return false;
         });
   }
 
   @override
   void clearCart() async {
-    _firestore
-        .collection('cart')
-        .doc(await userId)
-        .collection('items')
-        .get()
-        .then((querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            doc.reference.delete();
-          }
-        });
+    _cartCollection.get().then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        doc.reference.delete();
+      }
+    });
   }
 
   @override
   Future<int> getCartItemCount() async {
-    final querySnapshot =
-        await _firestore
-            .collection('cart')
-            .doc(await userId)
-            .collection('items')
-            .get();
+    final querySnapshot = await _cartCollection.get();
     return querySnapshot.docs.length;
   }
 
   @override
-  Stream<List<CartItemModel>> getCartItems() async* {
-    yield* _firestore
-        .collection('cart')
-        .doc(await userId)
-        .collection('items')
-        .snapshots()
-        .map((querySnapshot) {
-          return querySnapshot.docs.map((doc) {
-            return CartItemModel.fromDocument(doc);
-          }).toList();
-        });
+  Stream<List<CartItemModel>> getCartItems() {
+    return _cartCollection.snapshots().map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return CartItemModel.fromDocument(doc);
+      }).toList();
+    });
   }
 
-  @override
-  Future<double> getCartTotal() {
-    // TODO: implement getCartTotal
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<double> getCartTotal() {
+  //   _cartCollection.get().then((querySnapshot) {
+  //     double total = 0.0;
+  //     for (var doc in querySnapshot.docs) {
+  //       final cartItem = CartItemModel.fromDocument(doc);
+  //       total += cartItem.product.price * cartItem.quantity;
+  //     }
+  //     return total;
+  //   });
+  // }
 
   @override
   Future<void> removeFromCart(String itemId) {
-    // TODO: implement removeFromCart
-    throw UnimplementedError();
+    return _cartCollection.doc(itemId).delete();
   }
 
   @override
@@ -138,17 +118,8 @@ class FirestoreCartRepository implements CartRepository {
 
   @override
   Future<bool> isCartEmpty() {
-    return _firestore
-        .collection('cart')
-        .doc(userId.toString())
-        .collection('items')
-        .get()
-        .then((querySnapshot) {
-          return querySnapshot.docs.isEmpty;
-        })
-        .catchError((error) {
-          print('Error checking if cart is empty: $error');
-          return false;
-        });
+    return _cartCollection.get().then((querySnapshot) {
+      return querySnapshot.docs.isEmpty;
+    });
   }
 }

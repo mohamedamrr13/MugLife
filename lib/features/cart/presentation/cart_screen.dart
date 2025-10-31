@@ -94,7 +94,7 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          if (context.read<CartCubit>().isCartEmpty() == true) {
+          if (context.read<CartCubit>().isCartEmpty() == Future.value(true)) {
             return const EmptyCartWidget();
           }
 

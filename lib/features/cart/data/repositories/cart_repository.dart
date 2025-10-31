@@ -7,7 +7,7 @@ abstract class CartRepository {
   Future<void> updateCartItem(String itemId, int quantity);
   Future<void> removeFromCart(String itemId);
   void clearCart();
-  Future<double> getCartTotal();
+  //Future<double> getCartTotal();
   Future<int> getCartItemCount();
   Future<bool> isItemInCart(ProductModel item);
   Future<bool> isCartEmpty();
