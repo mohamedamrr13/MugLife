@@ -80,24 +80,42 @@ class FirestoreCartRepository implements CartRepository {
   }
 
   @override
-  void clearCart() {
-    _firestore.collection('cart').get().then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        doc.reference.delete();
-      }
-    });
+  void clearCart() async {
+    _firestore
+        .collection('cart')
+        .doc(await userId)
+        .collection('items')
+        .get()
+        .then((querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            doc.reference.delete();
+          }
+        });
   }
 
   @override
-  Future<int> getCartItemCount() {
-    // TODO: implement getCartItemCount
-    throw UnimplementedError();
+  Future<int> getCartItemCount() async {
+    final querySnapshot =
+        await _firestore
+            .collection('cart')
+            .doc(await userId)
+            .collection('items')
+            .get();
+    return querySnapshot.docs.length;
   }
 
   @override
-  Stream<List<CartItemModel>> getCartItems() {
-    // TODO: implement getCartItems
-    throw UnimplementedError();
+  Stream<List<CartItemModel>> getCartItems() async* {
+    yield* _firestore
+        .collection('cart')
+        .doc(await userId)
+        .collection('items')
+        .snapshots()
+        .map((querySnapshot) {
+          return querySnapshot.docs.map((doc) {
+            return CartItemModel.fromDocument(doc);
+          }).toList();
+        });
   }
 
   @override

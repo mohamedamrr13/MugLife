@@ -20,6 +20,9 @@ class ProductDetailsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (product.image.isEmpty) {
+      return Icon(Icons.image);
+    }
     return Transform.translate(
       offset: Offset(translateY, 0),
       child: Transform.scale(

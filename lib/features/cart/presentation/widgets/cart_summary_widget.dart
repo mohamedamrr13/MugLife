@@ -13,64 +13,6 @@ class CartSummaryWidget extends StatelessWidget {
 
     return Column(
       children: [
-        // Summary Header
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Order Summary',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: isDark ? AppTheme.darkTextPrimary : AppTheme.textPrimary,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: (isDark
-                        ? AppTheme.darkprimaryColor
-                        : AppTheme.primaryColor)
-                    .withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '3 items',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color:
-                      isDark
-                          ? AppTheme.darkprimaryColor
-                          : AppTheme.primaryColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        const SizedBox(height: 16),
-
-        // Price Breakdown
-        _buildSummaryRow('Subtotal', '£${12.99.toStringAsFixed(2)}', isDark),
-
-        const SizedBox(height: 8),
-        _buildSummaryRow(
-          'Delivery Fee',
-          0 > 0 ? '£${0.0.toStringAsFixed(2)}' : 'Free',
-          isDark,
-        ),
-
-        const SizedBox(height: 12),
-
-        // Divider
-        Divider(
-          color: isDark ? AppTheme.darkDividerColor : AppTheme.dividerColor,
-          thickness: 1,
-        ),
-
-        const SizedBox(height: 12),
-
         // Total
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -35,6 +35,7 @@ class CartItemWidget extends StatelessWidget {
         ],
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           // Product Image
           Container(
@@ -117,17 +118,6 @@ class CartItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '£${item.product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color:
-                            isDark
-                                ? AppTheme.darkprimaryColor
-                                : AppTheme.primaryColor,
-                      ),
-                    ),
-                    Text(
                       'Total: £${item.totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 14,
@@ -149,26 +139,6 @@ class CartItemWidget extends StatelessWidget {
           // Quantity Controls and Remove Button
           Column(
             children: [
-              // Remove Button
-              GestureDetector(
-                onTap: onRemove,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: AppTheme.errorColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.delete_outline,
-                    size: 20,
-                    color: AppTheme.errorColor,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Quantity Controls
               Container(
                 decoration: BoxDecoration(
                   color:
@@ -182,8 +152,8 @@ class CartItemWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (item.quantity! > 1) {
-                          onQuantityChanged(item.quantity! - 1);
+                        if (item.quantity > 1) {
+                          onQuantityChanged(item.quantity - 1);
                         }
                       },
                       child: Container(
@@ -191,7 +161,7 @@ class CartItemWidget extends StatelessWidget {
                         height: 32,
                         decoration: BoxDecoration(
                           color:
-                              item.quantity! > 1
+                              item.quantity > 1
                                   ? (isDark
                                       ? AppTheme.darkprimaryColor
                                       : AppTheme.primaryColor)
@@ -224,7 +194,7 @@ class CartItemWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        onQuantityChanged(item.quantity! + 1);
+                        onQuantityChanged(item.quantity + 1);
                       },
                       child: Container(
                         width: 32,

@@ -54,8 +54,9 @@ class ProductQuantitySelector extends StatelessWidget {
             child: Text(
               quantity.toString(),
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                fontFeatures: [FontFeature.tabularFigures()],
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
                 color: context.primaryTextColor,
               ),
             ),
