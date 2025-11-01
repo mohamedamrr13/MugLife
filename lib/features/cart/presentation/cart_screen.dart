@@ -8,8 +8,18 @@ import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +39,43 @@ class CartScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          BlocBuilder<CartCubit, CartState>(
+          BlocConsumer<CartCubit, CartState>(
+            listener: (context, state) {
+              if (state is CartCleared) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Cart cleared')));
+              } else if (state is CartFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Error: ${state.errMessage}')),
+                );
+              }
+            },
+
             builder: (context, state) {
-              return TextButton(
-                onPressed: () {
-                  _showClearCartDialog(context);
-                },
-                child: Text(
-                  'Clear',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              );
+              final shouldHideButton =
+                  state is CartCleared ||
+                  (state is CartLoaded && state.items.isEmpty);
+              return shouldHideButton
+                  ? SizedBox.shrink()
+                  : TextButton(
+                    onPressed: () {
+                      _showClearCartDialog(
+                        context,
+                        onPressed: () {
+                          BlocProvider.of<CartCubit>(context).clearCart();
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                    child: Text(
+                      'Clear',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  );
             },
           ),
         ],
@@ -85,7 +118,7 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      // context.read<CartCubit>().clearError();
+                      context.read<CartCubit>().clearCart();
                     },
                     child: const Text('Retry'),
                   ),
@@ -93,98 +126,88 @@ class CartScreen extends StatelessWidget {
               ),
             );
           }
+          if (state is CartLoaded) {
+            if (state.items.isEmpty) {
+              return const EmptyCartWidget();
+            }
 
-          if (context.read<CartCubit>().isCartEmpty() == Future.value(true)) {
-            return const EmptyCartWidget();
-          }
-
-          return Column(
-            children: [
-              // Cart Items List
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return CartItemWidget(
-                      item: CartItemModel(
-                        product: ProductModel(
-                          name: 'Sample Drink',
-                          description: 'A refreshing sample beverage.',
-                          category: 'Beverage',
-                          image: 'https://via.placeholder.com/150',
-                          price: 4.99,
-                          size: 'Regular',
-                        ),
-                        addedAt: DateTime.now(),
-                      ),
-                      onQuantityChanged: (newQuantity) {
-                        context.read<CartCubit>().addProductToCart(
-                          ProductModel(
-                            name: 'Sample Drink',
-                            description: 'A refreshing sample beverage.',
-                            category: 'Beverage',
-                            image: 'https://via.placeholder.com/150',
-                            price: 4.99,
-                          ),
-                          1,
-                          'Regular',
-                        );
-                      },
-                      onRemove: () {
-                        // context.read<CartCubit>().removeFromCart(item.id);
-                      },
-                    );
-                  },
-                ),
-              ),
-
-              // Cart Summary and Checkout
-              Container(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: theme.colorScheme.outline.withOpacity(0.1),
-                      blurRadius: 10,
-                      spreadRadius: 2,
-                      offset: const Offset(0, -2),
+            return Column(
+              children: [
+                // Cart Items List
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CartSummaryWidget(state: state),
-                      const SizedBox(height: 20),
-                      CustomButton(
-                        onPressed: () {
-                          _proceedToCheckout(context, state);
+                    itemCount: state.items.length,
+                    itemBuilder: (context, index) {
+                      return CartItemWidget(
+                        item: CartItemModel(
+                          product: state.items[index].product,
+                          addedAt: DateTime.now(),
+                        ),
+                        onQuantityChanged: (newQuantity) {
+                          setState(() {
+                            state.items[index].quantity = newQuantity;
+                          });
                         },
-                        text: 'Proceed to Checkout',
-                        height: 56,
+                        onRemove: () {
+                          // context.read<CartCubit>().removeFromCart(item.id);
+                        },
+                      );
+                    },
+                  ),
+                ),
+
+                // Cart Summary and Checkout
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.colorScheme.outline.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                        offset: const Offset(0, -2),
                       ),
                     ],
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CartSummaryWidget(state: state),
+                        const SizedBox(height: 20),
+                        CustomButton(
+                          onPressed: () {
+                            _proceedToCheckout(context, state);
+                          },
+                          text: 'Proceed to Checkout',
+                          height: 56,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
+          return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  void _showClearCartDialog(BuildContext context) {
+  void _showClearCartDialog(
+    BuildContext context, {
+    required VoidCallback onPressed,
+  }) {
     final theme = Theme.of(context);
 
     showDialog(
@@ -215,10 +238,7 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {
-                //context.read<CartCubit>().clearCart();
-                Navigator.pop(context);
-              },
+              onPressed: onPressed,
               child: Text(
                 'Clear',
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -235,6 +255,6 @@ class CartScreen extends StatelessWidget {
 
   void _proceedToCheckout(BuildContext context, CartState state) {
     // Navigate to payment/checkout screen
-    Navigator.pushNamed(context, '/payment');
+    //Navigator.pushNamed(context, App);
   }
 }

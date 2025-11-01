@@ -57,7 +57,7 @@ class CartItemWidget extends StatelessWidget {
                               ? AppTheme.darkCardColor
                               : AppTheme.bgScaffoldColor,
                       child: Icon(
-                        Icons.local_drink,
+                        Icons.local_drink_outlined,
                         color:
                             isDark
                                 ? AppTheme.darkTextSecondary
@@ -71,7 +71,7 @@ class CartItemWidget extends StatelessWidget {
                               ? AppTheme.darkCardColor
                               : AppTheme.bgScaffoldColor,
                       child: Icon(
-                        Icons.local_drink,
+                        Icons.local_drink_outlined,
                         color:
                             isDark
                                 ? AppTheme.darkTextSecondary

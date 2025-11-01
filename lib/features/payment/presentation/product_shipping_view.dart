@@ -188,6 +188,7 @@ class ShippingAppBar extends StatelessWidget {
       expandedHeight: 120,
       collapsedHeight: 80,
       floating: false,
+
       pinned: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -267,6 +268,7 @@ class ShippingAppBar extends StatelessWidget {
               ),
             ),
             child: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.only(left: 40, bottom: 30),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

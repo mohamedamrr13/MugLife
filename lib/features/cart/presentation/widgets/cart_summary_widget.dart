@@ -78,26 +78,26 @@ class CartSummaryWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryRow(String label, String value, bool isDark) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            color: isDark ? AppTheme.darkTextSecondary : AppTheme.textSecondary,
-          ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: isDark ? AppTheme.darkTextPrimary : AppTheme.textPrimary,
-          ),
-        ),
-      ],
-    );
-  }
+  //   Widget _buildSummaryRow(String label, String value, bool isDark) {
+  //     return Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           label,
+  //           style: TextStyle(
+  //             fontSize: 16,
+  //             color: isDark ? AppTheme.darkTextSecondary : AppTheme.textSecondary,
+  //           ),
+  //         ),
+  //         Text(
+  //           value,
+  //           style: TextStyle(
+  //             fontSize: 16,
+  //             fontWeight: FontWeight.w500,
+  //             color: isDark ? AppTheme.darkTextPrimary : AppTheme.textPrimary,
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   }
 }

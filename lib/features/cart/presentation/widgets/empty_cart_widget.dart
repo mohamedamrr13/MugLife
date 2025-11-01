@@ -1,7 +1,9 @@
+import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class EmptyCartWidget extends StatelessWidget {
   const EmptyCartWidget({super.key});
@@ -68,39 +70,16 @@ class EmptyCartWidget extends StatelessWidget {
             // Start Shopping Button
             CustomButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return CustomPageNavigationBar(reroutingIndex: 0);
-                    },
-                  ),
-                ); // Go back to home/shopping
+                final navbarState =
+                    context
+                        .findAncestorStateOfType<
+                          CustomPageNavigationBarState
+                        >();
+                navbarState?.navigateToPage(0);
               },
               text: 'Start Shopping',
               width: 200,
               height: 50,
-            ),
-
-            const SizedBox(height: 16),
-
-            // Browse Categories Button
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // Could navigate to categories page if available
-              },
-              child: Text(
-                'Browse Categories',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color:
-                      isDark
-                          ? AppTheme.darkprimaryColor
-                          : AppTheme.primaryColor,
-                ),
-              ),
             ),
           ],
         ),

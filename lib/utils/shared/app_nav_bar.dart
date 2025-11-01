@@ -19,11 +19,11 @@ class CustomPageNavigationBar extends StatefulWidget {
   final int? reroutingIndex;
   @override
   State<CustomPageNavigationBar> createState() =>
-      _CustomPageNavigationBarState();
+      CustomPageNavigationBarState();
 }
 
-class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
-  int currentIndex = 0; //
+class CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
+  late int currentIndex;
 
   final List<Widget> pages = [
     MultiBlocProvider(
@@ -53,17 +53,27 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
   ];
 
   @override
+  initState() {
+    super.initState();
+    currentIndex = widget.reroutingIndex ?? 0;
+  }
+
+  void navigateToPage(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      body: pages[widget.reroutingIndex ?? currentIndex],
+      body: pages[currentIndex],
       bottomNavigationBar: Container(
-        height: 70,
         decoration: BoxDecoration(color: colorScheme.primary.withAlpha(100)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(width: 5),
             NabBarIcon(
               iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
               pageIndex: 0,
@@ -105,7 +115,6 @@ class _CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
                 });
               },
             ),
-            SizedBox(width: 5),
           ],
         ),
       ),

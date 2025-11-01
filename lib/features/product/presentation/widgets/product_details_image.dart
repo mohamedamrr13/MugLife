@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 

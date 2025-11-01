@@ -7,22 +7,27 @@ class NabBarIcon extends StatelessWidget {
     required this.pageIndex,
     this.onPressed,
   });
+
   final IconData iconData;
   final int pageIndex;
   final void Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
         style: ButtonStyle(
           shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(12),
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
           ),
         ),
         onPressed: onPressed,
-        child: Icon(iconData, size: 24),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(iconData, size: 24),
+        ),
       ),
     );
   }
