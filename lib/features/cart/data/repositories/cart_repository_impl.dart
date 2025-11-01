@@ -4,7 +4,6 @@ import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart'
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FirestoreCartRepository implements CartRepository {
   final FirebaseFirestore _firestore;

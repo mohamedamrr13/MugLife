@@ -70,8 +70,10 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: Container(
+        height: 70,
         decoration: BoxDecoration(color: colorScheme.primary.withAlpha(100)),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             NabBarIcon(
