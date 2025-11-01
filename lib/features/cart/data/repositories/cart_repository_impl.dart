@@ -114,9 +114,20 @@ class FirestoreCartRepository implements CartRepository {
   }
 
   @override
-  Future<void> updateCartItem(String itemId, int quantity) {
-    // TODO: implement updateCartItem
-    throw UnimplementedError();
+  Future<void> updateCartItem(CartItemModel model, int quantity) {
+    return _cartCollection
+        .where('product.name', isEqualTo: model.product.name)
+        .where('product.size', isEqualTo: model.product.size)
+        .get()
+        .then((querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            final doc = querySnapshot.docs.first;
+            debugPrint(
+              'Updating item quantity: ${model.product.name}, New quantity: $quantity, size: ${model.product.size}',
+            );
+            return doc.reference.update({'quantity': quantity});
+          }
+        });
   }
 
   @override

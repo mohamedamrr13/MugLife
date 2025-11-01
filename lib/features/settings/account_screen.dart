@@ -5,10 +5,20 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Account'),
-        automaticallyImplyLeading: false,
+        backgroundColor: theme.scaffoldBackgroundColor,
+        elevation: 0,
+
+        title: Text(
+          'My Account',
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: const Center(child: Text('Account Screen')),
     );

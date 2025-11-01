@@ -4,6 +4,7 @@ class CartItemModel {
   final ProductModel product;
   int quantity;
   final DateTime addedAt;
+
   CartItemModel({
     required this.product,
     this.quantity = 1,
@@ -32,8 +33,13 @@ class CartItemModel {
 
   factory CartItemModel.fromDocument(dynamic doc) {
     final data = doc.data() as Map<String, dynamic>;
+
+    // ✅ CORRECT: Extract the nested product data
+    final productData = data['product'] as Map<String, dynamic>;
+
     return CartItemModel(
-      product: ProductModel.fromDocument(doc),
+      // Parse product from the nested product data, not the entire document
+      product: ProductModel.fromJson(productData),
       quantity: data['quantity'] ?? 1,
       addedAt: DateTime.parse(
         data['addedAt'] ?? DateTime.now().toIso8601String(),

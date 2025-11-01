@@ -95,7 +95,7 @@ class _CategoryItemState extends State<CategoryItem>
               scale: _scaleAnimation.value,
               child: Container(
                 width: 160,
-                height: 200,
+
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   gradient: LinearGradient(
@@ -144,15 +144,13 @@ class _CategoryItemState extends State<CategoryItem>
                               : context.primaryColor.withOpacity(
                                 0.08 + (_hoverAnimation.value * 0.05),
                               ),
-                      blurRadius: 25 + (_hoverAnimation.value * 10),
-                      offset: Offset(0, 12 + (_hoverAnimation.value * 5)),
-                      spreadRadius: -2,
+                      blurRadius: 10 + (_hoverAnimation.value * 10),
                     ),
                     // Glow effect when pressed
                     if (_isPressed) ...[
                       BoxShadow(
                         color: context.primaryColor.withOpacity(0.3),
-                        blurRadius: 20,
+                        blurRadius: 2,
                         spreadRadius: 2,
                       ),
                     ],
@@ -163,8 +161,6 @@ class _CategoryItemState extends State<CategoryItem>
                               ? Colors.white.withOpacity(0.05)
                               : Colors.white.withOpacity(0.9),
                       blurRadius: 15,
-                      offset: const Offset(0, -3),
-                      spreadRadius: -8,
                     ),
                   ],
                 ),
@@ -210,8 +206,12 @@ class _CategoryItemState extends State<CategoryItem>
                             border: Border.all(
                               color:
                                   context.isDark
-                                      ? Colors.white.withOpacity(0.2)
-                                      : Colors.white.withOpacity(0.4),
+                                      ? context.theme.primaryColor.withOpacity(
+                                        0.2,
+                                      )
+                                      : context.theme.primaryColor.withOpacity(
+                                        0.4,
+                                      ),
                               width: 1,
                             ),
                             boxShadow: [
@@ -245,7 +245,7 @@ class _CategoryItemState extends State<CategoryItem>
                               padding: const EdgeInsets.all(12),
                               child: CachedNetworkImage(
                                 imageUrl: widget.category.image,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                                 errorWidget:
                                     (context, url, error) => Container(
                                       decoration: BoxDecoration(

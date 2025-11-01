@@ -54,6 +54,16 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
+  Future<void> updateCartItem(CartItemModel item, int quantity) async {
+    emit(CartLoading());
+    try {
+      await cartRepository.updateCartItem(item, quantity);
+      emit(CartItemUpdated());
+    } catch (e) {
+      emit(CartFailure(errMessage: e.toString()));
+    }
+  }
+
   Future<bool> isCartEmpty() async {
     try {
       return await cartRepository.isCartEmpty();

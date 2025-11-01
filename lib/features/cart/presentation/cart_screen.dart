@@ -143,13 +143,14 @@ class _CartScreenState extends State<CartScreen> {
                     itemCount: state.items.length,
                     itemBuilder: (context, index) {
                       return CartItemWidget(
-                        item: CartItemModel(
-                          product: state.items[index].product,
-                          addedAt: DateTime.now(),
-                        ),
+                        item: state.items[index],
                         onQuantityChanged: (newQuantity) {
                           setState(() {
-                            state.items[index].quantity = newQuantity;
+                            if (newQuantity > state.items[index].quantity) {
+                              state.items[index].incrementQuantity();
+                            } else {
+                              state.items[index].decrementQuantity();
+                            }
                           });
                         },
                         onRemove: () {
