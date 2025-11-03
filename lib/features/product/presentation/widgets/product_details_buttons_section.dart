@@ -1,6 +1,9 @@
+import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_quantity_selector.dart';
+import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsButtonsSection extends StatelessWidget {
   final int quantity;
@@ -41,15 +44,40 @@ class ProductDetailsButtonsSection extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ActionButton(
-                  text: "Add To Cart",
-                  bgColor: context.primaryColor,
-                  textColor: Colors.white,
-                  onPressed: onAddToCart,
+                BlocBuilder<CartCubit, CartState>(
+                  builder: (context, state) {
+                    return ActionButton(
+                      content:
+                          state is CartLoading
+                              ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: AppTheme.white,
+                                ),
+                              )
+                              : Text(
+                                'Add To Cart',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      bgColor: context.primaryColor,
+                      textColor: Colors.white,
+                      onPressed: state is CartLoading ? () {} : onAddToCart,
+                    );
+                  },
                 ),
                 const SizedBox(height: 12),
                 ActionButton(
-                  text: "Buy Now",
+                  content: Text(
+                    'Buy Now',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   bgColor: context.greenBtnColor,
                   textColor: Colors.white,
                   onPressed: onBuyNow,
@@ -72,14 +100,14 @@ class ProductDetailsButtonsSection extends StatelessWidget {
 }
 
 class ActionButton extends StatelessWidget {
-  final String text;
+  final Widget content;
   final Color bgColor;
   final Color textColor;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const ActionButton({
     super.key,
-    required this.text,
+    required this.content,
     required this.bgColor,
     required this.textColor,
     required this.onPressed,
@@ -101,10 +129,7 @@ class ActionButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        child: content,
       ),
     );
   }

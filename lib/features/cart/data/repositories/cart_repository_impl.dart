@@ -34,7 +34,10 @@ class FirestoreCartRepository implements CartRepository {
               final currentQuantity = doc['quantity'] ?? 1;
               debugPrint('Current quantity: $currentQuantity');
               return doc.reference
-                  .update({'quantity': currentQuantity + quantity})
+                  .update({
+                    'quantity': currentQuantity + quantity,
+                    'price': itemWithSize.price * (quantity + currentQuantity),
+                  })
                   .then((_) {
                     debugPrint(
                       'Updated item quantity: ${item.name}, New quantity: ${currentQuantity + quantity}, size: $size',
@@ -47,7 +50,10 @@ class FirestoreCartRepository implements CartRepository {
           });
     } else {
       final cartItem = CartItemModel(
-        product: item.copyWith(size: size),
+        product: item.copyWith(
+          size: size,
+          price: itemWithSize.price * quantity,
+        ),
         quantity: quantity,
         addedAt: DateTime.now(),
       );
@@ -96,17 +102,20 @@ class FirestoreCartRepository implements CartRepository {
       return items;
     });
   }
-  // @override
-  // Future<double> getCartTotal() {
-  //   _cartCollection.get().then((querySnapshot) {
-  //     double total = 0.0;
-  //     for (var doc in querySnapshot.docs) {
-  //       final cartItem = CartItemModel.fromDocument(doc);
-  //       total += cartItem.product.price * cartItem.quantity;
-  //     }
-  //     return total;
-  //   });
-  // }
+
+  @override
+  Future<double> getCartTotal() async {
+    double total = 0.0;
+    await _cartCollection.get().then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        final cartItem = CartItemModel.fromDocument(doc);
+        total +=
+            cartItem.product.getPriceForSize(cartItem.product.size!) *
+            cartItem.quantity;
+      }
+    });
+    return total;
+  }
 
   @override
   Future<void> removeFromCart(String itemId) {
@@ -125,7 +134,10 @@ class FirestoreCartRepository implements CartRepository {
             debugPrint(
               'Updating item quantity: ${model.product.name}, New quantity: $quantity, size: ${model.product.size}',
             );
-            return doc.reference.update({'quantity': quantity});
+            return doc.reference.update({
+              'quantity': model.quantity + quantity,
+              'price': model.quantity * model.product.price,
+            });
           }
         });
   }

@@ -15,7 +15,8 @@ class CartCubit extends Cubit<CartState> {
 
     _cartSubscription = cartRepository.getCartItems().listen(
       (items) {
-        emit(CartLoaded(items: items));
+        final total = cartRepository.getCartTotal();
+        emit(CartLoaded(items: items, total));
       },
       onError: (error) {
         emit(CartFailure(errMessage: error.toString()));
@@ -48,17 +49,18 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoading());
     try {
       cartRepository.clearCart();
-      emit(CartCleared());
     } catch (e) {
       emit(CartFailure(errMessage: e.toString()));
     }
   }
 
-  Future<void> updateCartItem(CartItemModel item, int quantity) async {
-    emit(CartLoading());
+  Future<void> updateCartItem(
+    CartItemModel item,
+    int quantity,
+    double price,
+  ) async {
     try {
       await cartRepository.updateCartItem(item, quantity);
-      emit(CartItemUpdated());
     } catch (e) {
       emit(CartFailure(errMessage: e.toString()));
     }

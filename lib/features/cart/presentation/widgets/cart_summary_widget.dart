@@ -1,11 +1,10 @@
-import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CartSummaryWidget extends StatelessWidget {
-  final CartState state;
+  final Future<double> total;
 
-  const CartSummaryWidget({super.key, required this.state});
+  const CartSummaryWidget({super.key, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +27,21 @@ class CartSummaryWidget extends StatelessWidget {
                         : AppTheme.lightPrimaryText,
               ),
             ),
-            Text(
-              '£${12.99.toStringAsFixed(2)}',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: isDark ? AppTheme.primaryVariant : AppTheme.primaryColor,
-              ),
+            FutureBuilder(
+              future: total,
+              builder: (context, snapshot) {
+                return Text(
+                  '${snapshot.data} L.E.',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color:
+                        isDark
+                            ? AppTheme.primaryVariant
+                            : AppTheme.primaryColor,
+                  ),
+                );
+              },
             ),
           ],
         ),

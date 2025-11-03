@@ -60,11 +60,6 @@ class ProductModel {
     this.availableSizes = defaultSizes,
   });
 
-  // ============================================
-  // PRICING METHODS
-  // ============================================
-
-  /// Get price for a specific size by name
   double getPriceForSize(String sizeName) {
     final sizeOption = availableSizes.firstWhere(
       (size) => size.name.toLowerCase() == sizeName.toLowerCase(),
@@ -73,7 +68,6 @@ class ProductModel {
     return price + sizeOption.priceModifier;
   }
 
-  /// Get price for a specific size by index
   double getPriceForSizeIndex(int index) {
     if (index < 0 || index >= availableSizes.length) {
       return price; // Return base price if index invalid
@@ -81,22 +75,16 @@ class ProductModel {
     return price + availableSizes[index].priceModifier;
   }
 
-  /// Get the current selected size price (for cart items)
   double get currentPrice {
     if (size == null) return price;
     return getPriceForSize(size!);
   }
 
-  /// Get size index by name
   int getSizeIndex(String sizeName) {
     return availableSizes.indexWhere(
       (size) => size.name.toLowerCase() == sizeName.toLowerCase(),
     );
   }
-
-  // ============================================
-  // COPY WITH
-  // ============================================
 
   ProductModel copyWith({
     String? id,
@@ -121,10 +109,6 @@ class ProductModel {
       availableSizes: availableSizes ?? this.availableSizes,
     );
   }
-
-  // ============================================
-  // FIRESTORE SERIALIZATION
-  // ============================================
 
   Map<String, dynamic> toFirestore() {
     return {

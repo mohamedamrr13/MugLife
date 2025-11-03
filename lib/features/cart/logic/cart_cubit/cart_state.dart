@@ -22,5 +22,6 @@ final class CartFailure extends CartState {
 
 final class CartLoaded extends CartState {
   final List<CartItemModel> items;
-  CartLoaded({required this.items});
+  final Future<double> total;
+  CartLoaded(this.total, {required this.items});
 }

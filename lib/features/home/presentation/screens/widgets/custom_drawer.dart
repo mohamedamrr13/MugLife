@@ -170,9 +170,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     child: BlocConsumer<LoginCubit, LoginState>(
                       listener: (context, state) {
                         if (state is LoginFailure) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text("Fuck")));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Failed to login")),
+                          );
                         }
                       },
                       builder: (context, state) {

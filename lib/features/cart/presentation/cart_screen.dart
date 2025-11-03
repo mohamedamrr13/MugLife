@@ -1,9 +1,7 @@
-import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_summary_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/empty_cart_widget.dart';
-import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +128,6 @@ class _CartScreenState extends State<CartScreen> {
             if (state.items.isEmpty) {
               return const EmptyCartWidget();
             }
-
             return Column(
               children: [
                 // Cart Items List
@@ -145,13 +142,19 @@ class _CartScreenState extends State<CartScreen> {
                       return CartItemWidget(
                         item: state.items[index],
                         onQuantityChanged: (newQuantity) {
-                          setState(() {
-                            if (newQuantity > state.items[index].quantity) {
-                              state.items[index].incrementQuantity();
-                            } else {
-                              state.items[index].decrementQuantity();
-                            }
-                          });
+                          BlocProvider.of<CartCubit>(context).updateCartItem(
+                            state.items[index],
+                            newQuantity,
+                            state.items[index].product.price,
+                          );
+                          // Recalculate and log debug total (quantity * price)
+                          final double dbgtotal = state.items.fold<double>(
+                            0.0,
+                            (previousValue, item) =>
+                                previousValue +
+                                (item.quantity * item.product.price),
+                          );
+                          debugPrint('Cart total debug: $dbgtotal');
                         },
                         onRemove: () {
                           // context.read<CartCubit>().removeFromCart(item.id);
@@ -183,7 +186,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CartSummaryWidget(state: state),
+                        CartSummaryWidget(total: state.total),
                         const SizedBox(height: 20),
                         CustomButton(
                           onPressed: () {

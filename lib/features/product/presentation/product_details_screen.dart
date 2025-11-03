@@ -64,8 +64,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     });
   }
 
-  void _onAddToCart() {
-    BlocProvider.of<CartCubit>(context).addProductToCart(
+  void _onAddToCart() async {
+    await BlocProvider.of<CartCubit>(context).addProductToCart(
       widget.products[currentIndex.toInt()],
       quantity,
       selectedIndex == 0
@@ -74,10 +74,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
           ? 'Medium'
           : 'Large',
     );
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text("Added To Cart")));
   }
 
   @override
@@ -96,7 +92,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               color: context.theme.scaffoldBackgroundColor,
               title: widget.products[currentIndex.round()].name,
               prefixIcon: Text(
-                "${widget.products[currentIndex.round()].price + selectedIndex * 15} L.E",
+                "${widget.products[currentIndex.toInt()].getPriceForSizeIndex(selectedIndex)} L.E",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

@@ -1,9 +1,7 @@
-import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class EmptyCartWidget extends StatelessWidget {
   const EmptyCartWidget({super.key});

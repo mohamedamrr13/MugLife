@@ -49,7 +49,7 @@ class CartItemWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
                 imageUrl: item.product.image,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 placeholder:
                     (context, url) => Container(
                       color:
@@ -118,7 +118,7 @@ class CartItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total: £${item.totalPrice.toStringAsFixed(2)}',
+                      'Total: £${item.product.getPriceForSize(item.product.size!) * item.quantity}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -153,7 +153,7 @@ class CartItemWidget extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         if (item.quantity > 1) {
-                          onQuantityChanged(item.quantity - 1);
+                          onQuantityChanged(-1);
                         }
                       },
                       child: Container(
@@ -194,7 +194,7 @@ class CartItemWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        onQuantityChanged(item.quantity + 1);
+                        onQuantityChanged(1);
                       },
                       child: Container(
                         width: 32,
