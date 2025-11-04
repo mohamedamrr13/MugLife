@@ -12,10 +12,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.surfaceColor,
       extendBodyBehindAppBar: true,
-      drawer: CustomDrawer(),
+      // drawer: CustomDrawer(),
       appBar: CustomAppBar(),
       body: const HomeScreenBody(),
     );
   }
 }
-

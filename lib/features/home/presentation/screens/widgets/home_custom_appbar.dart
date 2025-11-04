@@ -47,17 +47,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      leading: Builder(
-        builder:
-            (context) => IconButton(
-              icon: Icon(
-                Icons.menu_rounded,
-                color: context.primaryTextColor,
-                size: 24,
-              ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-      ),
+      // leading: Builder(
+      //   builder:
+      //       (context) => IconButton(
+      //         icon: Icon(
+      //           Icons.menu_rounded,
+      //           color: context.primaryTextColor,
+      //           size: 24,
+      //         ),
+      //         onPressed: () => Scaffold.of(context).openDrawer(),
+      //       ),
+      // ),
       centerTitle: true,
       title: Text(
         "MugLife",
