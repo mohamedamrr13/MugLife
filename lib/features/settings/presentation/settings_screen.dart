@@ -65,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               child: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
+                centerTitle: true,
                 title: Text(
                   'Settings',
                   style: context.textTheme.headlineSmall?.copyWith(
@@ -427,7 +427,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ? Icon(Icons.check, color: context.primaryColor)
                     : null,
             onTap: () {
-              context.read<ThemeCubit>().emit(themeState);
+              context.read<ThemeCubit>().setTheme(themeState);
+
               Navigator.pop(context);
             },
           ),

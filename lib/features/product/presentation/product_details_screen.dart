@@ -92,7 +92,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               color: context.theme.scaffoldBackgroundColor,
               title: widget.products[currentIndex.round()].name,
               prefixIcon: Text(
-                "${widget.products[currentIndex.toInt()].getPriceForSizeIndex(selectedIndex)} L.E",
+                "£${widget.products[currentIndex.toInt()].getPriceForSizeIndex(selectedIndex)}",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

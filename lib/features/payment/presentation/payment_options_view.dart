@@ -3,14 +3,14 @@ import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
 
-class PaymentView extends StatefulWidget {
-  const PaymentView({super.key});
+class PaymentOptionScreen extends StatefulWidget {
+  const PaymentOptionScreen({super.key});
 
   @override
-  State<PaymentView> createState() => _PaymentViewState();
+  State<PaymentOptionScreen> createState() => _PaymentOptionScreenState();
 }
 
-class _PaymentViewState extends State<PaymentView> {
+class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
   String _selectedPaymentMethod = 'Card';
   bool isLoading = false;
   @override
@@ -26,7 +26,11 @@ class _PaymentViewState extends State<PaymentView> {
     return AppBar(
       backgroundColor: context.surfaceColor,
       foregroundColor: context.primaryTextColor,
-      title: const Text('Select Payment Method'),
+      centerTitle: true,
+      title: const Text(
+        'Select Payment Method',
+        style: TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+      ),
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
         icon: Icon(
@@ -120,8 +124,14 @@ class _PaymentViewState extends State<PaymentView> {
           });
           if (_selectedPaymentMethod == 'Card') {
             await FlutterPaymob.instance.payWithCard(
-              title: Text("Card Payment"), // Optional - Custom title AppBar
-              appBarColor: Colors.blueAccent, // Optional - Custom AppBar color
+              title: Text(
+                "Card Payment",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                ),
+              ),
               context: context,
               currency: "EGP",
               amount: 150,

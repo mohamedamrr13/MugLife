@@ -33,6 +33,17 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
   }
 
+  // New method to set a specific theme
+  Future<void> setTheme(ThemeState themeState) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt(_themeKey, themeState.index);
+      emit(themeState);
+    } catch (e) {
+      emit(themeState);
+    }
+  }
+
   void toggleTheme() async {
     try {
       ThemeState newTheme;

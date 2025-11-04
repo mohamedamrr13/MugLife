@@ -1,4 +1,3 @@
-// lib/features/settings/account_screen.dart
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/info_card.dart';
@@ -26,8 +25,8 @@ class _AccountScreenState extends State<AccountScreen> {
     'phone': '+1 234 567 8900',
     'address': '123 Main St, New York, NY 10001',
     'memberSince': 'January 2024',
-    'totalOrders': 24,
-    'totalSpent': 1250.50,
+    'totalOrders': 25,
+    'totalSpent': 1270,
     'points': 450,
   };
 

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
@@ -161,6 +160,7 @@ class _ProductResultScreenState extends State<ProductResultScreen>
                     ),
                   ),
                   child: FlexibleSpaceBar(
+                    centerTitle: true,
                     titlePadding: const EdgeInsets.only(bottom: 16),
                     title: Column(
                       mainAxisSize: MainAxisSize.min,

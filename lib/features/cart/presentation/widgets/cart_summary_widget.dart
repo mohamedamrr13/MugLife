@@ -29,9 +29,10 @@ class CartSummaryWidget extends StatelessWidget {
             ),
             FutureBuilder(
               future: total,
+              initialData: '',
               builder: (context, snapshot) {
                 return Text(
-                  '${snapshot.data} L.E.',
+                  '£${snapshot.data}',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,

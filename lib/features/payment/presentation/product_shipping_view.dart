@@ -48,7 +48,7 @@ class ShippingScreenState extends State<ShippingScreen> {
         MaterialPageRoute(
           settings: RouteSettings(arguments: shippingData),
           builder: (context) {
-            return PaymentView();
+            return PaymentOptionScreen();
           },
         ),
       );
@@ -185,7 +185,7 @@ class ShippingAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: true,
-      expandedHeight: 120,
+      expandedHeight: 100,
       collapsedHeight: 80,
       floating: false,
 
@@ -197,6 +197,7 @@ class ShippingAppBar extends StatelessWidget {
         statusBarIconBrightness:
             context.isDark ? Brightness.light : Brightness.dark,
       ),
+
       leading: Container(
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -205,7 +206,7 @@ class ShippingAppBar extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               context.isDark
-                  ? Colors.white.withOpacity(0.1)
+                  ? Colors.white.withOpacity(0.3)
                   : Colors.white.withOpacity(0.8),
               context.isDark
                   ? Colors.white.withOpacity(0.05)
@@ -240,10 +241,10 @@ class ShippingAppBar extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               context.isDark
-                  ? Colors.black.withOpacity(0.3)
+                  ? Colors.black.withOpacity(0.5)
                   : Colors.white.withOpacity(0.9),
               context.isDark
-                  ? Colors.black.withOpacity(0.1)
+                  ? Colors.black.withOpacity(0.7)
                   : Colors.white.withOpacity(0.5),
               Colors.transparent,
             ],
@@ -268,7 +269,8 @@ class ShippingAppBar extends StatelessWidget {
               ),
             ),
             child: FlexibleSpaceBar(
-              titlePadding: EdgeInsets.only(left: 40, bottom: 30),
+              collapseMode: CollapseMode.none,
+              titlePadding: EdgeInsets.only(left: 60, bottom: 20),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
