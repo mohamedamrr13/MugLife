@@ -91,90 +91,55 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
     return Scaffold(
       body: FadeTransition(opacity: _fadeAnimation, child: pages[currentIndex]),
       bottomNavigationBar: Container(
-        height: 80,
+        height: 70,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              context.isDark
-                  ? context.surfaceColor.withOpacity(0.95)
-                  : Colors.white.withOpacity(0.95),
-              context.isDark
-                  ? context.surfaceColor.withOpacity(0.98)
-                  : Colors.white.withOpacity(0.98),
-            ],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  context.isDark
-                      ? Colors.black.withOpacity(0.3)
-                      : Colors.black.withOpacity(0.08),
-              blurRadius: 20,
-              offset: const Offset(0, -5),
-              spreadRadius: 0,
-            ),
-          ],
+          color: context.isDark
+              ? context.surfaceColor
+              : Colors.white,
           border: Border(
             top: BorderSide(
-              color:
-                  context.isDark
-                      ? context.dividerColor.withOpacity(0.1)
-                      : context.dividerColor.withOpacity(0.2),
-              width: 1,
+              color: context.isDark
+                  ? context.dividerColor.withOpacity(0.15)
+                  : context.dividerColor.withOpacity(0.1),
+              width: 0.5,
             ),
           ),
         ),
-        child: ClipRect(
-          child: BackdropFilter(
-            filter:
-                context.isDark
-                    ? ColorFilter.mode(Colors.transparent, BlendMode.src)
-                    : ColorFilter.mode(
-                      Colors.white.withOpacity(0.1),
-                      BlendMode.srcOver,
-                    ),
-            child: SafeArea(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  NabBarIcon(
-                    iconData:
-                        currentIndex == 0 ? Icons.home : Icons.home_outlined,
-                    pageIndex: 0,
-                    isSelected: currentIndex == 0,
-                    onPressed: () => navigateToPage(0),
-                  ),
-                  NabBarIcon(
-                    iconData:
-                        currentIndex == 1 ? Icons.person : Icons.person_outline,
-                    pageIndex: 1,
-                    isSelected: currentIndex == 1,
-                    onPressed: () => navigateToPage(1),
-                  ),
-                  NabBarIcon(
-                    iconData:
-                        currentIndex == 2
-                            ? Icons.shopping_bag
-                            : Icons.shopping_bag_outlined,
-                    pageIndex: 2,
-                    isSelected: currentIndex == 2,
-                    onPressed: () => navigateToPage(2),
-                  ),
-                  NabBarIcon(
-                    iconData:
-                        currentIndex == 3
-                            ? Icons.settings
-                            : Icons.settings_outlined,
-                    pageIndex: 3,
-                    isSelected: currentIndex == 3,
-                    onPressed: () => navigateToPage(3),
-                  ),
-                ],
+        child: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              NabBarIcon(
+                iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                pageIndex: 0,
+                isSelected: currentIndex == 0,
+                onPressed: () => navigateToPage(0),
+
               ),
-            ),
+              NabBarIcon(
+                iconData: currentIndex == 1 ? Icons.person : Icons.person_outline,
+                pageIndex: 1,
+                isSelected: currentIndex == 1,
+                onPressed: () => navigateToPage(1),
+              ),
+              NabBarIcon(
+                iconData:
+                    currentIndex == 2
+                        ? Icons.shopping_bag
+                        : Icons.shopping_bag_outlined,
+                pageIndex: 2,
+                isSelected: currentIndex == 2,
+                onPressed: () => navigateToPage(2),
+              ),
+              NabBarIcon(
+                iconData:
+                    currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
+                pageIndex: 3,
+                isSelected: currentIndex == 3,
+                onPressed: () => navigateToPage(3),
+              ),
+            ],
           ),
         ),
       ),
