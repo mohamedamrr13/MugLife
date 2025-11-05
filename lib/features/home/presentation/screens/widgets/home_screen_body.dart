@@ -65,82 +65,100 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            context.primaryColor.withOpacity(0.02),
+            context.primaryColor.withOpacity(0.03),
+            context.surfaceColor,
             context.surfaceColor,
           ],
+          stops: const [0.0, 0.3, 1.0],
         ),
       ),
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // Add space for app bar
-          SliverToBoxAdapter(child: SizedBox(height: 120)),
-
-          // // Search Bar
-          // SliverToBoxAdapter(
-          //   child: AnimatedBuilder(
-          //     animation: _contentFadeAnimation,
-          //     builder: (context, child) {
-          //       return Padding(
-          //         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          //         child: Container(
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(12),
-          //             color:
-          //                 Theme.of(context).isDark ? Colors.grey : Colors.white,
-          //             boxShadow: [
-          //               BoxShadow(
-          //                 color: context.primaryColor.withOpacity(0.7),
-          //                 blurRadius: 1,
-          //                 spreadRadius: 1,
-          //               ),
-          //             ],
-          //           ),
-          //           child: TextField(
-          //             decoration: InputDecoration(
-          //               hintText: "Search",
-          //               focusedBorder: OutlineInputBorder(
-          //                 borderSide: BorderSide(
-          //                   color: AppTheme.primaryColor,
-          //                   width: 2,
-          //                 ),
-          //                 borderRadius: BorderRadius.circular(12),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
-
-          // Categories Section
-          SliverToBoxAdapter(
-            child: AnimatedBuilder(
-              animation: _contentFadeAnimation,
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _contentFadeAnimation.value,
-                  child: CategoriesSection(),
-                );
-              },
+      child: Stack(
+        children: [
+          // Decorative circles in the background
+          Positioned(
+            top: -50,
+            right: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    context.primaryColor.withOpacity(0.08),
+                    context.primaryColor.withOpacity(0.02),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
             ),
           ),
-
-          // Featured Products Section
-          SliverToBoxAdapter(
-            child: AnimatedBuilder(
-              animation: _contentFadeAnimation,
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _contentFadeAnimation.value,
-                  child: FeaturedSection(),
-                );
-              },
+          Positioned(
+            bottom: 100,
+            left: -80,
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    context.primaryColor.withOpacity(0.06),
+                    context.primaryColor.withOpacity(0.02),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
             ),
           ),
+          // Main content
+          CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              // Add space for app bar
+              const SliverToBoxAdapter(child: SizedBox(height: 120)),
 
-          // Bottom spacing
+              // Categories Section
+              SliverToBoxAdapter(
+                child: AnimatedBuilder(
+                  animation: _contentFadeAnimation,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset:
+                          Offset(0, 20 * (1 - _contentFadeAnimation.value)),
+                      child: Opacity(
+                        opacity: _contentFadeAnimation.value,
+                        child: const CategoriesSection(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              // Spacing between sections
+              const SliverToBoxAdapter(child: SizedBox(height: 20)),
+
+              // Featured Products Section
+              SliverToBoxAdapter(
+                child: AnimatedBuilder(
+                  animation: _contentFadeAnimation,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset:
+                          Offset(0, 30 * (1 - _contentFadeAnimation.value)),
+                      child: Opacity(
+                        opacity: _contentFadeAnimation.value,
+                        child: const FeaturedSection(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              // Bottom spacing for floating navbar
+              const SliverToBoxAdapter(child: SizedBox(height: 120)),
+            ],
+          ),
         ],
       ),
     );
