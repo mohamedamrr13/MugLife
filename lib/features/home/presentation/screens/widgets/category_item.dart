@@ -31,7 +31,7 @@ class _CategoryItemState extends State<CategoryItem>
     super.initState();
 
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 400),
       vsync: this,
     );
 
@@ -48,7 +48,8 @@ class _CategoryItemState extends State<CategoryItem>
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.94).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: Curves.easeOutCubic,
+        curve: Curves.easeInOutBack,
+        reverseCurve: Curves.easeOutBack,
       ),
     );
 
@@ -218,7 +219,8 @@ class _CategoryItemState extends State<CategoryItem>
 
                                   // Image container with elevation effect
                                   AnimatedContainer(
-                                    duration: const Duration(milliseconds: 150),
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeInOutBack,
                                     transform: Matrix4.translationValues(
                                       0,
                                       _isPressed ? 2 : 0,
