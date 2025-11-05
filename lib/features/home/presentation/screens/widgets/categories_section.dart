@@ -49,7 +49,12 @@ class CategoriesSection extends StatelessWidget {
             if (state is GetCategoriesSuccess) {
               return CategoreisListView(categories: state.categories);
             } else if (state is GetCategoriesFailure) {
-              return ErrorWidget(message: state.errMessage);
+              return ErrorWidget(
+                message: state.errMessage,
+                onRetry: () {
+                  BlocProvider.of<GetCategoriesCubit>(context).getCategories();
+                },
+              );
             }
             // Loading state with Skeletonizer
             return Skeletonizer(

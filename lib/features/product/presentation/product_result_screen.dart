@@ -1,3 +1,4 @@
+import 'package:drinks_app/features/home/presentation/screens/widgets/error_widget.dart';
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
@@ -286,7 +287,10 @@ class _ProductResultScreenState extends State<ProductResultScreen>
           child: Container(
             height: 400,
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: const LoadingDataWidget(),
+            child: LoadingDataWidget(
+              message: "Discovering amazing ${widget.category}...",
+              size: 70,
+            ),
           ),
         );
       },
@@ -295,63 +299,17 @@ class _ProductResultScreenState extends State<ProductResultScreen>
 
   Widget _buildErrorWidget(BuildContext context, String message) {
     return Container(
-      height: 300,
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.red.withOpacity(0.1), Colors.red.withOpacity(0.05)],
-        ),
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Colors.red.withOpacity(0.3), width: 1.5),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(25),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.error_outline_rounded, color: Colors.red, size: 64),
-              const SizedBox(height: 20),
-              Text(
-                "Oops! Something went wrong",
-                style: context.textTheme.titleLarge?.copyWith(
-                  color: Colors.red,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                message,
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: Colors.red.withOpacity(0.8),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: () {
-                  BlocProvider.of<GetProductsByCategoryCubit>(
-                    context,
-                  ).getProductsByCategory(widget.category);
-                },
-                icon: Icon(Icons.refresh_rounded),
-                label: Text("Try Again"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      child: EnhancedErrorWidget(
+        message: message,
+        title: "Failed to load ${widget.category}",
+        icon: Icons.local_drink_outlined,
+        height: 350,
+        onRetry: () {
+          BlocProvider.of<GetProductsByCategoryCubit>(
+            context,
+          ).getProductsByCategory(widget.category);
+        },
       ),
     );
   }

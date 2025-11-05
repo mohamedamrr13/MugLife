@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
+import 'package:drinks_app/features/home/presentation/screens/widgets/error_widget.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view_item.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/helper/helper_functions.dart';
 import 'package:drinks_app/utils/shared/loading_data_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -147,9 +148,25 @@ class _FeaturedItemsListViewState extends State<FeaturedItemsListView> {
             ],
           );
         } else if (state is GetFeaturedProductsFailure) {
-          return Center(child: Text(state.errMessage));
+          return SizedBox(
+            height: 450,
+            child: EnhancedErrorWidget(
+              message: state.errMessage,
+              title: "Failed to load featured items",
+              onRetry: () {
+                BlocProvider.of<GetFeaturedProductsCubit>(context)
+                    .getFeaturedProducts();
+              },
+            ),
+          );
         }
-        return SizedBox(height: 410, child: LoadingDataWidget());
+        return SizedBox(
+          height: 410,
+          child: LoadingDataWidget(
+            message: "Loading featured items...",
+            size: 70,
+          ),
+        );
       },
     );
   }
