@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/utils/shared/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsImage extends StatelessWidget {
@@ -20,7 +21,15 @@ class ProductDetailsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (product.image.isEmpty) {
-      return Icon(Icons.image);
+      return Container(
+        height: screenHeight * 0.36,
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.image_outlined,
+          size: 80,
+          color: context.secondaryTextColor.withOpacity(0.5),
+        ),
+      );
     }
     return Transform.translate(
       offset: Offset(translateY, 0),
@@ -33,10 +42,56 @@ class ProductDetailsImage extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   placeholder: (context, url) {
-                    return Icon(Icons.image);
+                    return SizedBox(
+                      height: screenHeight * 0.36,
+                      child: Center(
+                        child: ShimmerWidget(
+                          child: Container(
+                            width: screenHeight * 0.36,
+                            height: screenHeight * 0.36,
+                            decoration: BoxDecoration(
+                              color: context.shimmerBaseColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.local_drink_outlined,
+                                size: 80,
+                                color: context.secondaryTextColor.withOpacity(0.3),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  errorWidget: (context, url, error) {
+                    return Container(
+                      height: screenHeight * 0.36,
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.error_outline_rounded,
+                            size: 60,
+                            color: context.errorColor.withOpacity(0.7),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Failed to load image',
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: context.secondaryTextColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   imageUrl: product.image,
                   height: screenHeight * 0.36,
+                  fadeInDuration: Duration(milliseconds: 500),
+                  fadeOutDuration: Duration(milliseconds: 300),
                 ),
                 if (!Theme.of(context).isDark)
                   Positioned(

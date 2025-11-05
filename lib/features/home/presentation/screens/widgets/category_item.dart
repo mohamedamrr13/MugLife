@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/home/data/models/category_model.dart';
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/utils/shared/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatefulWidget {
@@ -246,29 +247,37 @@ class _CategoryItemState extends State<CategoryItem>
                               child: CachedNetworkImage(
                                 imageUrl: widget.category.image,
                                 fit: BoxFit.contain,
-                                errorWidget:
-                                    (context, url, error) => Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.red.withOpacity(0.2),
-                                            Colors.red.withOpacity(0.1),
-                                          ],
-                                        ),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.error_outline_rounded,
-                                        color: Colors.red,
-                                        size: 28,
-                                      ),
+                                placeholder: (context, url) => ShimmerWidget(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: context.shimmerBaseColor,
+                                      shape: BoxShape.circle,
                                     ),
-                                fadeInDuration: const Duration(
-                                  milliseconds: 300,
+                                    child: Icon(
+                                      Icons.category_outlined,
+                                      color: context.secondaryTextColor.withOpacity(0.3),
+                                      size: 32,
+                                    ),
+                                  ),
                                 ),
-                                fadeOutDuration: const Duration(
-                                  milliseconds: 300,
+                                errorWidget: (context, url, error) => Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.red.withOpacity(0.2),
+                                        Colors.red.withOpacity(0.1),
+                                      ],
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.error_outline_rounded,
+                                    color: Colors.red,
+                                    size: 32,
+                                  ),
                                 ),
+                                fadeInDuration: const Duration(milliseconds: 400),
+                                fadeOutDuration: const Duration(milliseconds: 200),
                               ),
                             ),
                           ),
