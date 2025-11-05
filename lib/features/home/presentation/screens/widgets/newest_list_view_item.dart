@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
+import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/utils/shared/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewestListViewItem extends StatelessWidget {
@@ -102,7 +104,36 @@ class NewestListViewItem extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CachedNetworkImage(imageUrl: imageAsset),
+                        child: CachedNetworkImage(
+                          imageUrl: imageAsset,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) => ShimmerWidget(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.3),
+                              ),
+                              child: Icon(
+                                Icons.local_drink_outlined,
+                                size: 70,
+                                color: Colors.white.withOpacity(0.5),
+                              ),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withOpacity(0.2),
+                            ),
+                            child: Icon(
+                              Icons.error_outline_rounded,
+                              size: 60,
+                              color: Colors.white.withOpacity(0.7),
+                            ),
+                          ),
+                          fadeInDuration: Duration(milliseconds: 500),
+                          fadeOutDuration: Duration(milliseconds: 300),
+                        ),
                       ),
                     ),
                   ),
