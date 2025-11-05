@@ -51,7 +51,6 @@ class _CategoryItemState extends State<CategoryItem>
         curve: Curves.easeInOutBack,
         reverseCurve: Curves.easeOutBack,
       ),
-      CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
     );
 
     _elevationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
