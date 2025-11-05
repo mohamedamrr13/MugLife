@@ -51,35 +51,28 @@ class _CategoryItemState extends State<CategoryItem>
         curve: Curves.easeInOutBack,
         reverseCurve: Curves.easeOutBack,
       ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
     );
 
     _elevationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOutCubic,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
     );
 
     _entranceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _entranceController,
-        curve: Curves.elasticOut,
-      ),
+      CurvedAnimation(parent: _entranceController, curve: Curves.elasticOut),
     );
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(
-        parent: _entranceController,
-        curve: Curves.easeOutCubic,
-      ),
+      CurvedAnimation(parent: _entranceController, curve: Curves.easeOutCubic),
     );
 
-    _shimmerAnimation = Tween<double>(begin: -2.0, end: 2.0).animate(
-      _shimmerController,
-    );
+    _shimmerAnimation = Tween<double>(
+      begin: -2.0,
+      end: 2.0,
+    ).animate(_shimmerController);
 
     _entranceController.forward();
   }
@@ -143,23 +136,25 @@ class _CategoryItemState extends State<CategoryItem>
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: context.isDark
-                              ? [
-                                  Colors.white.withOpacity(0.12),
-                                  Colors.white.withOpacity(0.06),
-                                  Colors.white.withOpacity(0.03),
-                                ]
-                              : [
-                                  Colors.white.withOpacity(0.95),
-                                  Colors.white.withOpacity(0.75),
-                                  Colors.white.withOpacity(0.55),
-                                ],
+                          colors:
+                              context.isDark
+                                  ? [
+                                    Colors.white.withOpacity(0.12),
+                                    Colors.white.withOpacity(0.06),
+                                    Colors.white.withOpacity(0.03),
+                                  ]
+                                  : [
+                                    Colors.white.withOpacity(0.95),
+                                    Colors.white.withOpacity(0.75),
+                                    Colors.white.withOpacity(0.55),
+                                  ],
                           stops: const [0.0, 0.5, 1.0],
                         ),
                         border: Border.all(
-                          color: _isPressed
-                              ? context.primaryColor.withOpacity(0.7)
-                              : context.isDark
+                          color:
+                              _isPressed
+                                  ? context.primaryColor.withOpacity(0.7)
+                                  : context.isDark
                                   ? Colors.white.withOpacity(0.25)
                                   : Colors.white.withOpacity(0.8),
                           width: _isPressed ? 2.0 : 1.5,
@@ -167,9 +162,10 @@ class _CategoryItemState extends State<CategoryItem>
                         boxShadow: [
                           // Main depth shadow
                           BoxShadow(
-                            color: context.isDark
-                                ? Colors.black.withOpacity(0.5)
-                                : context.primaryColor.withOpacity(0.12),
+                            color:
+                                context.isDark
+                                    ? Colors.black.withOpacity(0.5)
+                                    : context.primaryColor.withOpacity(0.12),
                             blurRadius: _isPressed ? 8 : 16,
                             offset: Offset(0, _isPressed ? 2 : 8),
                             spreadRadius: _isPressed ? 0 : 2,
@@ -183,9 +179,10 @@ class _CategoryItemState extends State<CategoryItem>
                             ),
                           // Ambient light from top
                           BoxShadow(
-                            color: context.isDark
-                                ? Colors.white.withOpacity(0.03)
-                                : Colors.white.withOpacity(0.95),
+                            color:
+                                context.isDark
+                                    ? Colors.white.withOpacity(0.03)
+                                    : Colors.white.withOpacity(0.95),
                             blurRadius: 20,
                             offset: const Offset(0, -4),
                           ),
@@ -201,15 +198,16 @@ class _CategoryItemState extends State<CategoryItem>
                                 gradient: LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
-                                  colors: context.isDark
-                                      ? [
-                                          Colors.white.withOpacity(0.04),
-                                          Colors.white.withOpacity(0.02),
-                                        ]
-                                      : [
-                                          Colors.white.withOpacity(0.4),
-                                          Colors.white.withOpacity(0.15),
-                                        ],
+                                  colors:
+                                      context.isDark
+                                          ? [
+                                            Colors.white.withOpacity(0.04),
+                                            Colors.white.withOpacity(0.02),
+                                          ]
+                                          : [
+                                            Colors.white.withOpacity(0.4),
+                                            Colors.white.withOpacity(0.15),
+                                          ],
                                 ),
                               ),
                               child: Column(
@@ -232,30 +230,45 @@ class _CategoryItemState extends State<CategoryItem>
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         gradient: RadialGradient(
-                                          colors: context.isDark
-                                              ? [
-                                                  context.primaryColor.withOpacity(0.15),
-                                                  context.primaryColor.withOpacity(0.05),
-                                                  Colors.transparent,
-                                                ]
-                                              : [
-                                                  Colors.white.withOpacity(0.9),
-                                                  context.primaryColor.withOpacity(0.1),
-                                                  Colors.transparent,
-                                                ],
+                                          colors:
+                                              context.isDark
+                                                  ? [
+                                                    context.primaryColor
+                                                        .withOpacity(0.15),
+                                                    context.primaryColor
+                                                        .withOpacity(0.05),
+                                                    Colors.transparent,
+                                                  ]
+                                                  : [
+                                                    Colors.white.withOpacity(
+                                                      0.9,
+                                                    ),
+                                                    context.primaryColor
+                                                        .withOpacity(0.1),
+                                                    Colors.transparent,
+                                                  ],
                                           stops: const [0.0, 0.7, 1.0],
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: context.isDark
-                                                ? Colors.black.withOpacity(0.4)
-                                                : context.primaryColor.withOpacity(0.15),
+                                            color:
+                                                context.isDark
+                                                    ? Colors.black.withOpacity(
+                                                      0.4,
+                                                    )
+                                                    : context.primaryColor
+                                                        .withOpacity(0.15),
                                             blurRadius: _isPressed ? 8 : 12,
-                                            offset: Offset(0, _isPressed ? 4 : 8),
+                                            offset: Offset(
+                                              0,
+                                              _isPressed ? 4 : 8,
+                                            ),
                                           ),
                                           if (!context.isDark)
                                             BoxShadow(
-                                              color: Colors.white.withOpacity(0.6),
+                                              color: Colors.white.withOpacity(
+                                                0.6,
+                                              ),
                                               blurRadius: 8,
                                               offset: const Offset(0, -2),
                                             ),
@@ -267,20 +280,32 @@ class _CategoryItemState extends State<CategoryItem>
                                           gradient: LinearGradient(
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
-                                            colors: context.isDark
-                                                ? [
-                                                    Colors.white.withOpacity(0.12),
-                                                    Colors.white.withOpacity(0.06),
-                                                  ]
-                                                : [
-                                                    Colors.white.withOpacity(0.8),
-                                                    Colors.white.withOpacity(0.4),
-                                                  ],
+                                            colors:
+                                                context.isDark
+                                                    ? [
+                                                      Colors.white.withOpacity(
+                                                        0.12,
+                                                      ),
+                                                      Colors.white.withOpacity(
+                                                        0.06,
+                                                      ),
+                                                    ]
+                                                    : [
+                                                      Colors.white.withOpacity(
+                                                        0.8,
+                                                      ),
+                                                      Colors.white.withOpacity(
+                                                        0.4,
+                                                      ),
+                                                    ],
                                           ),
                                           border: Border.all(
-                                            color: context.isDark
-                                                ? context.primaryColor.withOpacity(0.3)
-                                                : context.primaryColor.withOpacity(0.2),
+                                            color:
+                                                context.isDark
+                                                    ? context.primaryColor
+                                                        .withOpacity(0.3)
+                                                    : context.primaryColor
+                                                        .withOpacity(0.2),
                                             width: 1.5,
                                           ),
                                         ),
@@ -288,24 +313,37 @@ class _CategoryItemState extends State<CategoryItem>
                                         child: CachedNetworkImage(
                                           imageUrl: widget.category.image,
                                           fit: BoxFit.contain,
-                                          errorWidget: (context, url, error) => Container(
-                                            decoration: BoxDecoration(
-                                              gradient: RadialGradient(
-                                                colors: [
-                                                  Colors.red.withOpacity(0.3),
-                                                  Colors.red.withOpacity(0.1),
-                                                ],
+                                          errorWidget:
+                                              (
+                                                context,
+                                                url,
+                                                error,
+                                              ) => Container(
+                                                decoration: BoxDecoration(
+                                                  gradient: RadialGradient(
+                                                    colors: [
+                                                      Colors.red.withOpacity(
+                                                        0.3,
+                                                      ),
+                                                      Colors.red.withOpacity(
+                                                        0.1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: const Icon(
+                                                  Icons.error_outline_rounded,
+                                                  color: Colors.red,
+                                                  size: 32,
+                                                ),
                                               ),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.error_outline_rounded,
-                                              color: Colors.red,
-                                              size: 32,
-                                            ),
+                                          fadeInDuration: const Duration(
+                                            milliseconds: 400,
                                           ),
-                                          fadeInDuration: const Duration(milliseconds: 400),
-                                          fadeOutDuration: const Duration(milliseconds: 200),
+                                          fadeOutDuration: const Duration(
+                                            milliseconds: 200,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -319,7 +357,9 @@ class _CategoryItemState extends State<CategoryItem>
                                       horizontal: 20,
                                       vertical: 10,
                                     ),
-                                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
                                     constraints: const BoxConstraints(
                                       minHeight: 40,
                                       maxWidth: 133,
@@ -328,28 +368,36 @@ class _CategoryItemState extends State<CategoryItem>
                                       gradient: LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
-                                        colors: context.isDark
-                                            ? [
-                                                Colors.white.withOpacity(0.1),
-                                                Colors.white.withOpacity(0.05),
-                                              ]
-                                            : [
-                                                Colors.white.withOpacity(0.9),
-                                                Colors.white.withOpacity(0.6),
-                                              ],
+                                        colors:
+                                            context.isDark
+                                                ? [
+                                                  Colors.white.withOpacity(0.1),
+                                                  Colors.white.withOpacity(
+                                                    0.05,
+                                                  ),
+                                                ]
+                                                : [
+                                                  Colors.white.withOpacity(0.9),
+                                                  Colors.white.withOpacity(0.6),
+                                                ],
                                       ),
                                       borderRadius: BorderRadius.circular(22),
                                       border: Border.all(
-                                        color: context.isDark
-                                            ? Colors.white.withOpacity(0.2)
-                                            : Colors.white.withOpacity(0.9),
+                                        color:
+                                            context.isDark
+                                                ? Colors.white.withOpacity(0.2)
+                                                : Colors.white.withOpacity(0.9),
                                         width: 1.5,
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: context.isDark
-                                              ? Colors.black.withOpacity(0.3)
-                                              : context.primaryColor.withOpacity(0.08),
+                                          color:
+                                              context.isDark
+                                                  ? Colors.black.withOpacity(
+                                                    0.3,
+                                                  )
+                                                  : context.primaryColor
+                                                      .withOpacity(0.08),
                                           blurRadius: 8,
                                           offset: const Offset(0, 3),
                                         ),
@@ -358,12 +406,13 @@ class _CategoryItemState extends State<CategoryItem>
                                     child: Center(
                                       child: Text(
                                         widget.category.name,
-                                        style: context.textTheme.titleMedium?.copyWith(
-                                          color: context.primaryTextColor,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                          letterSpacing: 0.3,
-                                        ),
+                                        style: context.textTheme.titleMedium
+                                            ?.copyWith(
+                                              color: context.primaryTextColor,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14,
+                                              letterSpacing: 0.3,
+                                            ),
                                         textAlign: TextAlign.center,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
