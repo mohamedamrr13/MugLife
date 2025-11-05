@@ -67,57 +67,102 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: Container(
-        height: 70,
-        decoration: BoxDecoration(color: colorScheme.primary.withAlpha(100)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            NabBarIcon(
-              iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
-              pageIndex: 0,
-              onPressed: () {
-                setState(() {
-                  currentIndex = 0;
-                });
-              },
+        height: 80,
+        margin: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    colorScheme.surface.withOpacity(0.9),
+                    colorScheme.surface.withOpacity(0.8),
+                  ]
+                : [
+                    Colors.white.withOpacity(0.95),
+                    Colors.white.withOpacity(0.85),
+                  ],
+          ),
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withOpacity(0.1)
+                : colorScheme.primary.withOpacity(0.15),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.primary.withOpacity(0.15),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+              spreadRadius: 2,
             ),
-            NabBarIcon(
-              iconData: currentIndex == 1 ? Icons.person : Icons.person_outline,
-              pageIndex: 1,
-              onPressed: () {
-                setState(() {
-                  currentIndex = 1;
-                });
-              },
-            ),
-
-            NabBarIcon(
-              iconData:
-                  currentIndex == 2
-                      ? Icons.shopping_bag
-                      : Icons.shopping_bag_outlined,
-              pageIndex: 2,
-              onPressed: () {
-                setState(() {
-                  currentIndex = 2;
-                });
-              },
-            ),
-            NabBarIcon(
-              iconData:
-                  currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
-              pageIndex: 3,
-              onPressed: () {
-                setState(() {
-                  currentIndex = 3;
-                });
-              },
+            BoxShadow(
+              color: isDark
+                  ? Colors.black.withOpacity(0.3)
+                  : Colors.grey.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
           ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              NabBarIcon(
+                iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                pageIndex: 0,
+                isActive: currentIndex == 0,
+                onPressed: () {
+                  setState(() {
+                    currentIndex = 0;
+                  });
+                },
+              ),
+              NabBarIcon(
+                iconData:
+                    currentIndex == 1 ? Icons.person : Icons.person_outline,
+                pageIndex: 1,
+                isActive: currentIndex == 1,
+                onPressed: () {
+                  setState(() {
+                    currentIndex = 1;
+                  });
+                },
+              ),
+              NabBarIcon(
+                iconData: currentIndex == 2
+                    ? Icons.shopping_bag
+                    : Icons.shopping_bag_outlined,
+                pageIndex: 2,
+                isActive: currentIndex == 2,
+                onPressed: () {
+                  setState(() {
+                    currentIndex = 2;
+                  });
+                },
+              ),
+              NabBarIcon(
+                iconData:
+                    currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
+                pageIndex: 3,
+                isActive: currentIndex == 3,
+                onPressed: () {
+                  setState(() {
+                    currentIndex = 3;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
