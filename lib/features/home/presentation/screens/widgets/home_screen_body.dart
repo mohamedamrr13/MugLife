@@ -155,8 +155,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
                 ),
               ),
 
-              // Bottom spacing for floating navbar
-              const SliverToBoxAdapter(child: SizedBox(height: 120)),
+              // Bottom spacing
             ],
           ),
         ],

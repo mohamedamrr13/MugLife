@@ -79,73 +79,49 @@ class _FeaturedItemsListViewState extends State<FeaturedItemsListView> {
     return BlocBuilder<GetFeaturedProductsCubit, GetFeaturedProductsState>(
       builder: (context, state) {
         if (state is GetFeaturedProductsSuccess) {
-          return Column(
-            children: [
-              SizedBox(
-                height: 410,
-                child: GestureDetector(
-                  onPanDown: (_) => _onUserInteractionStart(),
-                  onPanEnd: (_) => _onUserInteractionEnd(),
-                  onPanCancel: () => _onUserInteractionEnd(),
-                  child: PageView.builder(
-                    controller: _pageController,
-                    padEnds: false,
-                    itemCount: state.products.length,
-                    itemBuilder: (context, index) {
-                      final ProductModel product = state.products[index];
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeOutCubic,
-                        transform: Matrix4.identity()
-                          ..scale(_currentIndex == index ? 1.1 : 0.9),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: GestureDetector(
-                            onTap: () => context.push(
-                              AppRouter.itemDetailsScreen,
-                              extra: {
-                                'list': state.products,
-                                'index': index.toDouble(),
-                              },
-                            ),
-                            child: NewestListViewItem(
-                              title: product.name.split(' ').first,
-                              subtitle: product.name.split(' ').last,
-                              type: HelperFunctions.capitalize(product.category),
-                              duration: "30 min",
-                              difficulty: "Easy",
-                              likes: 534,
-                              rating: 4.0,
-                              imageAsset: product.image,
-                            ),
-                          ),
+          return SizedBox(
+            height: 410,
+            child: GestureDetector(
+              onPanDown: (_) => _onUserInteractionStart(),
+              onPanEnd: (_) => _onUserInteractionEnd(),
+              onPanCancel: () => _onUserInteractionEnd(),
+              child: PageView.builder(
+                controller: _pageController,
+                padEnds: false,
+                itemCount: state.products.length,
+                itemBuilder: (context, index) {
+                  final ProductModel product = state.products[index];
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOutCubic,
+                    transform: Matrix4.identity()
+                      ..scale(_currentIndex == index ? 1.1 : 0.9),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GestureDetector(
+                        onTap: () => context.push(
+                          AppRouter.itemDetailsScreen,
+                          extra: {
+                            'list': state.products,
+                            'index': index.toDouble(),
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Page indicators
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  state.products.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    height: 8,
-                    width: _currentIndex == index ? 24 : 8,
-                    decoration: BoxDecoration(
-                      color: _currentIndex == index
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(4),
+                        child: NewestListViewItem(
+                          title: product.name.split(' ').first,
+                          subtitle: product.name.split(' ').last,
+                          type: HelperFunctions.capitalize(product.category),
+                          duration: "30 min",
+                          difficulty: "Easy",
+                          likes: 534,
+                          rating: 4.0,
+                          imageAsset: product.image,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
-            ],
+            ),
           );
         } else if (state is GetFeaturedProductsFailure) {
           return SizedBox(
