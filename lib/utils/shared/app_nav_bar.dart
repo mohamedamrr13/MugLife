@@ -89,10 +89,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: pages[currentIndex],
-      ),
+      body: FadeTransition(opacity: _fadeAnimation, child: pages[currentIndex]),
       bottomNavigationBar: Container(
         height: 80,
         decoration: BoxDecoration(
@@ -110,9 +107,10 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
           ),
           boxShadow: [
             BoxShadow(
-              color: context.isDark
-                  ? Colors.black.withOpacity(0.3)
-                  : Colors.black.withOpacity(0.08),
+              color:
+                  context.isDark
+                      ? Colors.black.withOpacity(0.3)
+                      : Colors.black.withOpacity(0.08),
               blurRadius: 20,
               offset: const Offset(0, -5),
               spreadRadius: 0,
@@ -120,37 +118,38 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
           ],
           border: Border(
             top: BorderSide(
-              color: context.isDark
-                  ? context.dividerColor.withOpacity(0.1)
-                  : context.dividerColor.withOpacity(0.2),
+              color:
+                  context.isDark
+                      ? context.dividerColor.withOpacity(0.1)
+                      : context.dividerColor.withOpacity(0.2),
               width: 1,
             ),
           ),
         ),
         child: ClipRect(
           child: BackdropFilter(
-            filter: context.isDark
-                ? ColorFilter.mode(
-                    Colors.transparent,
-                    BlendMode.src,
-                  )
-                : ColorFilter.mode(
-                    Colors.white.withOpacity(0.1),
-                    BlendMode.srcOver,
-                  ),
+            filter:
+                context.isDark
+                    ? ColorFilter.mode(Colors.transparent, BlendMode.src)
+                    : ColorFilter.mode(
+                      Colors.white.withOpacity(0.1),
+                      BlendMode.srcOver,
+                    ),
             child: SafeArea(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   NabBarIcon(
-                    iconData: currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                    iconData:
+                        currentIndex == 0 ? Icons.home : Icons.home_outlined,
                     pageIndex: 0,
                     isSelected: currentIndex == 0,
                     onPressed: () => navigateToPage(0),
                   ),
                   NabBarIcon(
-                    iconData: currentIndex == 1 ? Icons.person : Icons.person_outline,
+                    iconData:
+                        currentIndex == 1 ? Icons.person : Icons.person_outline,
                     pageIndex: 1,
                     isSelected: currentIndex == 1,
                     onPressed: () => navigateToPage(1),
@@ -166,7 +165,9 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
                   ),
                   NabBarIcon(
                     iconData:
-                        currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
+                        currentIndex == 3
+                            ? Icons.settings
+                            : Icons.settings_outlined,
                     pageIndex: 3,
                     isSelected: currentIndex == 3,
                     onPressed: () => navigateToPage(3),
