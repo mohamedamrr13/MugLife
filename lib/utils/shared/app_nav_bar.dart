@@ -89,10 +89,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: pages[currentIndex],
-      ),
+      body: FadeTransition(opacity: _fadeAnimation, child: pages[currentIndex]),
       bottomNavigationBar: Container(
         height: 70,
         decoration: BoxDecoration(
@@ -118,6 +115,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
                 pageIndex: 0,
                 isSelected: currentIndex == 0,
                 onPressed: () => navigateToPage(0),
+
               ),
               NabBarIcon(
                 iconData: currentIndex == 1 ? Icons.person : Icons.person_outline,
