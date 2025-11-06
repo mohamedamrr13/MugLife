@@ -129,7 +129,7 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: 'Poppins',
-                  color: Colors.black,
+                  color: context.theme.isDark ? Colors.white : Colors.black,
                 ),
               ),
               context: context,
