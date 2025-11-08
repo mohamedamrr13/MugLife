@@ -1,3 +1,4 @@
+import 'package:drinks_app/utils/shared/loading_data_widget.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,10 @@ class CartSummaryWidget extends StatelessWidget {
             ),
             FutureBuilder(
               future: total,
-              initialData: '',
               builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  LoadingDataWidget();
+                }
                 return Text(
                   '£${snapshot.data}',
                   style: TextStyle(
