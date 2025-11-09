@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/cart_screen.dart';
 import 'package:drinks_app/features/home/data/repos/get_categories_repo/get_categories_repo.dart';
-import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo_impl.dart';
+import 'package:drinks_app/features/home/data/repos/get_featured_products/get_featured_products_repo.dart';
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
@@ -101,12 +100,12 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
       providers: [
         BlocProvider(
           create:
-              (context) => GetCategoriesCubit(getIt.get<GetCategoriesRepo>()),
+              (context) => GetCategoriesCubit(getIt<GetCategoriesRepo>()),
         ),
         BlocProvider(
           create:
               (context) =>
-                  GetFeaturedProductsCubit(GetFeaturedProductsRepoImpl()),
+                  GetFeaturedProductsCubit(getIt<GetFeaturedProductsRepo>()),
         ),
       ],
       child: const HomeScreen(),
@@ -115,9 +114,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
 
   Widget buildCartScreen() {
     return BlocProvider(
-      create:
-          (context) =>
-              CartCubit(FirestoreCartRepository(FirebaseFirestore.instance)),
+      create: (context) => CartCubit(getIt<CartRepository>()),
       child: CartScreen(),
     );
   }

@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/authorization/app_wrapper.dart';
+import 'package:drinks_app/core/di/service_locator.dart';
 import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
-import 'package:drinks_app/features/cart/data/repositories/cart_repository_impl.dart';
+import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/features/product/data/repo/get_products_by_category/get_products_by_category_repo_impl.dart';
+import 'package:drinks_app/features/product/data/repo/get_products_by_category/get_products_by_category_repo.dart';
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/product_details_screen.dart';
 import 'package:drinks_app/features/product/presentation/product_result_screen.dart';
@@ -96,10 +96,7 @@ class AppRouter {
           List<ProductModel> products = List<ProductModel>.from(extra['list']);
 
           return BlocProvider(
-            create:
-                (context) => CartCubit(
-                  FirestoreCartRepository(FirebaseFirestore.instance),
-                ),
+            create: (context) => CartCubit(getIt<CartRepository>()),
             child: ProductDetailsScreen(
               currentIndex: extra['index'],
               products: products,
@@ -114,7 +111,7 @@ class AppRouter {
           return BlocProvider(
             create:
                 (context) =>
-                    GetProductsByCategoryCubit(GetProductsByCategoryRepoImpl()),
+                    GetProductsByCategoryCubit(getIt<GetProductsByCategoryRepo>()),
             child: ProductResultScreen(category: state.extra as String),
           );
         },
