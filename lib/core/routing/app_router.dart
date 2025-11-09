@@ -23,7 +23,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class AppRouter {
   static const pageNavBar = '/pageNavBar';
   static const authWrapper = "/wrapper";
-
+  static const onboarding = "/onboarding";
   static const signUpScreen = "/signUp";
   static const loginScreen = "/login";
   // static const forgetPassword = "/forgetPassword";
@@ -49,44 +49,13 @@ class AppRouter {
             (context, state) => MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => LoginCubit()),
+                BlocProvider(create: (context) => RegisterCubit()),
                 BlocProvider(create: (context) => GoogleCubit()),
               ],
               child: const AppWrapper(),
             ),
       ),
-      GoRoute(
-        path: pageNavBar,
-        builder: (context, state) => const CustomPageNavigationBar(),
-      ),
-      GoRoute(
-        path: homeScreen,
-        name: homeScreen,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: loginScreen,
-        name: loginScreen,
-        builder:
-            (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => LoginCubit()),
-                BlocProvider(create: (context) => GoogleCubit()),
-              ],
-              child: const LoginScreen(),
-            ),
-      ),
-      GoRoute(
-        path: signUpScreen,
-        name: signUpScreen,
-        builder:
-            (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => RegisterCubit()),
-                BlocProvider(create: (context) => GoogleCubit()),
-              ],
-              child: const RegisterScreen(),
-            ),
-      ),
+
       GoRoute(
         path: itemDetailsScreen,
         name: itemDetailsScreen,
@@ -110,8 +79,9 @@ class AppRouter {
         builder: (context, state) {
           return BlocProvider(
             create:
-                (context) =>
-                    GetProductsByCategoryCubit(getIt<GetProductsByCategoryRepo>()),
+                (context) => GetProductsByCategoryCubit(
+                  getIt<GetProductsByCategoryRepo>(),
+                ),
             child: ProductResultScreen(category: state.extra as String),
           );
         },

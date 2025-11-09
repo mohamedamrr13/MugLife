@@ -1,21 +1,64 @@
 import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
+import 'package:drinks_app/features/onboarding/presentation/onboarding_screen.dart'; // Add your onboarding screen
 import 'package:drinks_app/utils/shared/app_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppWrapper extends StatelessWidget {
+class AppWrapper extends StatefulWidget {
   const AppWrapper({super.key});
 
   @override
+  State<AppWrapper> createState() => _AppWrapperState();
+}
+
+class _AppWrapperState extends State<AppWrapper> {
+  bool? isNewUser;
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfNewUser();
+  }
+
+  Future<void> checkIfNewUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+
+    setState(() {
+      isNewUser = !hasSeenOnboarding;
+    });
+  }
+
+  Future<void> completeOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasSeenOnboarding', true);
+
+    setState(() {
+      isNewUser = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Show loading while checking if user is new
+    if (isNewUser == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    // Show onboarding screen for new users
+    if (isNewUser == true) {
+      return OnBoardingScreen(onComplete: completeOnboarding);
+    }
+
+    // Existing authentication flow
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        // show loading while checking auth state
+        // Show loading while checking auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
@@ -50,7 +93,6 @@ class AppWrapper extends StatelessWidget {
         }
 
         final currentRoute = GoRouter.of(context).state.matchedLocation;
-
         if (currentRoute == AppRouter.signUpScreen) {
           return const RegisterScreen();
         } else {

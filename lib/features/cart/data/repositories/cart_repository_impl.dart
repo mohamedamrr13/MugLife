@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/services/firestore_service.dart';
 import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';
@@ -12,10 +11,6 @@ class FirestoreCartRepository implements CartRepository {
 
   String get _cartPath {
     return 'cart/${FirebaseAuth.instance.currentUser?.uid}/items';
-  }
-
-  CollectionReference<Map<String, dynamic>> get _cartCollection {
-    return _firestoreService.getCollectionReference(_cartPath);
   }
 
   @override
@@ -84,9 +79,7 @@ class FirestoreCartRepository implements CartRepository {
 
   @override
   void clearCart() async {
-    await _firestoreService.deleteDocuments(
-      collectionPath: _cartPath,
-    );
+    await _firestoreService.deleteDocuments(collectionPath: _cartPath);
   }
 
   @override
@@ -99,9 +92,9 @@ class FirestoreCartRepository implements CartRepository {
 
   @override
   Stream<List<CartItemModel>> getCartItems() {
-    return _firestoreService.streamCollection(
-      collectionPath: _cartPath,
-    ).map((querySnapshot) {
+    return _firestoreService.streamCollection(collectionPath: _cartPath).map((
+      querySnapshot,
+    ) {
       print('📦 Query snapshot docs count: ${querySnapshot.docs.length}');
       final items =
           querySnapshot.docs.map((doc) {

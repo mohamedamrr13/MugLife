@@ -1,9 +1,10 @@
-import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
+  final VoidCallback onComplete;
+
+  const OnBoardingScreen({super.key, required this.onComplete});
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +64,8 @@ class OnBoardingScreen extends StatelessWidget {
                   backgroundColor: Color(0xff1E2742),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                  );
+                  // Mark onboarding as complete
+                  onComplete();
                 },
                 child: Center(
                   child: Row(
@@ -98,7 +93,6 @@ class OnBoardingScreen extends StatelessWidget {
                   Image.asset(
                     "assets/images/splashDrink.png",
                     width: 500,
-
                     fit: BoxFit.cover,
                   ),
                   Positioned(

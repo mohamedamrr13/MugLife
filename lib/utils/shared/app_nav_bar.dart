@@ -99,8 +99,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create:
-              (context) => GetCategoriesCubit(getIt<GetCategoriesRepo>()),
+          create: (context) => GetCategoriesCubit(getIt<GetCategoriesRepo>()),
         ),
         BlocProvider(
           create:
@@ -186,7 +185,7 @@ class AnimatedNavigationBar extends StatelessWidget {
 
   BoxDecoration buildNavBarDecoration(BuildContext context) {
     return BoxDecoration(
-      color: context.isDark ? const Color(0xFF1C1C1E) : const Color(0xFF2C2C2E),
+      color: context.isDark ? const Color(0xFF1C1C1E) : const Color(0xFFFFDCCE),
       borderRadius: BorderRadius.circular(borderRadius),
       boxShadow: [
         BoxShadow(
@@ -382,7 +381,9 @@ class NavigationBarItemState extends State<NavigationBarItem>
           color:
               widget.isSelected
                   ? const Color(0xFFFF6B35)
-                  : Colors.white.withOpacity(0.5),
+                  : context.isDark
+                  ? Colors.white.withOpacity(0.5)
+                  : Colors.grey,
         ),
       ),
     );
