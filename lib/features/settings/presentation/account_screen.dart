@@ -415,7 +415,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     },
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 90),
                 ],
               ),
             ),

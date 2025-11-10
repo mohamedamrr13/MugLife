@@ -199,6 +199,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
+                Container(color: theme.colorScheme.surface, height: 90),
               ],
             );
           }

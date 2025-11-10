@@ -140,7 +140,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
             ),
           ),
 
-          // Bottom spacing
+          SliverToBoxAdapter(child: SizedBox(height: 90)),
         ],
       ),
     );
