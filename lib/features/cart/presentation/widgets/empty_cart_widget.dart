@@ -77,7 +77,6 @@ class EmptyCartWidget extends StatelessWidget {
               },
               text: 'Start Shopping',
               width: 200,
-              height: 50,
             ),
           ],
         ),

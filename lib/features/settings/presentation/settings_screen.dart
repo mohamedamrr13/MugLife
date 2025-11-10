@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         slivers: [
           // App Bar
           SliverAppBar(
-            expandedHeight: 120,
+            expandedHeight: 80,
             floating: false,
             pinned: true,
             backgroundColor: Colors.transparent,

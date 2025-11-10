@@ -27,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   bool isEnabled = true;
 
+  bool obscureText = true;
   @override
   void dispose() {
     _nameController.dispose();
@@ -117,12 +118,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               const SizedBox(height: 20),
                               CustomTextFormField(
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                  icon:
+                                      obscureText
+                                          ? Icon(Icons.visibility)
+                                          : Icon(Icons.visibility_off),
+                                ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 enabled: isEnabled,
                                 controller: _passwordController,
                                 hintText: 'Password',
-                                obscureText: true,
+                                obscureText: obscureText,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Please Enter Your Password";
@@ -135,20 +147,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               const SizedBox(height: 20),
                               CustomTextFormField(
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                  icon:
+                                      obscureText
+                                          ? Icon(Icons.visibility)
+                                          : Icon(Icons.visibility_off),
+                                ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 enabled: isEnabled,
                                 controller: _confirmPasswordController,
                                 hintText: 'Confirm Password',
-                                obscureText: true,
+                                obscureText: obscureText,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  } else if (value !=
-                                      _passwordController.text) {
-                                    return 'Password does not match';
+                                    return "Please Enter Your Password";
+                                  } else {
+                                    return TextValidation.passwordValidator(
+                                      value,
+                                    );
                                   }
-                                  return null;
                                 },
                               ),
                               const SizedBox(height: 30),
