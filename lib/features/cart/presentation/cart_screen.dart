@@ -2,6 +2,7 @@ import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/cart_summary_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/empty_cart_widget.dart';
+import 'package:drinks_app/features/payment/presentation/product_shipping_view.dart';
 import 'package:drinks_app/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -258,8 +259,21 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  void _proceedToCheckout(BuildContext context, CartState state) {
-    // Navigate to payment/checkout screen
-    //Navigator.pushNamed(context, App);
+  void _proceedToCheckout(BuildContext context, CartState state) async {
+    if (state is CartLoaded && state.items.isNotEmpty) {
+      // Get the total amount
+      final totalAmount = await state.total;
+
+      // Navigate to shipping screen with cart items
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ShippingScreen(
+            cartItems: state.items,
+            totalAmount: totalAmount,
+          ),
+        ),
+      );
+    }
   }
 }
