@@ -49,16 +49,14 @@ class _AccountScreenState extends State<AccountScreen> {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => Center(
-            child: CircularProgressIndicator(),
-          ),
+          builder: (context) => Center(child: CircularProgressIndicator()),
         );
 
         // Upload the image
         await context.read<UserCubit>().uploadProfilePhoto(
-              userId: currentUser!.uid,
-              photoFile: File(image.path),
-            );
+          userId: currentUser!.uid,
+          photoFile: File(image.path),
+        );
 
         // Close loading dialog
         if (mounted) Navigator.pop(context);
@@ -80,8 +78,10 @@ class _AccountScreenState extends State<AccountScreen> {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => getIt<UserCubit>()
-        ..getUserProfile(userId: currentUser?.uid ?? ''),
+      create:
+          (context) =>
+              getIt<UserCubit>()
+                ..getUserProfile(userId: currentUser?.uid ?? ''),
       child: Scaffold(
         backgroundColor: context.backgroundColor,
         body: BlocBuilder<UserCubit, UserState>(
@@ -128,8 +128,10 @@ class _AccountScreenState extends State<AccountScreen> {
                                   height: 100,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.white, width: 3),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 3,
+                                    ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.2),
@@ -139,43 +141,46 @@ class _AccountScreenState extends State<AccountScreen> {
                                     ],
                                   ),
                                   child: ClipOval(
-                                    child: user?.photoUrl != null ||
-                                            currentUser?.photoURL != null
-                                        ? CachedNetworkImage(
-                                            imageUrl: user?.photoUrl ??
-                                                currentUser!.photoURL!,
-                                            fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                                Container(
-                                                  color: Colors.white
-                                                      .withOpacity(0.2),
-                                                  child: const Icon(
-                                                    Icons.person,
-                                                    size: 50,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Container(
-                                                      color: Colors.white
-                                                          .withOpacity(0.2),
-                                                      child: const Icon(
-                                                        Icons.person,
-                                                        size: 50,
-                                                        color: Colors.white,
-                                                      ),
+                                    child:
+                                        user?.photoUrl != null ||
+                                                currentUser?.photoURL != null
+                                            ? CachedNetworkImage(
+                                              imageUrl:
+                                                  user?.photoUrl ??
+                                                  currentUser!.photoURL!,
+                                              fit: BoxFit.cover,
+                                              placeholder:
+                                                  (context, url) => Container(
+                                                    color: Colors.white
+                                                        .withOpacity(0.2),
+                                                    child: const Icon(
+                                                      Icons.person,
+                                                      size: 50,
+                                                      color: Colors.white,
                                                     ),
-                                          )
-                                        : Container(
-                                            color:
-                                                Colors.white.withOpacity(0.2),
-                                            child: const Icon(
-                                              Icons.person,
-                                              size: 50,
-                                              color: Colors.white,
+                                                  ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                        color: Colors.white
+                                                            .withOpacity(0.2),
+                                                        child: const Icon(
+                                                          Icons.person,
+                                                          size: 50,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                            )
+                                            : Container(
+                                              color: Colors.white.withOpacity(
+                                                0.2,
+                                              ),
+                                              child: const Icon(
+                                                Icons.person,
+                                                size: 50,
+                                                color: Colors.white,
+                                              ),
                                             ),
-                                          ),
                                   ),
                                 ),
                                 // Edit button
@@ -208,9 +213,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             const SizedBox(height: 16),
                             // User Name
                             Text(
-                              user?.name ??
-                                  currentUser?.displayName ??
-                                  'User',
+                              user?.name ?? currentUser?.displayName ?? 'User',
                               style: theme.textTheme.headlineSmall?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -295,7 +298,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                         icon: Icons.stars_outlined,
                                         title: 'Points',
                                         value:
-                                            user?.rewardPoints.toString() ?? '0',
+                                            user?.rewardPoints.toString() ??
+                                            '0',
                                         color: context.warningColor,
                                       ),
                                     ),
@@ -320,8 +324,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                   title: 'Full Name',
                                   value:
                                       user?.name ??
-                                          currentUser?.displayName ??
-                                          'Not set',
+                                      currentUser?.displayName ??
+                                      'Not set',
                                   onTap: () {
                                     _showComingSoon(context, 'Edit Name');
                                   },
@@ -334,8 +338,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                   title: 'Email',
                                   value:
                                       user?.email ??
-                                          currentUser?.email ??
-                                          'Not set',
+                                      currentUser?.email ??
+                                      'Not set',
                                   onTap: () {
                                     _showComingSoon(context, 'Edit Email');
                                   },
@@ -348,8 +352,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                   title: 'Phone Number',
                                   value:
                                       user?.phone ??
-                                          currentUser?.phoneNumber ??
-                                          'Not set',
+                                      currentUser?.phoneNumber ??
+                                      'Not set',
                                   onTap: () {
                                     _showComingSoon(context, 'Edit Phone');
                                   },
@@ -365,7 +369,10 @@ class _AccountScreenState extends State<AccountScreen> {
                                           ? '${user.addressIds.length} address(es)'
                                           : 'No saved addresses',
                                   onTap: () {
-                                    _showComingSoon(context, 'Manage Addresses');
+                                    _showComingSoon(
+                                      context,
+                                      'Manage Addresses',
+                                    );
                                   },
                                 ),
 
@@ -418,14 +425,14 @@ class _AccountScreenState extends State<AccountScreen> {
                                 BlocConsumer<LoginCubit, LoginState>(
                                   listener: (context, state) {
                                     if (state is LoginFailure) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                            SnackBar(
-                                              content: Text(state.errMessage),
-                                              backgroundColor:
-                                                  context.errorColor,
-                                            ),
-                                          );
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(state.errMessage),
+                                          backgroundColor: context.errorColor,
+                                        ),
+                                      );
                                     }
                                   },
                                   builder: (context, state) {
@@ -454,8 +461,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                                   : () {
                                                     _showLogoutDialog(context);
                                                   },
-                                          borderRadius:
-                                              BorderRadius.circular(16),
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
                                           child: Center(
                                             child:
                                                 state is LoginLoading
@@ -477,10 +485,13 @@ class _AccountScreenState extends State<AccountScreen> {
                                                           Icons.logout_rounded,
                                                           color: Colors.red,
                                                         ),
-                                                        const SizedBox(width: 8),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
                                                         Text(
                                                           'Logout',
-                                                          style: theme.textTheme
+                                                          style: theme
+                                                              .textTheme
                                                               .titleMedium
                                                               ?.copyWith(
                                                                 color:
@@ -532,10 +543,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   prefs.remove('userId');
                 });
               },
-              child: const Text(
-                'Logout',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: const Text('Logout', style: TextStyle(color: Colors.red)),
             ),
           ],
         );

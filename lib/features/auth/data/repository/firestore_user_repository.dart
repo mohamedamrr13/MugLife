@@ -12,10 +12,7 @@ class FirestoreUserRepository implements UserRepository {
   final FirestoreService _firestoreService;
   final FirebaseStorage _firebaseStorage;
 
-  FirestoreUserRepository(
-    this._firestoreService,
-    this._firebaseStorage,
-  );
+  FirestoreUserRepository(this._firestoreService, this._firebaseStorage);
 
   static const String _usersCollection = 'users';
 
@@ -30,15 +27,15 @@ class FirestoreUserRepository implements UserRepository {
       );
 
       if (doc == null || !doc.exists) {
-        return Left(FirebaseFailure(message: 'User profile not found'));
+        return Left(Failure(message: 'User profile not found'));
       }
 
       final user = UserModel.fromDocument(doc);
       return Right(user);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to get user profile: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to get user profile: ${e.toString()}'),
+      );
     }
   }
 
@@ -54,9 +51,9 @@ class FirestoreUserRepository implements UserRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to create user profile: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to create user profile: ${e.toString()}'),
+      );
     }
   }
 
@@ -73,9 +70,9 @@ class FirestoreUserRepository implements UserRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to update user profile: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to update user profile: ${e.toString()}'),
+      );
     }
   }
 
@@ -87,8 +84,9 @@ class FirestoreUserRepository implements UserRepository {
     try {
       // Create a reference to the location you want to upload to in Firebase Storage
       final storageRef = _firebaseStorage.ref();
-      final profilePhotoRef =
-          storageRef.child('users/$userId/profile_photo.jpg');
+      final profilePhotoRef = storageRef.child(
+        'users/$userId/profile_photo.jpg',
+      );
 
       // Upload the file
       await profilePhotoRef.putFile(photoFile);
@@ -98,9 +96,9 @@ class FirestoreUserRepository implements UserRepository {
 
       return Right(downloadUrl);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to upload profile photo: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to upload profile photo: ${e.toString()}'),
+      );
     }
   }
 
@@ -113,16 +111,13 @@ class FirestoreUserRepository implements UserRepository {
       await _firestoreService.updateDocument(
         collectionPath: _usersCollection,
         documentId: userId,
-        data: {
-          'photoUrl': photoUrl,
-          'updatedAt': DateTime.now(),
-        },
+        data: {'photoUrl': photoUrl, 'updatedAt': DateTime.now()},
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to update profile photo URL: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to update profile photo URL: ${e.toString()}'),
+      );
     }
   }
 
@@ -133,8 +128,9 @@ class FirestoreUserRepository implements UserRepository {
     try {
       // Delete from Firebase Storage
       final storageRef = _firebaseStorage.ref();
-      final profilePhotoRef =
-          storageRef.child('users/$userId/profile_photo.jpg');
+      final profilePhotoRef = storageRef.child(
+        'users/$userId/profile_photo.jpg',
+      );
 
       try {
         await profilePhotoRef.delete();
@@ -146,17 +142,14 @@ class FirestoreUserRepository implements UserRepository {
       await _firestoreService.updateDocument(
         collectionPath: _usersCollection,
         documentId: userId,
-        data: {
-          'photoUrl': null,
-          'updatedAt': DateTime.now(),
-        },
+        data: {'photoUrl': null, 'updatedAt': DateTime.now()},
       );
 
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to delete profile photo: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to delete profile photo: ${e.toString()}'),
+      );
     }
   }
 }

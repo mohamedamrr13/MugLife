@@ -7,13 +7,11 @@ import 'package:flutter/foundation.dart';
 
 part 'user_state.dart';
 
-/// Cubit for managing user profile
 class UserCubit extends Cubit<UserState> {
   final UserRepository _userRepository;
 
   UserCubit(this._userRepository) : super(UserInitial());
 
-  /// Get user profile
   Future<void> getUserProfile({required String userId}) async {
     emit(UserLoading());
 
@@ -25,23 +23,19 @@ class UserCubit extends Cubit<UserState> {
     );
   }
 
-  /// Create user profile (typically after registration)
   Future<void> createUserProfile({required UserModel user}) async {
     emit(UserLoading());
 
     final result = await _userRepository.createUserProfile(user: user);
 
-    result.fold(
-      (failure) => emit(UserFailure(errMessage: failure.message)),
-      (_) {
-        emit(UserProfileCreated());
-        // Load the user profile after creation
-        getUserProfile(userId: user.id);
-      },
-    );
+    result.fold((failure) => emit(UserFailure(errMessage: failure.message)), (
+      _,
+    ) {
+      emit(UserProfileCreated());
+      getUserProfile(userId: user.id);
+    });
   }
 
-  /// Update user profile
   Future<void> updateUserProfile({
     required String userId,
     required Map<String, dynamic> updates,
@@ -53,24 +47,20 @@ class UserCubit extends Cubit<UserState> {
       updates: updates,
     );
 
-    result.fold(
-      (failure) => emit(UserFailure(errMessage: failure.message)),
-      (_) {
-        emit(UserProfileUpdated());
-        // Reload the user profile after update
-        getUserProfile(userId: userId);
-      },
-    );
+    result.fold((failure) => emit(UserFailure(errMessage: failure.message)), (
+      _,
+    ) {
+      emit(UserProfileUpdated());
+      getUserProfile(userId: userId);
+    });
   }
 
-  /// Upload and update profile photo
   Future<void> uploadProfilePhoto({
     required String userId,
     required File photoFile,
   }) async {
     emit(UserUploadingPhoto());
 
-    // Upload the photo
     final uploadResult = await _userRepository.uploadProfilePhoto(
       userId: userId,
       photoFile: photoFile,
@@ -81,7 +71,6 @@ class UserCubit extends Cubit<UserState> {
         emit(UserFailure(errMessage: failure.message));
       },
       (photoUrl) async {
-        // Update the user profile with the new photo URL
         final updateResult = await _userRepository.updateProfilePhoto(
           userId: userId,
           photoUrl: photoUrl,
@@ -91,7 +80,6 @@ class UserCubit extends Cubit<UserState> {
           (failure) => emit(UserFailure(errMessage: failure.message)),
           (_) {
             emit(UserPhotoUpdated(photoUrl: photoUrl));
-            // Reload the user profile after photo update
             getUserProfile(userId: userId);
           },
         );
@@ -99,19 +87,16 @@ class UserCubit extends Cubit<UserState> {
     );
   }
 
-  /// Delete profile photo
   Future<void> deleteProfilePhoto({required String userId}) async {
     emit(UserLoading());
 
     final result = await _userRepository.deleteProfilePhoto(userId: userId);
 
-    result.fold(
-      (failure) => emit(UserFailure(errMessage: failure.message)),
-      (_) {
-        emit(UserPhotoDeleted());
-        // Reload the user profile after photo deletion
-        getUserProfile(userId: userId);
-      },
-    );
+    result.fold((failure) => emit(UserFailure(errMessage: failure.message)), (
+      _,
+    ) {
+      emit(UserPhotoDeleted());
+      getUserProfile(userId: userId);
+    });
   }
 }

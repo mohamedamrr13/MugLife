@@ -25,9 +25,7 @@ class FirestoreAddressRepository implements AddressRepository {
       );
       return Right(addressId);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to add address: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to add address: ${e.toString()}'));
     }
   }
 
@@ -45,9 +43,9 @@ class FirestoreAddressRepository implements AddressRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to update address: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to update address: ${e.toString()}'),
+      );
     }
   }
 
@@ -63,9 +61,9 @@ class FirestoreAddressRepository implements AddressRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to delete address: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to delete address: ${e.toString()}'),
+      );
     }
   }
 
@@ -81,15 +79,13 @@ class FirestoreAddressRepository implements AddressRepository {
       );
 
       if (doc == null || !doc.exists) {
-        return Left(FirebaseFailure(message: 'Address not found'));
+        return Left(Failure(message: 'Address not found'));
       }
 
       final address = AddressModel.fromDocument(doc);
       return Right(address);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to get address: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to get address: ${e.toString()}'));
     }
   }
 
@@ -102,7 +98,8 @@ class FirestoreAddressRepository implements AddressRepository {
         collectionPath: _getAddressesPath(userId),
       );
 
-      final addresses = docs.map((doc) => AddressModel.fromDocument(doc)).toList();
+      final addresses =
+          docs.docs.map((doc) => AddressModel.fromDocument(doc)).toList();
 
       // Sort by default first, then by creation date
       addresses.sort((a, b) {
@@ -113,9 +110,7 @@ class FirestoreAddressRepository implements AddressRepository {
 
       return Right(addresses);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to get addresses: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to get addresses: ${e.toString()}'));
     }
   }
 
@@ -146,9 +141,9 @@ class FirestoreAddressRepository implements AddressRepository {
 
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to set default address: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to set default address: ${e.toString()}'),
+      );
     }
   }
 }

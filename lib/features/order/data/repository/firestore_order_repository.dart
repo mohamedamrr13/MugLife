@@ -25,9 +25,7 @@ class FirestoreOrderRepository implements OrderRepository {
       );
       return Right(orderId);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to create order: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to create order: ${e.toString()}'));
     }
   }
 
@@ -51,9 +49,7 @@ class FirestoreOrderRepository implements OrderRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to update order: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to update order: ${e.toString()}'));
     }
   }
 
@@ -81,9 +77,9 @@ class FirestoreOrderRepository implements OrderRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to update order status: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to update order status: ${e.toString()}'),
+      );
     }
   }
 
@@ -99,15 +95,13 @@ class FirestoreOrderRepository implements OrderRepository {
       );
 
       if (doc == null || !doc.exists) {
-        return Left(FirebaseFailure(message: 'Order not found'));
+        return Left(Failure(message: 'Order not found'));
       }
 
       final order = OrderModel.fromDocument(doc);
       return Right(order);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to get order: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to get order: ${e.toString()}'));
     }
   }
 
@@ -120,16 +114,17 @@ class FirestoreOrderRepository implements OrderRepository {
         collectionPath: _getOrdersPath(userId),
       );
 
-      final orders = docs.map((doc) => OrderModel.fromDocument(doc)).toList();
+      final orders =
+          docs.docs.map((doc) => OrderModel.fromDocument(doc)).toList();
 
       // Sort by creation date (most recent first)
       orders.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       return Right(orders);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to get user orders: ${e.toString()}',
-      ));
+      return Left(
+        Failure(message: 'Failed to get user orders: ${e.toString()}'),
+      );
     }
   }
 
@@ -149,9 +144,7 @@ class FirestoreOrderRepository implements OrderRepository {
       );
       return const Right(null);
     } catch (e) {
-      return Left(FirebaseFailure(
-        message: 'Failed to cancel order: ${e.toString()}',
-      ));
+      return Left(Failure(message: 'Failed to cancel order: ${e.toString()}'));
     }
   }
 }

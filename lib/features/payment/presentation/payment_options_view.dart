@@ -16,10 +16,7 @@ import 'package:flutter_paymob/flutter_paymob.dart';
 class PaymentOptionScreen extends StatefulWidget {
   final Map<String, dynamic> shippingData;
 
-  const PaymentOptionScreen({
-    super.key,
-    required this.shippingData,
-  });
+  const PaymentOptionScreen({super.key, required this.shippingData});
 
   @override
   State<PaymentOptionScreen> createState() => _PaymentOptionScreenState();
@@ -315,7 +312,7 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
         ),
         context: context,
         currency: "EGP",
-        amount: totalAmount.toInt(),
+        amount: totalAmount,
         onPayment: (response) {
           if (response.success) {
             // Payment successful, create order
@@ -366,13 +363,14 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
     required bool isPaid,
   }) {
     // Convert cart items to order items
-    final orderItems = cartItems.map((cartItem) {
-      return OrderItemModel.fromProduct(
-        product: cartItem.product,
-        size: cartItem.product.size,
-        quantity: cartItem.quantity,
-      );
-    }).toList();
+    final orderItems =
+        cartItems.map((cartItem) {
+          return OrderItemModel.fromProduct(
+            product: cartItem.product,
+            size: cartItem.product.size!,
+            quantity: cartItem.quantity,
+          );
+        }).toList();
 
     // Create order model
     final order = OrderModel(
@@ -397,12 +395,12 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
 
     // Update user statistics
     context.read<UserCubit>().updateUserProfile(
-          userId: userId,
-          updates: {
-            'ordersCount': FieldValue.increment(1),
-            'totalSpent': FieldValue.increment(totalAmount),
-            'rewardPoints': FieldValue.increment(totalAmount ~/ 10),
-          },
-        );
+      userId: userId,
+      updates: {
+        'ordersCount': FieldValue.increment(1),
+        'totalSpent': FieldValue.increment(totalAmount),
+        'rewardPoints': FieldValue.increment(totalAmount ~/ 10),
+      },
+    );
   }
 }

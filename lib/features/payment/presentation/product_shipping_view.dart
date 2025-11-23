@@ -26,11 +26,11 @@ class ShippingScreen extends StatefulWidget {
 
 class ShippingScreenState extends State<ShippingScreen> {
   final formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final addressLine1Controller = TextEditingController();
-  final addressLine2Controller = TextEditingController();
-  final cityController = TextEditingController();
+  final nameController = TextEditingController(text: 'Mohamed Ahmed');
+  final phoneController = TextEditingController(text: '01234567890');
+  final addressLine1Controller = TextEditingController(text: '123 Main St');
+  final addressLine2Controller = TextEditingController(text: '');
+  final cityController = TextEditingController(text: 'Alexandria');
 
   bool saveAddress = false;
   bool isSavingAddress = false;
@@ -67,9 +67,9 @@ class ShippingScreenState extends State<ShippingScreen> {
 
           // Save the address using AddressCubit
           context.read<AddressCubit>().addAddress(
-                userId: currentUser.uid,
-                address: address,
-              );
+            userId: currentUser.uid,
+            address: address,
+          );
         }
       }
 
@@ -92,9 +92,7 @@ class ShippingScreenState extends State<ShippingScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PaymentOptionScreen(
-            shippingData: shippingData,
-          ),
+          builder: (context) => PaymentOptionScreen(shippingData: shippingData),
         ),
       );
     }
@@ -299,10 +297,10 @@ class ShippingAppBar extends StatelessWidget {
     return SliverAppBar(
       automaticallyImplyLeading: true,
       expandedHeight: 100,
-      collapsedHeight: 80,
-      floating: false,
-
-      pinned: true,
+      collapsedHeight: 130,
+      floating: true,
+      stretch: false,
+      pinned: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -347,6 +345,7 @@ class ShippingAppBar extends StatelessWidget {
           ),
         ),
       ),
+
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -382,8 +381,8 @@ class ShippingAppBar extends StatelessWidget {
               ),
             ),
             child: FlexibleSpaceBar(
-              collapseMode: CollapseMode.none,
-              titlePadding: EdgeInsets.only(left: 60, bottom: 20),
+              expandedTitleScale: 1,
+              titlePadding: EdgeInsets.only(left: 60, bottom: 32),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,6 +390,7 @@ class ShippingAppBar extends StatelessWidget {
                   Text(
                     'Shipping Details',
                     style: context.textTheme.titleLarge?.copyWith(
+                      fontSize: 36,
                       color: context.primaryTextColor,
                       fontWeight: FontWeight.bold,
                     ),
