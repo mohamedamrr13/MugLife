@@ -2,7 +2,7 @@ import 'package:drinks_app/core/routing/app_router.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
 import 'package:drinks_app/features/onboarding/presentation/onboarding_screen.dart'; // Add your onboarding screen
-import 'package:drinks_app/utils/shared/app_nav_bar.dart';
+import 'package:drinks_app/core/utils/shared/app_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

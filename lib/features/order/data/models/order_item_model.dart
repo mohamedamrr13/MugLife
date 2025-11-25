@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 
 /// Model representing an item in an order

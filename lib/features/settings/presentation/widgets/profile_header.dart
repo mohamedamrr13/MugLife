@@ -1,6 +1,6 @@
 // lib/features/settings/presentation/widgets/profile_header.dart
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

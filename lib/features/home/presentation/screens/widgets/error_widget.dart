@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,8 +1,8 @@
 import 'package:drinks_app/features/product/logic/get_products_by_category_cubit/get_products_by_category_cubit.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_list_view.dart';
-import 'package:drinks_app/utils/helper/helper_functions.dart';
-import 'package:drinks_app/utils/shared/loading_data_widget.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/helper/helper_functions.dart';
+import 'package:drinks_app/core/utils/shared/loading_data_widget.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

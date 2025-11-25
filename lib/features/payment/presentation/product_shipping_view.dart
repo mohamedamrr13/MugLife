@@ -3,11 +3,11 @@ import 'package:drinks_app/features/auth/data/models/address_model.dart';
 import 'package:drinks_app/features/auth/presentation/cubit/address_cubit.dart';
 import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/payment/presentation/payment_options_view.dart';
-import 'package:drinks_app/utils/shared/custom_button.dart';
+import 'package:drinks_app/core/utils/shared/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShippingScreen extends StatefulWidget {

@@ -9,7 +9,7 @@ import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_fe
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
 import 'package:drinks_app/features/settings/presentation/account_screen.dart';
 import 'package:drinks_app/features/settings/presentation/settings_screen.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

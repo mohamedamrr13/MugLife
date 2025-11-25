@@ -1,5 +1,5 @@
 import 'package:drinks_app/features/home/presentation/screens/widgets/newest_list_view.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedSection extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categori
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/categories_section.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/featured_items_section.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
-import 'package:drinks_app/utils/shared/shimmer_widget.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/shared/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsImage extends StatelessWidget {
@@ -57,7 +57,9 @@ class ProductDetailsImage extends StatelessWidget {
                               child: Icon(
                                 Icons.local_drink_outlined,
                                 size: 80,
-                                color: context.secondaryTextColor.withOpacity(0.3),
+                                color: context.secondaryTextColor.withOpacity(
+                                  0.3,
+                                ),
                               ),
                             ),
                           ),

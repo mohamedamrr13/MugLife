@@ -6,7 +6,7 @@ import 'package:drinks_app/features/settings/presentation/widgets/settings_secti
 import 'package:drinks_app/features/settings/presentation/widgets/settings_section/legal_section.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/settings_section/notification_section.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/settings_section/support_section.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {

@@ -8,7 +8,7 @@ import 'package:drinks_app/features/settings/presentation/widgets/account_sectio
 import 'package:drinks_app/features/settings/presentation/widgets/account_section/stat_section.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/gradient_appbar.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/profile_header.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

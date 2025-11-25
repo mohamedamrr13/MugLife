@@ -1,4 +1,4 @@
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

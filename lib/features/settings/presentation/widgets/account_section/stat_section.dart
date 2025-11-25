@@ -1,6 +1,6 @@
 import 'package:drinks_app/features/auth/data/models/user_model.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/stat_card.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsSection extends StatelessWidget {

@@ -6,8 +6,8 @@ import 'package:drinks_app/features/product/presentation/widgets/product_details
 import 'package:drinks_app/features/product/presentation/widgets/product_details_image.dart';
 import 'package:drinks_app/features/product/presentation/widgets/product_size_selector.dart';
 import 'package:drinks_app/features/product/presentation/widgets/custom_appbar.dart';
-import 'package:drinks_app/utils/page_indicator_widget/custom_page_indicator_widget.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/page_indicator_widget/custom_page_indicator_widget.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -82,11 +82,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     final currentProduct = widget.products[currentIndex.toInt()];
 
     // Get the selected size
-    final selectedSize = selectedIndex == 0
-        ? 'Small'
-        : selectedIndex == 1
-        ? 'Medium'
-        : 'Large';
+    final selectedSize =
+        selectedIndex == 0
+            ? 'Small'
+            : selectedIndex == 1
+            ? 'Medium'
+            : 'Large';
 
     // Update the product with the selected size
     final productWithSize = currentProduct.copyWith(size: selectedSize);
@@ -105,10 +106,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ShippingScreen(
-          cartItems: [cartItem],
-          totalAmount: totalAmount,
-        ),
+        builder:
+            (context) =>
+                ShippingScreen(cartItems: [cartItem], totalAmount: totalAmount),
       ),
     );
   }

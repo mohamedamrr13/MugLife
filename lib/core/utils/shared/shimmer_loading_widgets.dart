@@ -1,5 +1,5 @@
-import 'package:drinks_app/utils/shared/shimmer_widget.dart';
-import 'package:drinks_app/utils/theme/app_theme.dart';
+import 'package:drinks_app/core/utils/shared/shimmer_widget.dart';
+import 'package:drinks_app/core/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItemShimmer extends StatelessWidget {

@@ -1,7 +1,6 @@
-import 'package:drinks_app/features/home/presentation/screens/widgets/custom_drawer.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_custom_appbar.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 // lib/features/settings/presentation/widgets/settings_sections/notifications_section.dart
 import 'package:drinks_app/features/settings/presentation/widgets/settings_section.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/settings_tile.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSwitch;
 import 'package:flutter/material.dart';
 

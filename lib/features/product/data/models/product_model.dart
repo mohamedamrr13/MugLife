@@ -1,35 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drinks_app/features/product/data/models/size_option.dart';
 
-class SizeOption {
-  final String name;
-  final double priceModifier;
-
-  const SizeOption({required this.name, required this.priceModifier});
-
-  // Convert to Firestore format
-  Map<String, dynamic> toMap() {
-    return {'name': name, 'priceModifier': priceModifier};
-  }
-
-  // Create from Firestore format
-  factory SizeOption.fromMap(Map<String, dynamic> map) {
-    return SizeOption(
-      name: map['name'] ?? '',
-      priceModifier: _parseDouble(map['priceModifier']),
-    );
-  }
-
-  static double _parseDouble(dynamic value) {
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
-    if (value is String) return double.tryParse(value) ?? 0.0;
-    return 0.0;
-  }
-}
-
-// ============================================
-// ENHANCED PRODUCT MODEL
-// ============================================
 class ProductModel {
   final String id;
   final String name;
@@ -232,11 +203,6 @@ class ProductModel {
       availableSizes: sizes,
     );
   }
-
-  // ============================================
-  // HELPER METHODS
-  // ============================================
-
   static double _parseDouble(dynamic value) {
     if (value is double) return value;
     if (value is int) return value.toDouble();

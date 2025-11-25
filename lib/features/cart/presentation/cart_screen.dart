@@ -3,7 +3,7 @@ import 'package:drinks_app/features/cart/presentation/widgets/cart_item_widget.d
 import 'package:drinks_app/features/cart/presentation/widgets/cart_summary_widget.dart';
 import 'package:drinks_app/features/cart/presentation/widgets/empty_cart_widget.dart';
 import 'package:drinks_app/features/payment/presentation/product_shipping_view.dart';
-import 'package:drinks_app/utils/shared/custom_button.dart';
+import 'package:drinks_app/core/utils/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -268,10 +268,11 @@ class _CartScreenState extends State<CartScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ShippingScreen(
-            cartItems: state.items,
-            totalAmount: totalAmount,
-          ),
+          builder:
+              (context) => ShippingScreen(
+                cartItems: state.items,
+                totalAmount: totalAmount,
+              ),
         ),
       );
     }

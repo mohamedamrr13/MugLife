@@ -1,5 +1,5 @@
 // lib/features/settings/widgets/settings_section.dart
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SettingsSection extends StatelessWidget {

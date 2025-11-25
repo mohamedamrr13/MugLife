@@ -1,6 +1,6 @@
 // Size Selector Widget Class
 import 'package:drinks_app/features/product/presentation/widgets/product_size_item.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SizeSelector extends StatelessWidget {

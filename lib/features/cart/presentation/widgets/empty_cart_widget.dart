@@ -1,6 +1,6 @@
-import 'package:drinks_app/utils/shared/app_nav_bar.dart';
-import 'package:drinks_app/utils/shared/custom_button.dart';
-import 'package:drinks_app/utils/theme/app_theme.dart';
+import 'package:drinks_app/core/utils/shared/app_nav_bar.dart';
+import 'package:drinks_app/core/utils/shared/custom_button.dart';
+import 'package:drinks_app/core/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class EmptyCartWidget extends StatelessWidget {

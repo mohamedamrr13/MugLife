@@ -1,6 +1,6 @@
 import 'package:drinks_app/features/settings/presentation/widgets/custom_action_button.dart';
 import 'package:drinks_app/features/settings/presentation/widgets/dialog_helpers.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class QuickActionsSection extends StatelessWidget {

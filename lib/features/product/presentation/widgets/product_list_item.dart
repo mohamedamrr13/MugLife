@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
-import 'package:drinks_app/utils/theme/theme_extensions.dart';
-import 'package:drinks_app/utils/shared/shimmer_widget.dart';
+import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
+import 'package:drinks_app/core/utils/shared/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductListItem extends StatelessWidget {
@@ -102,30 +102,35 @@ class ProductListItem extends StatelessWidget {
                             child: CachedNetworkImage(
                               imageUrl: productModel.image,
                               fit: BoxFit.fitHeight,
-                              placeholder: (context, url) => ShimmerWidget(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: context.shimmerBaseColor,
+                              placeholder:
+                                  (context, url) => ShimmerWidget(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: context.shimmerBaseColor,
+                                      ),
+                                      child: Icon(
+                                        Icons.local_drink_outlined,
+                                        color: context.secondaryTextColor
+                                            .withOpacity(0.3),
+                                        size: 35,
+                                      ),
+                                    ),
                                   ),
-                                  child: Icon(
-                                    Icons.local_drink_outlined,
-                                    color: context.secondaryTextColor.withOpacity(0.3),
-                                    size: 35,
+                              errorWidget:
+                                  (context, url, error) => Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: context.errorColor.withOpacity(
+                                        0.1,
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      Icons.error_outline_rounded,
+                                      color: context.errorColor,
+                                      size: 35,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: context.errorColor.withOpacity(0.1),
-                                ),
-                                child: Icon(
-                                  Icons.error_outline_rounded,
-                                  color: context.errorColor,
-                                  size: 35,
-                                ),
-                              ),
                               fadeInDuration: Duration(milliseconds: 400),
                               fadeOutDuration: Duration(milliseconds: 200),
                             ),

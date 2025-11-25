@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Model representing a user with profile and delivery information
 class UserModel {
   final String id;
   final String name;
   final String email;
   final String? phone;
   final String? photoUrl;
-  final List<String> addressIds; // References to address documents
+  final List<String> addressIds;
   final String? defaultAddressId;
   final int ordersCount;
   final double totalSpent;
@@ -28,10 +27,9 @@ class UserModel {
     this.rewardPoints = 0,
     DateTime? createdAt,
     this.updatedAt,
-  })  : addressIds = addressIds ?? [],
-        createdAt = createdAt ?? DateTime.now();
+  }) : addressIds = addressIds ?? [],
+       createdAt = createdAt ?? DateTime.now();
 
-  /// Create UserModel from Firestore DocumentSnapshot
   factory UserModel.fromDocument(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return UserModel(
@@ -50,7 +48,6 @@ class UserModel {
     );
   }
 
-  /// Create UserModel from JSON
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'] ?? '',
@@ -63,15 +60,15 @@ class UserModel {
       ordersCount: json['ordersCount'] ?? 0,
       totalSpent: (json['totalSpent'] ?? 0.0).toDouble(),
       rewardPoints: json['rewardPoints'] ?? 0,
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : DateTime.now(),
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
     );
   }
 
-  /// Create UserModel from Firestore data
   factory UserModel.fromFirestore(Map<String, dynamic> data, String id) {
     return UserModel(
       id: id,
@@ -89,7 +86,6 @@ class UserModel {
     );
   }
 
-  /// Convert UserModel to JSON for Firestore
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -107,7 +103,6 @@ class UserModel {
     };
   }
 
-  /// Convert UserModel to Map for Firestore (without id)
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -124,7 +119,6 @@ class UserModel {
     };
   }
 
-  /// Create a copy with updated fields
   UserModel copyWith({
     String? id,
     String? name,
@@ -155,7 +149,6 @@ class UserModel {
     );
   }
 
-  /// Add an address ID to the user's address list
   UserModel addAddress(String addressId, {bool setAsDefault = false}) {
     final updatedAddressIds = List<String>.from(addressIds);
     if (!updatedAddressIds.contains(addressId)) {
@@ -168,10 +161,8 @@ class UserModel {
     );
   }
 
-  /// Remove an address ID from the user's address list
   UserModel removeAddress(String addressId) {
-    final updatedAddressIds = List<String>.from(addressIds)
-      ..remove(addressId);
+    final updatedAddressIds = List<String>.from(addressIds)..remove(addressId);
     return copyWith(
       addressIds: updatedAddressIds,
       defaultAddressId: defaultAddressId == addressId ? null : defaultAddressId,
@@ -179,23 +170,18 @@ class UserModel {
     );
   }
 
-  /// Update the default address
   UserModel setDefaultAddress(String addressId) {
     if (!addressIds.contains(addressId)) {
       throw ArgumentError('Address ID not found in user addresses');
     }
-    return copyWith(
-      defaultAddressId: addressId,
-      updatedAt: DateTime.now(),
-    );
+    return copyWith(defaultAddressId: addressId, updatedAt: DateTime.now());
   }
 
-  /// Increment order count and update total spent
   UserModel incrementOrderStats(double orderTotal) {
     return copyWith(
       ordersCount: ordersCount + 1,
       totalSpent: totalSpent + orderTotal,
-      rewardPoints: rewardPoints + (orderTotal ~/ 10), // 1 point per $10
+      rewardPoints: rewardPoints + (orderTotal ~/ 10),
       updatedAt: DateTime.now(),
     );
   }

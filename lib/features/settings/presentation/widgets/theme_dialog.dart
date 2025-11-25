@@ -1,6 +1,6 @@
 // lib/features/settings/presentation/widgets/theme_dialog.dart
 import 'package:drinks_app/features/settings/presentation/widgets/settings_section/appearance_section.dart';
-import 'package:drinks_app/utils/theme/theme_cubit.dart';
+import 'package:drinks_app/core/utils/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
