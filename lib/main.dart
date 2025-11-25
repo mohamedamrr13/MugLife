@@ -1,6 +1,11 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:drinks_app/core/dI/service_locator.dart';
 import 'package:drinks_app/core/routing/app_router.dart';
+import 'package:drinks_app/features/auth/data/repository/address_repository.dart';
+import 'package:drinks_app/features/auth/data/repository/user_repository.dart';
+import 'package:drinks_app/features/auth/presentation/cubit/address_cubit.dart';
+import 'package:drinks_app/features/auth/presentation/cubit/user_cubit.dart';
+import 'package:drinks_app/features/order/data/repository/order_repository.dart';
+import 'package:drinks_app/features/order/presentation/cubit/order_cubit.dart';
 import 'package:drinks_app/features/payment/data/payment_manager.dart';
 import 'package:drinks_app/utils/theme/app_theme.dart';
 import 'package:drinks_app/utils/theme/theme_cubit.dart';
@@ -24,14 +29,7 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(
-    DevicePreview(
-      enabled: false,
-      builder: (context) {
-        return const DrinksApp();
-      },
-    ),
-  );
+  runApp(DrinksApp());
 }
 
 class DrinksApp extends StatelessWidget {
@@ -39,8 +37,16 @@ class DrinksApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => UserCubit(getIt<UserRepository>())),
+        BlocProvider(
+          create: (context) => AddressCubit(getIt<AddressRepository>()),
+        ),
+
+        BlocProvider(create: (context) => OrderCubit(getIt<OrderRepository>())),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
           return MaterialApp.router(

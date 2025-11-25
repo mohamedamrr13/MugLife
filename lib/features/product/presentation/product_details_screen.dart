@@ -1,3 +1,4 @@
+import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:drinks_app/features/product/data/models/product_model.dart';
 import 'package:drinks_app/features/payment/presentation/product_shipping_view.dart';
@@ -73,6 +74,42 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
           : selectedIndex == 1
           ? 'Medium'
           : 'Large',
+    );
+  }
+
+  void _onBuyNow() {
+    // Get the current product
+    final currentProduct = widget.products[currentIndex.toInt()];
+
+    // Get the selected size
+    final selectedSize = selectedIndex == 0
+        ? 'Small'
+        : selectedIndex == 1
+        ? 'Medium'
+        : 'Large';
+
+    // Update the product with the selected size
+    final productWithSize = currentProduct.copyWith(size: selectedSize);
+
+    // Create a cart item for this single product
+    final cartItem = CartItemModel(
+      product: productWithSize,
+      quantity: quantity,
+      addedAt: DateTime.now(),
+    );
+
+    // Calculate total amount
+    final totalAmount = cartItem.totalPrice;
+
+    // Navigate to shipping screen with this single item
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShippingScreen(
+          cartItems: [cartItem],
+          totalAmount: totalAmount,
+        ),
+      ),
     );
   }
 
@@ -154,15 +191,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               quantity: quantity,
               onQuantityChanged: _onQuantityChanged,
               onAddToCart: _onAddToCart,
-              onBuyNow:
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ShippingScreen();
-                      },
-                    ),
-                  ),
+              onBuyNow: _onBuyNow,
             ),
           ),
         ],

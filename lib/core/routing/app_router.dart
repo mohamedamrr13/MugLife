@@ -1,8 +1,10 @@
 import 'package:drinks_app/core/authorization/app_wrapper.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
+import 'package:drinks_app/features/auth/data/repository/user_repository.dart';
 import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
+import 'package:drinks_app/features/auth/presentation/cubit/user_cubit.dart';
 import 'package:drinks_app/features/auth/presentation/login_screen.dart';
 import 'package:drinks_app/features/auth/presentation/register_screen.dart';
 import 'package:drinks_app/features/cart/data/repositories/cart_repository.dart';

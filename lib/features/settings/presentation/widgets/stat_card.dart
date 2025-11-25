@@ -1,4 +1,3 @@
-// lib/features/settings/widgets/stat_card.dart
 import 'package:drinks_app/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
