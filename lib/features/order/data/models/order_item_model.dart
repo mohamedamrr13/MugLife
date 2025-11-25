@@ -28,7 +28,7 @@ class OrderItemModel {
   }) {
     final pricePerUnit = product.getPriceForSize(size);
     return OrderItemModel(
-      productId: product.id ?? '',
+      productId: product.id,
       productName: product.name,
       productImage: product.image,
       size: size,

@@ -26,7 +26,7 @@ class FirestoreUserRepository implements UserRepository {
         documentId: userId,
       );
 
-      if (doc == null || !doc.exists) {
+      if (!doc.exists) {
         return Left(Failure(message: 'User profile not found'));
       }
 

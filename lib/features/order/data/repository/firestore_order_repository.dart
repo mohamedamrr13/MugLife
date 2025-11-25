@@ -94,7 +94,7 @@ class FirestoreOrderRepository implements OrderRepository {
         documentId: orderId,
       );
 
-      if (doc == null || !doc.exists) {
+      if (!doc.exists) {
         return Left(Failure(message: 'Order not found'));
       }
 

@@ -78,7 +78,7 @@ class FirestoreAddressRepository implements AddressRepository {
         documentId: addressId,
       );
 
-      if (doc == null || !doc.exists) {
+      if (!doc.exists) {
         return Left(Failure(message: 'Address not found'));
       }
 
