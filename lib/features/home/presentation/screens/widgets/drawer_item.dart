@@ -60,4 +60,4 @@ class DrawerItem extends StatelessWidget {
   }
 }
 
-enum DrawerItemTypt { home, orderHistory, notificationss }
+enum DrawerItemTypt { home, account, orderHistory, notificationss }

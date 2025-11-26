@@ -1,3 +1,4 @@
+import 'package:drinks_app/features/home/presentation/screens/widgets/custom_drawer.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_custom_appbar.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/home_screen_body.dart';
 import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.surfaceColor,
       extendBodyBehindAppBar: true,
-      // drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: CustomAppBar(),
       body: const HomeScreenBody(),
     );
