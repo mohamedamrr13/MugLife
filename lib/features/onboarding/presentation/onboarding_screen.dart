@@ -58,10 +58,10 @@ class OnBoardingScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SizedBox(
               width: 170,
-              height: 70,
+              height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff1E2742),
+                  backgroundColor: AppTheme.primaryColor,
                 ),
                 onPressed: () {
                   // Mark onboarding as complete

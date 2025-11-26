@@ -14,9 +14,7 @@ class OrderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: context.dividerColor.withOpacity(0.3),
-        ),
+        border: Border.all(color: context.dividerColor.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -126,67 +124,71 @@ class OrderCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          ...order.items.take(3).map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: context.cardColor,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: context.dividerColor.withOpacity(0.3),
+          ...order.items
+              .take(3)
+              .map(
+                (item) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: context.cardColor,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: context.dividerColor.withOpacity(0.3),
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            item.productImage,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.local_drink,
+                                color: context.secondaryTextColor,
+                              );
+                            },
+                          ),
                         ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          item.productImage,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Icon(
-                              Icons.local_drink,
-                              color: context.secondaryTextColor,
-                            );
-                          },
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.productName,
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: context.primaryTextColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              '${item.size} × ${item.quantity}',
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: context.secondaryTextColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.productName,
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.primaryTextColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            '${item.size} × ${item.quantity}',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: context.secondaryTextColor,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        '\$${item.totalPrice.toStringAsFixed(2)}',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: context.primaryTextColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '\$${item.totalPrice.toStringAsFixed(2)}',
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: context.primaryTextColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )),
+              ),
           if (order.items.length > 3)
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
@@ -228,15 +230,15 @@ class OrderCard extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              _buildPaymentBadge(context),
-              const SizedBox(width: 8),
-              if (order.status == OrderStatus.pending ||
-                  order.status == OrderStatus.confirmed)
-                _buildCancelButton(context),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     _buildPaymentBadge(context),
+          //     const SizedBox(width: 8),
+          //     if (order.status == OrderStatus.pending ||
+          //         order.status == OrderStatus.confirmed)
+          //       _buildCancelButton(context),
+          //   ],
+          // ),
         ],
       ),
     );
@@ -281,42 +283,42 @@ class OrderCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCancelButton(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {
-        // TODO: Implement cancel order
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Cancel Order'),
-            content: const Text('Are you sure you want to cancel this order?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Implement cancel logic here
-                },
-                child: const Text('Yes', style: TextStyle(color: Colors.red)),
-              ),
-            ],
-          ),
-        );
-      },
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: Colors.red.withOpacity(0.5)),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      ),
-      child: Text(
-        'Cancel',
-        style: context.textTheme.bodySmall?.copyWith(
-          color: Colors.red,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
+  // Widget _buildCancelButton(BuildContext context) {
+  //   return OutlinedButton(
+  //     onPressed: () {
+  //       // TODO: Implement cancel order
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) => AlertDialog(
+  //           title: const Text('Cancel Order'),
+  //           content: const Text('Are you sure you want to cancel this order?'),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context),
+  //               child: const Text('No'),
+  //             ),
+  //             TextButton(
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //                 // Implement cancel logic here
+  //               },
+  //               child: const Text('Yes', style: TextStyle(color: Colors.red)),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //     style: OutlinedButton.styleFrom(
+  //       side: BorderSide(color: Colors.red.withOpacity(0.5)),
+  //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  //     ),
+  //     child: Text(
+  //       'Cancel',
+  //       style: context.textTheme.bodySmall?.copyWith(
+  //         color: Colors.red,
+  //         fontWeight: FontWeight.w600,
+  //       ),
+  //     ),
+  //   );
+  // }
 }

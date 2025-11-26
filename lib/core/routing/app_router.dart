@@ -1,5 +1,6 @@
 import 'package:drinks_app/core/authorization/app_wrapper.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
+import 'package:drinks_app/core/utils/shared/app_nav_bar.dart';
 import 'package:drinks_app/features/auth/logic/google_cubit/google_cubit.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/auth/logic/register_cubit/register_cubit.dart';
@@ -43,15 +44,17 @@ class AppRouter {
       GoRoute(
         path: authWrapper,
         name: authWrapper,
-        builder:
-            (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => LoginCubit()),
-                BlocProvider(create: (context) => RegisterCubit()),
-                BlocProvider(create: (context) => GoogleCubit()),
-              ],
-              child: const AppWrapper(),
-            ),
+        builder: (context, state) {
+          final reroutingIndex = state.extra as int? ?? 0;
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => LoginCubit()),
+              BlocProvider(create: (context) => RegisterCubit()),
+              BlocProvider(create: (context) => GoogleCubit()),
+            ],
+            child: AppWrapper(reroutingIndex: reroutingIndex),
+          );
+        },
       ),
 
       GoRoute(
@@ -110,11 +113,7 @@ class AppRouter {
               child: const RegisterScreen(),
             ),
       ),
-      // GoRoute(
-      //   path: changePassword,
-      //   name: changePassword,
-      //   builder: (context, state) => const ChangepasswordScreen(),
-      // ),
+
       // GoRoute(
       //   path: verifyOtpCode,
       //   name: verifyOtpCode,

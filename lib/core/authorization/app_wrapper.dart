@@ -9,8 +9,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppWrapper extends StatefulWidget {
-  const AppWrapper({super.key});
-
+  const AppWrapper({super.key, required this.reroutingIndex});
+  final int reroutingIndex;
   @override
   State<AppWrapper> createState() => _AppWrapperState();
 }
@@ -89,7 +89,7 @@ class _AppWrapperState extends State<AppWrapper> {
           SharedPreferences.getInstance().then((prefs) {
             prefs.setString('userId', snapshot.data!.uid);
           });
-          return const CustomPageNavigationBar();
+          return CustomPageNavigationBar(reroutingIndex: widget.reroutingIndex);
         }
 
         final currentRoute = GoRouter.of(context).state.matchedLocation;

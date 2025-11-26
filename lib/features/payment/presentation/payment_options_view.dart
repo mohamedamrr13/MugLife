@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinks_app/core/di/service_locator.dart';
+import 'package:drinks_app/core/routing/app_router.dart';
+import 'package:drinks_app/core/utils/shared/app_nav_bar.dart';
 import 'package:drinks_app/features/auth/presentation/cubit/user_cubit.dart';
 import 'package:drinks_app/features/cart/data/models/cart_item_model.dart';
 import 'package:drinks_app/features/cart/logic/cart_cubit/cart_cubit.dart';
@@ -12,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
+import 'package:go_router/go_router.dart';
 
 class PaymentOptionScreen extends StatefulWidget {
   final Map<String, dynamic> shippingData;
@@ -298,7 +301,6 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
     final cartItems = widget.shippingData['cartItems'] as List<CartItemModel>;
 
     if (_selectedPaymentMethod == 'Card') {
-      // Process card payment
       await FlutterPaymob.instance.payWithCard(
         title: Text(
           "Card Payment",
@@ -323,6 +325,14 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
               transactionId: response.transactionID,
               isPaid: true,
             );
+            setState(() {
+              isLoading = false;
+            });
+            Navigator.of(context).popUntil((route) => route.isFirst);
+
+            final navbarState =
+                context.findAncestorStateOfType<CustomPageNavigationBarState>();
+            navbarState?.navigateToPage(1);
           } else {
             // Payment failed
             ScaffoldMessenger.of(context).showSnackBar(
@@ -337,6 +347,9 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
           }
         },
       );
+      setState(() {
+        isLoading = false;
+      });
     } else {
       // Cash on delivery - create order immediately
       _createOrder(
@@ -348,6 +361,10 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
         transactionId: null,
         isPaid: false,
       );
+      setState(() {
+        isLoading = false;
+      });
+      GoRouter.of(context).go(AppRouter.authWrapper, extra: 1);
     }
   }
 
@@ -359,7 +376,7 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
     required PaymentMethod paymentMethod,
     required String? transactionId,
     required bool isPaid,
-  }) {
+  }) async {
     // Convert cart items to order items
     final orderItems =
         cartItems.map((cartItem) {
@@ -389,10 +406,10 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
     );
 
     // Create the order
-    context.read<OrderCubit>().createOrder(order: order);
+    await context.read<OrderCubit>().createOrder(order: order);
 
     // Update user statistics
-    context.read<UserCubit>().updateUserProfile(
+    await context.read<UserCubit>().updateUserProfile(
       userId: userId,
       updates: {
         'ordersCount': FieldValue.increment(1),
