@@ -7,9 +7,11 @@ import 'package:drinks_app/features/home/data/repos/get_featured_products/get_fe
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
+import 'package:drinks_app/features/home/presentation/screens/widgets/categories_section.dart';
 import 'package:drinks_app/features/order/data/repository/order_repository.dart';
 import 'package:drinks_app/features/order/presentation/cubit/order_cubit.dart';
 import 'package:drinks_app/features/order/presentation/orders_screen.dart';
+import 'package:drinks_app/features/settings/presentation/account_screen.dart';
 import 'package:drinks_app/features/settings/presentation/settings_screen.dart';
 import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +96,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
     buildHomeScreen(),
     buildOrdersScreen(),
     buildCartScreen(),
+    AccountScreen(),
     SettingsScreen(),
   ];
 
@@ -164,7 +167,7 @@ class AnimatedNavigationBar extends StatelessWidget {
   static const double bottomMargin = 12.0;
   static const double borderRadius = 30.0;
   static const double indicatorPadding = 10.0;
-  static const int itemCount = 4;
+  static const int itemCount = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -263,6 +266,8 @@ class AnimatedNavigationBar extends StatelessWidget {
       case 2:
         return isSelected ? Icons.shopping_bag : Icons.shopping_bag_outlined;
       case 3:
+        return isSelected ? Icons.person : Icons.person_outline;
+      case 4:
         return isSelected ? Icons.settings : Icons.settings_outlined;
       default:
         return Icons.home_outlined;
