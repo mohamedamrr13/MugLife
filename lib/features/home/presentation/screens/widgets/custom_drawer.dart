@@ -1,6 +1,7 @@
 import 'package:drinks_app/core/utils/theme/widgets/theme_toggle_listtile.dart';
 import 'package:drinks_app/features/auth/logic/login_cubit/login_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/widgets/drawer_item.dart';
+import 'package:drinks_app/features/settings/presentation/account_screen.dart';
 import 'package:drinks_app/core/utils/theme/app_theme.dart';
 import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -99,8 +100,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       setState(() {
                         selectedItem = DrawerItemTypt.home;
                       });
+                      Navigator.pop(context);
                     },
                     isSelected: selectedItem == DrawerItemTypt.home,
+                  ),
+                  DrawerItem(
+                    icon: Icons.person_rounded,
+                    title: "Account",
+                    onTap: () {
+                      setState(() {
+                        selectedItem = DrawerItemTypt.account;
+                      });
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AccountScreen(),
+                        ),
+                      );
+                    },
+                    isSelected: selectedItem == DrawerItemTypt.account,
                   ),
                   DrawerItem(
                     icon: Icons.history_rounded,

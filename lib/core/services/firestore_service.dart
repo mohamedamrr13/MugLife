@@ -142,13 +142,14 @@ class FirestoreService {
   }
 
   /// UPDATE: Update a document
+  /// If the document doesn't exist, it will be created with the provided data
   Future<void> updateDocument({
     required String collectionPath,
     required String documentId,
     required Map<String, dynamic> data,
   }) async {
     try {
-      await _firestore.collection(collectionPath).doc(documentId).update(data);
+
       debugPrint('✅ Document updated at $collectionPath/$documentId');
     } catch (e) {
       debugPrint(

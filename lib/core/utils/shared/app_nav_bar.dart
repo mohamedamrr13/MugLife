@@ -7,7 +7,9 @@ import 'package:drinks_app/features/home/data/repos/get_featured_products/get_fe
 import 'package:drinks_app/features/home/logic/get_categories_cubit/get_categories_cubit.dart';
 import 'package:drinks_app/features/home/logic/get_featured_product_cubit/get_featured_products_cubit.dart';
 import 'package:drinks_app/features/home/presentation/screens/home_screen.dart';
-import 'package:drinks_app/features/settings/presentation/account_screen.dart';
+import 'package:drinks_app/features/order/data/repository/order_repository.dart';
+import 'package:drinks_app/features/order/presentation/cubit/order_cubit.dart';
+import 'package:drinks_app/features/order/presentation/orders_screen.dart';
 import 'package:drinks_app/features/settings/presentation/settings_screen.dart';
 import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +92,7 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
 
   List<Widget> get pages => [
     buildHomeScreen(),
-    AccountScreen(),
+    buildOrdersScreen(),
     buildCartScreen(),
     SettingsScreen(),
   ];
@@ -108,6 +110,13 @@ class CustomPageNavigationBarState extends State<CustomPageNavigationBar>
         ),
       ],
       child: const HomeScreen(),
+    );
+  }
+
+  Widget buildOrdersScreen() {
+    return BlocProvider(
+      create: (context) => OrderCubit(getIt<OrderRepository>()),
+      child: const OrdersScreen(),
     );
   }
 
@@ -250,7 +259,7 @@ class AnimatedNavigationBar extends StatelessWidget {
       case 0:
         return isSelected ? Icons.home : Icons.home_outlined;
       case 1:
-        return isSelected ? Icons.person : Icons.person_outline;
+        return isSelected ? Icons.receipt_long : Icons.receipt_long_outlined;
       case 2:
         return isSelected ? Icons.shopping_bag : Icons.shopping_bag_outlined;
       case 3:
