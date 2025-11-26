@@ -48,14 +48,14 @@ class FirestoreService {
     required String documentId,
   }) async {
     try {
-      final doc = await _firestore
-          .collection(collectionPath)
-          .doc(documentId)
-          .get();
+      final doc =
+          await _firestore.collection(collectionPath).doc(documentId).get();
       debugPrint('✅ Document retrieved from $collectionPath/$documentId');
       return doc;
     } catch (e) {
-      debugPrint('❌ Error getting document from $collectionPath/$documentId: $e');
+      debugPrint(
+        '❌ Error getting document from $collectionPath/$documentId: $e',
+      );
       rethrow;
     }
   }
@@ -79,7 +79,9 @@ class FirestoreService {
       }
 
       final snapshot = await query.get();
-      debugPrint('✅ Retrieved ${snapshot.docs.length} documents from $collectionPath');
+      debugPrint(
+        '✅ Retrieved ${snapshot.docs.length} documents from $collectionPath',
+      );
       return snapshot;
     } catch (e) {
       debugPrint('❌ Error getting documents from $collectionPath: $e');
@@ -129,7 +131,9 @@ class FirestoreService {
       }
 
       final snapshot = await query.get();
-      debugPrint('✅ Query returned ${snapshot.docs.length} documents from $collectionPath');
+      debugPrint(
+        '✅ Query returned ${snapshot.docs.length} documents from $collectionPath',
+      );
       return snapshot;
     } catch (e) {
       debugPrint('❌ Error querying documents from $collectionPath: $e');
@@ -145,13 +149,12 @@ class FirestoreService {
     required Map<String, dynamic> data,
   }) async {
     try {
-      await _firestore
-          .collection(collectionPath)
-          .doc(documentId)
-          .set(data, SetOptions(merge: true));
+
       debugPrint('✅ Document updated at $collectionPath/$documentId');
     } catch (e) {
-      debugPrint('❌ Error updating document at $collectionPath/$documentId: $e');
+      debugPrint(
+        '❌ Error updating document at $collectionPath/$documentId with $data: $e',
+      );
       rethrow;
     }
   }
@@ -162,13 +165,12 @@ class FirestoreService {
     required String documentId,
   }) async {
     try {
-      await _firestore
-          .collection(collectionPath)
-          .doc(documentId)
-          .delete();
+      await _firestore.collection(collectionPath).doc(documentId).delete();
       debugPrint('✅ Document deleted from $collectionPath/$documentId');
     } catch (e) {
-      debugPrint('❌ Error deleting document from $collectionPath/$documentId: $e');
+      debugPrint(
+        '❌ Error deleting document from $collectionPath/$documentId: $e',
+      );
       rethrow;
     }
   }
@@ -190,7 +192,9 @@ class FirestoreService {
       }
 
       await batch.commit();
-      debugPrint('✅ Deleted ${snapshot.docs.length} documents from $collectionPath');
+      debugPrint(
+        '✅ Deleted ${snapshot.docs.length} documents from $collectionPath',
+      );
     } catch (e) {
       debugPrint('❌ Error deleting documents from $collectionPath: $e');
       rethrow;
@@ -245,10 +249,7 @@ class FirestoreService {
     required String collectionPath,
     required String documentId,
   }) {
-    return _firestore
-        .collection(collectionPath)
-        .doc(documentId)
-        .snapshots();
+    return _firestore.collection(collectionPath).doc(documentId).snapshots();
   }
 
   /// Get a reference to a collection (useful for subcollections)

@@ -1,9 +1,11 @@
 import 'package:drinks_app/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final String? label;
   final bool obscureText;
   final bool enabled;
   final String? Function(String?)? validator;
@@ -14,11 +16,13 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final int? minLines;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextFormField({
     super.key,
     required this.controller,
     required this.hintText,
+    this.label,
     this.obscureText = false,
     this.enabled = true,
     this.validator,
@@ -29,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType,
     this.maxLines = 1,
     this.minLines,
+    this.inputFormatters,
   });
 
   @override
@@ -41,10 +46,15 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       maxLines: maxLines,
       minLines: minLines,
+      inputFormatters: inputFormatters,
       style: context.textTheme.bodyMedium?.copyWith(
         color: enabled ? context.primaryTextColor : context.secondaryTextColor,
       ),
       decoration: InputDecoration(
+        labelText: label,
+        labelStyle: context.textTheme.bodyMedium?.copyWith(
+          color: context.secondaryTextColor,
+        ),
         errorText: errorText,
         hintText: hintText,
         hintStyle: context.textTheme.bodyMedium?.copyWith(
