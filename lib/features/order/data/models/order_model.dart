@@ -12,10 +12,7 @@ enum OrderStatus {
 }
 
 /// Enum for payment method
-enum PaymentMethod {
-  card,
-  cash,
-}
+enum PaymentMethod { card, cash }
 
 /// Model representing a customer order
 class OrderModel {
@@ -70,7 +67,8 @@ class OrderModel {
     return OrderModel(
       id: doc.id,
       userId: data['userId'] ?? '',
-      items: (data['items'] as List<dynamic>?)
+      items:
+          (data['items'] as List<dynamic>?)
               ?.map((item) => OrderItemModel.fromJson(item))
               .toList() ??
           [],
@@ -98,7 +96,8 @@ class OrderModel {
     return OrderModel(
       id: json['id'],
       userId: json['userId'] ?? '',
-      items: (json['items'] as List<dynamic>?)
+      items:
+          (json['items'] as List<dynamic>?)
               ?.map((item) => OrderItemModel.fromJson(item))
               .toList() ??
           [],
@@ -115,14 +114,16 @@ class OrderModel {
       shippingAddressLine2: json['shippingAddressLine2'] ?? '',
       shippingCity: json['shippingCity'] ?? '',
       addressId: json['addressId'],
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : DateTime.now(),
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      deliveredAt: json['deliveredAt'] != null
-          ? DateTime.parse(json['deliveredAt'])
-          : null,
+      deliveredAt:
+          json['deliveredAt'] != null
+              ? DateTime.parse(json['deliveredAt'])
+              : null,
     );
   }
 
@@ -131,7 +132,8 @@ class OrderModel {
     return OrderModel(
       id: id,
       userId: data['userId'] ?? '',
-      items: (data['items'] as List<dynamic>?)
+      items:
+          (data['items'] as List<dynamic>?)
               ?.map((item) => OrderItemModel.fromFirestore(item))
               .toList() ??
           [],

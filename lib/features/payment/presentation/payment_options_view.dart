@@ -94,8 +94,6 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
   }
 
   Widget _buildPaymentOptions(BuildContext context) {
-    final totalAmount = widget.shippingData['totalAmount'] as double;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -124,7 +122,7 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
           _buildPaymentOption(
             context: context,
             label: 'Cash on Delivery',
-            icon: Icons.money,
+            icon: Icons.money_rounded,
             isSelected: _selectedPaymentMethod == 'Cash',
             onTap: () => _setSelectedPaymentMethod('Cash'),
           ),
