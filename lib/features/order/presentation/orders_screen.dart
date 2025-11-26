@@ -28,8 +28,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<OrderCubit>()..getUserOrders(userId: currentUser?.uid ?? ''),
+      create:
+          (context) =>
+              getIt<OrderCubit>()
+                ..getUserOrders(userId: currentUser?.uid ?? ''),
       child: Scaffold(
         backgroundColor: context.backgroundColor,
         body: CustomScrollView(
@@ -73,9 +75,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           ElevatedButton.icon(
                             onPressed: () {
                               if (currentUser != null) {
-                                context
-                                    .read<OrderCubit>()
-                                    .getUserOrders(userId: currentUser!.uid);
+                                context.read<OrderCubit>().getUserOrders(
+                                  userId: currentUser!.uid,
+                                );
                               }
                             },
                             icon: const Icon(Icons.refresh),
@@ -99,7 +101,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             Icon(
                               Icons.receipt_long_outlined,
                               size: 80,
-                              color: context.secondaryTextColor.withOpacity(0.5),
+                              color: context.secondaryTextColor.withOpacity(
+                                0.5,
+                              ),
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -125,16 +129,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   return SliverPadding(
                     padding: const EdgeInsets.all(16.0),
                     sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final order = orders[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: OrderCard(order: order),
-                          );
-                        },
-                        childCount: orders.length,
-                      ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final order = orders[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: OrderCard(order: order),
+                        );
+                      }, childCount: orders.length),
                     ),
                   );
                 }
@@ -153,7 +154,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   SliverAppBar _buildAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 200,
+      expandedHeight: 120,
       floating: false,
       pinned: true,
       backgroundColor: context.primaryColor,

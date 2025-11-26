@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.surfaceColor,
       extendBodyBehindAppBar: true,
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       appBar: CustomAppBar(),
       body: const HomeScreenBody(),
     );
